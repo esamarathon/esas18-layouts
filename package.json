@@ -1,0 +1,104 @@
+{
+  "name": "esas18-layouts",
+  "version": "1.0.0",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/esamarathon/esas18-layouts.git"
+  },
+  "author": "zoton2",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/esamarathon/esas18-layouts/issues"
+  },
+  "homepage": "https://github.com/esamarathon/esas18-layouts#readme",
+  "nodecg": {
+    "compatibleRange": "~0.9.0",
+    "dependencies": [
+      "speedcontrol/nodecg-speedcontrol:~0.9"
+    ],
+    "graphics": [
+      {
+        "file": "4_3-1p.html",
+        "width": 1920,
+        "height": 1080
+      },
+      {
+        "file": "16_9-1p.html",
+        "width": 1920,
+        "height": 1080
+      },
+      {
+        "file": "gba-1p.html",
+        "width": 1920,
+        "height": 1080
+      },
+      {
+        "file": "gb-1p.html",
+        "width": 1920,
+        "height": 1080
+      },
+      {
+        "file": "3ds-1p.html",
+        "width": 1920,
+        "height": 1080
+      },
+      {
+        "file": "ds-1p.html",
+        "width": 1920,
+        "height": 1080
+      },
+      {
+        "file": "geoguessr.html",
+        "width": 1920,
+        "height": 1080
+      },
+      {
+        "file": "4_3-2p.html",
+        "width": 1920,
+        "height": 1080
+      },
+      {
+        "file": "16_9-2p.html",
+        "width": 1920,
+        "height": 1080
+      },
+      {
+        "file": "gb-2p.html",
+        "width": 1920,
+        "height": 1080
+      },
+      {
+        "file": "gba-2p.html",
+        "width": 1920,
+        "height": 1080
+      },
+      {
+        "file": "4_3-3p.html",
+        "width": 1920,
+        "height": 1080
+	  },
+	  {
+        "file": "4_3-4p.html",
+        "width": 1920,
+        "height": 1080
+      },
+      {
+        "file": "16_9-4p.html",
+        "width": 1920,
+        "height": 1080
+      }
+	],
+    "assetCategories": [
+      {
+        "name": "sponsors",
+        "title": "Sponsor Logos",
+        "allowedTypes": [
+          "jpg",
+          "jpeg",
+          "png",
+          "gif"
+        ]
+      }
+    ]
+  }
+}

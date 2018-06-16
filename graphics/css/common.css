@@ -1,0 +1,119 @@
+/* Custom Fonts */
+@import url('https://fonts.googleapis.com/css?family=Barlow+Condensed:500&subset=latin-ext');
+
+/* Some general settings used for everything and other minor changes to the body. */
+body {
+	font-family: 'Barlow Condensed', sans-serif;
+	color: white;
+	overflow: hidden;
+	margin: 0;
+	padding: 0;
+}
+
+/* Background image. */
+#background {
+	position: fixed;
+	background-image: url('../img/background.png');
+	background-repeat: no-repeat;
+	background-size: cover;
+	width: 1920px;
+	height: 1080px;
+}
+
+/* Diagonal lines on the background. */
+.bgLines {
+	position: fixed;
+	background-image: url('../img/bg-lines.png');
+	background-repeat: no-repeat;
+	background-size: cover;
+	opacity: 0.5;
+
+	/* This is the position of these on most of the layouts. */
+	left: 26px;
+	top: 706px;
+	width: 297px;
+	height: 265px;
+}
+
+/* All areas that store something. */
+/* A transparent box with 3px yellow outline. */
+.storageBox {
+	position: fixed;
+	outline: 3px solid #ffbd16;
+	overflow: hidden;
+	box-sizing: border-box;
+}
+
+/* Makes the game/webcam box have a background. */
+.gameCapture, .webcam {background-color: rgba(0,0,0,1);}
+
+/* Basic flex container class which auto centres it's contents. */
+.flexContainer {
+	display: flex;
+	align-items: center; /* Aligns vertically centre. */
+	justify-content: center; /* Aligns horizontally centre. */
+}
+
+/* Yellow box that stores the player names. */
+.playerContainer {
+	box-sizing: border-box;
+	padding: 3px;
+	height: 50px;
+	background-color: #ffbd16;
+}
+.playerName {
+	font-size: 30px;
+	color: black;
+	margin: 0 7px !important;
+}
+.playerContainer img {height: 100%;}
+.playerContainer > *:nth-child(n+2) {margin-left: 3px;}
+#playersWrapper > .playerContainer:nth-child(n+2) {margin-top: 10px;}
+
+/* Purple box that sits next to the runner names on races when their timer has finished. */
+.finishTime {
+	background-color: #6314a9;
+	color: white;
+	height: 50px;
+	margin: 0;
+	font-size: 33px;
+	padding: 10px;
+	box-sizing: border-box;
+}
+
+#gameName {
+	font-size: 47px;
+}
+
+/* Category/Console/Estimate */
+#gameAdditionalDetails {
+	font-size: 35px;
+	color: #b7b7b7;
+}
+
+#timer {
+	font-size: 110px;
+	color: #ffbd16;
+	margin-top: -0.15em;
+}
+
+/* ?Temporary? */
+#sponsorLogo {
+	padding: 20px;
+}
+
+/* HR horizontal line to be used in game info boxes. */
+.infoDividerHor {
+	height: 0;
+	border: 0;
+	border-top: 3px solid #ffbd16;
+	width: 50%;
+	margin-top: 0;
+	margin-bottom: 0;
+}
+
+/* Vertical line to be used in game info boxes. */
+.infoDividerVert {
+	border-left: 3px solid #ffbd16;
+	height: 50%;
+}
