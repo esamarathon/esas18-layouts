@@ -69,6 +69,7 @@ body {
 .playerContainer img {height: 100%;}
 .playerContainer > *:nth-child(n+2) {margin-left: 3px;}
 #playersWrapper > .playerContainer:nth-child(n+2) {margin-top: 10px;}
+.playerWrapperMulti {outline: 0;}
 
 /* Purple box that sits next to the runner names on races when their timer has finished. */
 .finishTime {
