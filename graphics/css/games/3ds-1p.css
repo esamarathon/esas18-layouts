@@ -44,8 +44,15 @@
 
 #sponsorLogo {
 	height: 100%;
+	order: -2; /* Puts the sponsor logo first in the flexbox. */
 }
 
 #sponsorLogo img {
 	height: 60%;
+}
+
+.infoDivider {
+	border-left: 3px solid #ffbd16;
+	height: 50%;
+	order: -1; /* Puts the divider second in the flexbox. */
 }

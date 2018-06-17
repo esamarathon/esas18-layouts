@@ -18,76 +18,20 @@
     ],
     "graphics": [
       {
-        "file": "4_3-1p.html",
-        "width": 1920,
-        "height": 1080
-      },
-      {
-        "file": "16_9-1p.html",
-        "width": 1920,
-        "height": 1080
-      },
-      {
-        "file": "gba-1p.html",
-        "width": 1920,
-        "height": 1080
-      },
-      {
-        "file": "gb-1p.html",
-        "width": 1920,
-        "height": 1080
-      },
-      {
-        "file": "3ds-1p.html",
-        "width": 1920,
-        "height": 1080
-      },
-      {
-        "file": "ds-1p.html",
-        "width": 1920,
-        "height": 1080
-      },
-      {
-        "file": "geoguessr.html",
-        "width": 1920,
-        "height": 1080
-      },
-      {
-        "file": "4_3-2p.html",
-        "width": 1920,
-        "height": 1080
-      },
-      {
-        "file": "16_9-2p.html",
-        "width": 1920,
-        "height": 1080
-      },
-      {
-        "file": "gb-2p.html",
-        "width": 1920,
-        "height": 1080
-      },
-      {
-        "file": "gba-2p.html",
-        "width": 1920,
-        "height": 1080
-      },
-      {
-        "file": "4_3-3p.html",
-        "width": 1920,
-        "height": 1080
-	  },
-	  {
-        "file": "4_3-4p.html",
-        "width": 1920,
-        "height": 1080
-      },
-      {
-        "file": "16_9-4p.html",
+        "file": "game-layout.html",
         "width": 1920,
         "height": 1080
       }
-	],
+    ],
+    "dashboardPanels": [
+      {
+        "name": "game-layout-override",
+        "title": "Game Layout Override",
+        "width": 2,
+        "file": "game-layout-override.html",
+        "workspace": "Scene Editing"
+      }
+    ],
     "assetCategories": [
       {
         "name": "sponsors",
@@ -100,5 +44,8 @@
         ]
       }
     ]
+  },
+  "dependencies": {
+    "clone": "^2.1.1"
   }
 }

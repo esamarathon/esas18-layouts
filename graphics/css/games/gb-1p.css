@@ -32,6 +32,11 @@
 	
 	line-height: 1;
 	text-align: center;
-	flex-direction: column;
+	flex-direction: column; /* Top to bottom */
 	justify-content: space-evenly;
+}
+
+.infoDivider {
+	border-top: 3px solid #ffbd16;
+	width: 50%;
 }

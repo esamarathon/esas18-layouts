@@ -1,3 +1,11 @@
+/* Diagonal lines on the background. */
+.bgLines {
+	left: 777px;
+	top: 773px;
+	width: 234px;
+	height: 208px;
+}
+
 #webcam1 {
 	left: 758px;
 	top: 276px;
@@ -82,7 +90,7 @@
 	outline: 0;
 	line-height: 1;
 	text-align: center;
-	flex-direction: column;
+	flex-direction: column; /* Top to bottom */
 	justify-content: space-evenly;
 }
 

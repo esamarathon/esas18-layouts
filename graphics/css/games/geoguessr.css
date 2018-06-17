@@ -42,3 +42,8 @@
 	flex-direction: column;
 	justify-content: space-evenly;
 }
+
+.infoDivider {
+	border-top: 3px solid #ffbd16;
+	width: 50%;
+}

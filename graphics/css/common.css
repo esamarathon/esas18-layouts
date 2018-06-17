@@ -101,19 +101,3 @@ body {
 #sponsorLogo {
 	padding: 20px;
 }
-
-/* HR horizontal line to be used in game info boxes. */
-.infoDividerHor {
-	height: 0;
-	border: 0;
-	border-top: 3px solid #ffbd16;
-	width: 50%;
-	margin-top: 0;
-	margin-bottom: 0;
-}
-
-/* Vertical line to be used in game info boxes. */
-.infoDividerVert {
-	border-left: 3px solid #ffbd16;
-	height: 50%;
-}
