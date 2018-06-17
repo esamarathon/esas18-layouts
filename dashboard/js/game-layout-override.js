@@ -5,7 +5,6 @@ $(() => {
 	var currentLayout = nodecg.Replicant('currentGameLayout');
 	
 	// Adds the available layouts to the dropdown list.
-	// TODO: Make the current layout the default selected option on page load.
 	layouts.on('change', newVal => {
 		if (newVal) {
 			$.each(newVal, (i, layoutInfo) => {

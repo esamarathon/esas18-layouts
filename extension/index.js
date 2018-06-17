@@ -16,6 +16,7 @@ module.exports = function(nodecg) {
 		{name: '4:3 4 Player', code: '4_3-4p', gameCaptures: 4},
 		{name: '16:9 1 Player', code: '16_9-1p', combineGameNameAndAdditional: true},
 		{name: '16:9 2 Player', code: '16_9-2p', gameCaptures: 2},
+		{name: '16:9 3 Player', code: '16_9-3p', gameCaptures: 3, sponsorInInfo: true},
 		{name: '16:9 4 Player', code: '16_9-4p', gameCaptures: 4},
 		{name: 'GBA 1 Player', code: 'gba-1p', combineGameNameAndAdditional: true},
 		{name: 'GBA 2 Player', code: 'gba-2p', gameCaptures: 2},
