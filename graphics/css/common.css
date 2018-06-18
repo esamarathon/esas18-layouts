@@ -94,9 +94,12 @@ body {
 
 #timer {
 	font-size: 110px;
-	color: #ffbd16;
 	margin-top: -0.15em;
 }
+/* Different colours for each state the timer can be in. */
+.timer_running {color: white}
+.timer_paused, .timer_stopped {color: #b7b7b7;}
+.timer_finished {color: #ffbd16;}
 
 /* ?Temporary? */
 #sponsorLogo {

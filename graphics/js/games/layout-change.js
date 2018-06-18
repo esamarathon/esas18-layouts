@@ -1,5 +1,13 @@
 'use strict';
 $(() => {
+	// The bundle name where all the run information is pulled from.
+	var speedcontrolBundle = 'nodecg-speedcontrol';
+
+	// Replicants
+	var layouts = nodecg.Replicant('gameLayouts');
+	var runDataActiveRun = nodecg.Replicant('runDataActiveRun', speedcontrolBundle);
+	var currentLayout = nodecg.Replicant('currentGameLayout');
+
 	var extraElemsContainer = $('#extraElements');
 	var layoutHash = (window.location.hash) ? window.location.hash.substring(1) : undefined;
 
@@ -7,23 +15,34 @@ $(() => {
 	// If so, uses that layout style.
 	// Example: http://localhost:9090/bundles/esas18-layouts/graphics/game-layout.html#4_3-1p
 	if (layoutHash) {
-		var layouts = nodecg.Replicant('gameLayouts');
 		layouts.on('change', newVal => {
 			if (newVal) {
-				for (var i = 0; i < newVal.length; i++) {
-					if (newVal[i].code === layoutHash.toLowerCase()) {
-						addExtraElements(newVal[i]);
-						setCSS(newVal[i]);
-						break;
-					}
+				var layoutInfo = findLayoutInfo(layoutHash);
+				if (layoutInfo) {
+					addExtraElements(newVal[i]);
+					setCSS(newVal[i]);
 				}
 			}
 		});
 	}
 
 	else {
+		// Listens for the current run to change, to get it's layout info.
+		// Maybe this should go in an extension, doesn't need to be client side?
+		runDataActiveRun.on('change', (newVal, oldVal) => {
+			if (newVal) {
+				if (newVal.customData && newVal.customData.layout)
+					var layoutCode = newVal.customData.layout;
+				else
+					var layoutCode = '4_3-1p'; // Default Layout
+				
+				var layoutInfo = findLayoutInfo(layoutCode);
+				if (layoutInfo)
+					nodecg.sendMessage('changeGameLayout', layoutInfo.id, err => {});
+			}
+		});
+
 		// Listens for the layout style to change.
-		var currentLayout = nodecg.Replicant('currentGameLayout');
 		currentLayout.on('change', newVal => {
 			if (newVal) {
 				addExtraElements(newVal);
@@ -96,5 +115,17 @@ $(() => {
 	function setCSS(layoutInfo) {
 		var cssURL = 'css/games/'+layoutInfo.code+'.css'
 		$('#layoutCSSFile').attr('href', cssURL);
+	}
+	
+	// Find information about layout based on it's code.
+	function findLayoutInfo(code) {
+		var layoutInfo;
+		for (var i = 0; i < layouts.value.length; i++) {
+			if (layouts.value[i].code === code.toLowerCase()) {
+				layoutInfo = layouts.value[i];
+				break;
+			}
+		}
+		return layoutInfo;
 	}
 });
