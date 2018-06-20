@@ -1,78 +1,87 @@
 /* Diagonal lines on the background. */
 .bgLines {
-	left: 556px;
-	top: 708px;
+	left: 777px;
+	top: 709px;
 	width: 234px;
 	height: 208px;
 }
 
 #webcam1 {
 	left: 0px;
-	top: 575px;
-	width: 525px;
+	top: 502px;
+	width: 755px;
 	height: 425px;
 }
 
 #playerWrapperMulti1 {
-	left: 145px;
-	top: 512px;
-	width: 877px;
-	height: 50px;
-	justify-content: flex-start; /* Aligns horizontally left. */
+	left: 0px;
+	top: 0px;
+	width: 758px;
+	height: 70px;
+	justify-content: flex-end; /* Aligns horizontally right. */
 }
 
-#playerWrapperMulti2 > .finishTime, #playerWrapperMulti3 > .finishTime {
+#playerWrapperMulti1 > .finishTime {
 	order: -1; /* Puts the finish time first in the flexbox. */
 }
 
 #playerWrapperMulti2 {
-	left: 145px;
-	top: 512px;
-	width: 877px;
-	height: 50px;
-	justify-content: flex-end; /* Aligns horizontally right. */
+	left: 1162px;
+	top: 0px;
+	width: 758px;
+	height: 70px;
+	justify-content: flex-start; /* Aligns horizontally left. */
 }
 
 #playerWrapperMulti3 {
-	left: 538px;
-	top: 940px;
-	width: 484px;
-	height: 50px;
-	justify-content: flex-end; /* Aligns horizontally right. */
+	left: 1162px;
+	top: 930px;
+	width: 758px;
+	height: 70px;
+	justify-content: flex-start; /* Aligns horizontally left. */
 }
 
 #gameCapture1 {
-	left: 148px;
-	top: 0px;
-	width: 884px;
-	height: 499px;
+	left: 0px;
+	top: 73px;
+	width: 755px;
+	height: 426px;
 }
 
 #gameCapture2 {
-	left: 1035px;
-	top: 0px;
-	width: 885px;
-	height: 499px;
+	left: 1165px;
+	top: 73px;
+	width: 755px;
+	height: 426px;
 }
 
 #gameCapture3 {
-	left: 1035px;
+	left: 1165px;
 	top: 502px;
-	width: 885px;
-	height: 498px;
+	width: 755px;
+	height: 426px;
 }
 
 #infoContainer {
-	left: 528px;
-	top: 572px;
-	width: 504px;
-	height: 358px;
+	left: 758px;
+	top: 0px;
+	width: 404px;
+	height: 1000px;
 
 	outline: 0;
 	line-height: 1;
 	text-align: center;
 	flex-direction: column; /* Top to bottom */
 	justify-content: space-evenly;
+}
+
+#gameName {
+	font-size: 61px;
+}
+
+/* Category/Console/Estimate */
+#gameAdditionalDetails {
+	font-size: 38px;
 }
 
 .infoDivider {
