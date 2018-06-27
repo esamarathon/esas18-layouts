@@ -1,11 +1,8 @@
 'use strict';
 $(() => {
-	// The bundle name where all the run information is pulled from.
-	var speedcontrolBundle = 'nodecg-speedcontrol';
-
 	// Replicants
 	var layouts = nodecg.Replicant('gameLayouts');
-	var runDataActiveRun = nodecg.Replicant('runDataActiveRun', speedcontrolBundle);
+	
 	var currentLayout = nodecg.Replicant('currentGameLayout');
 
 	var extraElemsContainer = $('#extraElements');
@@ -27,21 +24,6 @@ $(() => {
 	}
 
 	else {
-		// Listens for the current run to change, to get it's layout info.
-		// Maybe this should go in an extension, doesn't need to be client side?
-		runDataActiveRun.on('change', (newVal, oldVal) => {
-			if (newVal) {
-				if (newVal.customData && newVal.customData.layout)
-					var layoutCode = newVal.customData.layout;
-				else
-					var layoutCode = '4_3-1p'; // Default Layout
-				
-				var layoutInfo = findLayoutInfo(layoutCode);
-				if (layoutInfo)
-					nodecg.sendMessage('changeGameLayout', layoutInfo.id, err => {});
-			}
-		});
-
 		// Listens for the layout style to change.
 		currentLayout.on('change', newVal => {
 			if (newVal) {
@@ -116,7 +98,7 @@ $(() => {
 		var cssURL = 'css/games/'+layoutInfo.code+'.css'
 		$('#layoutCSSFile').attr('href', cssURL);
 	}
-	
+
 	// Find information about layout based on it's code.
 	function findLayoutInfo(code) {
 		var layoutInfo;
