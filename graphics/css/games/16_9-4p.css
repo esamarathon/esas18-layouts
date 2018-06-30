@@ -10,7 +10,18 @@
 	left: 758px;
 	top: 276px;
 	width: 404px;
-	height: 448px;
+	height: 224px;
+	outline: 0;
+	box-shadow: 0 -3px 0 #ffbd16; /* Outline override. */
+}
+
+#webcam2 {
+	left: 758px;
+	top: 500px;
+	width: 404px;
+	height: 224px;
+	outline: 0;
+	box-shadow: 0 3px 0 #ffbd16; /* Outline override. */
 }
 
 #playerWrapperMulti1 {

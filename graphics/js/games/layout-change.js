@@ -38,11 +38,11 @@ $(() => {
 		extraElemsContainer.empty(); // Remove anything already added.
 
 		// Game Capture/Player Wrappers
-		if (!layoutInfo.gameCaptures || layoutInfo.gameCaptures === 1 || layoutInfo.codecode === 'geoguessr') {
+		if (!layoutInfo.gameCaptures || layoutInfo.gameCaptures === 1 || layoutInfo.code === 'geoguessr' || layoutInfo.ds) {
 			extraElemsContainer.append('<div id="playersWrapper" class="storageBox flexContainer">');
 		}
-		if (layoutInfo.gameCaptures >= 2) {
-			if (layoutInfo.code !== 'geoguessr') {
+		if (layoutInfo.gameCaptures >= 2 || layoutInfo.ds) {
+			if (layoutInfo.code !== 'geoguessr' && !layoutInfo.ds) {
 				extraElemsContainer.append(createPlayerWrapperMultiElement('1'));
 				extraElemsContainer.append(createPlayerWrapperMultiElement('2'));
 			}
@@ -56,8 +56,10 @@ $(() => {
 			extraElemsContainer.append(createPlayerWrapperMultiElement('4'));
 			extraElemsContainer.append(createGameCaptureElement('4'));
 		}
-		if (layoutInfo.ds) {
-			extraElemsContainer.append(createGameCaptureElement('1B'));
+
+		// Extra Camera
+		if (layoutInfo.webcams >= 2) {
+			extraElemsContainer.append(createWebcamElement('2'));
 		}
 
 		// Info Container
@@ -87,6 +89,10 @@ $(() => {
 
 	function createGameCaptureElement(code) {
 		return $('<div id="gameCapture'+code+'" class="storageBox gameCapture">');
+	}
+
+	function createWebcamElement(code) {
+		return $('<div id="webcam'+code+'" class="storageBox webcam">');
 	}
 
 	function createPlayerWrapperMultiElement(code) {

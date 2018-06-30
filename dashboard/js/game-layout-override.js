@@ -7,6 +7,7 @@ $(() => {
 	// Adds the available layouts to the dropdown list.
 	layouts.on('change', newVal => {
 		if (newVal) {
+			$('#layoutOption').empty();
 			$.each(newVal, (i, layoutInfo) => {
 				$('#layoutOption').append($('<option>', {
 					value: layoutInfo.id,

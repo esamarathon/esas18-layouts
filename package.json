@@ -51,6 +51,8 @@
     ]
   },
   "dependencies": {
-    "clone": "^2.1.1"
+    "clone": "^2.1.1",
+    "css": "^2.2.3",
+    "obs-websocket-js": "^1.2.0"
   }
 }
