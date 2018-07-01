@@ -12,4 +12,5 @@ module.exports = function(nodecg) {
 	
 	// Other extension files we need to load.
 	require('./layouts');
+	require('./emotes');
 }

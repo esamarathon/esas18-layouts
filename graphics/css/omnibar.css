@@ -80,8 +80,8 @@ img.emoji {
 #generalMessagesContainer {
 	width: 1091px;
 	padding: 0 20px;
-	/*font-size: 22px;*/
-	/*line-height: 140%;*/
+	font-size: 24px;
+	line-height: 130%;
 	
 	display: flex;
 	flex-direction: column;
@@ -113,5 +113,7 @@ img.emoji {
 }
 
 #clockText span {
+	display: inline-block;
 	width: 0.3em;
+	text-align: center;
 }
