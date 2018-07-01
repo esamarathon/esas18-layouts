@@ -1,5 +1,3 @@
-// CURRENT USES TEST DATA, NEEDS CHANGING FOR LIVE
-
 'use strict';
 
 // The bundle name where all the run information is pulled from.
@@ -60,7 +58,7 @@ nodecg.listenFor('newDonation', donation => {
 });
 
 // Donation test code below.
-var donationExample = {
+/*var donationExample = {
 	id: 1,
 	donor_visiblename: 'tester123',
 	amount: '25.00',
@@ -73,11 +71,11 @@ setTimeout(() => {
 	newDonations.push(donationExample);
 	recentTopDonation = donationExample;
 	resetRecentTopDonationTimer();
-}, 10000);
+}, 10000);*/
 
 // Bids/prizes test code below.
-var bidsTemp = JSON.parse('[{"id":3,"name":"zoton2 finishes the tracker","total":999,"game":"Inspector Gadget: Mad Robots Invasion","category":"Any%","goal":1000},{"id":4,"name":"Language","total":20,"game":"The Simpsons: Hit & Run","category":"All Story Missions","options":[{"id":5,"parent":4,"name":"English","total":0},{"id":6,"parent":4,"name":"French","total":0},{"id":7,"parent":4,"name":"German","total":0},{"id":8,"parent":4,"name":"Spanish","total":20}]}]');
-var prizesTemp = JSON.parse('[{"id":2,"name":"Stream Deck","provided":"Elgato","minimum_bid":5,"start_timestamp":"2018-02-20T05:00:00Z","end_timestamp":"2018-02-21T11:00:00Z"}]');
+//var bidsTemp = JSON.parse('[{"id":3,"name":"zoton2 finishes the tracker","total":999,"game":"Inspector Gadget: Mad Robots Invasion","category":"Any%","goal":1000},{"id":4,"name":"Language","total":20,"game":"The Simpsons: Hit & Run","category":"All Story Missions","options":[{"id":5,"parent":4,"name":"English","total":0},{"id":6,"parent":4,"name":"French","total":0},{"id":7,"parent":4,"name":"German","total":0},{"id":8,"parent":4,"name":"Spanish","total":20}]}]');
+//var prizesTemp = JSON.parse('[{"id":2,"name":"Stream Deck","provided":"Elgato","minimum_bid":5,"start_timestamp":"2018-02-20T05:00:00Z","end_timestamp":"2018-02-21T11:00:00Z"}]');
 
 // Cycles the actual ticker messages that can be shown.
 // Triggered every tick from tick-handler.js
@@ -97,8 +95,8 @@ function showTickerMessages() {
 	
 	// Bids
 	if (messageType === 0) {
-		if (bidsTemp.length > 0) {
-		//if (bidsRep.value.length > 0) {
+		//if (bidsTemp.length > 0) {
+		if (bidsRep.value.length > 0) {
 			showBid();
 		}
 		else
@@ -107,8 +105,8 @@ function showTickerMessages() {
 	
 	// Prizes
 	if (messageType === 1) {
-		if (prizesTemp.length > 0) {
-		//if (prizesRep.value.length > 0) {
+		//if (prizesTemp.length > 0) {
+		if (prizesRep.value.length > 0) {
 			showPrize();
 		}
 		else
@@ -172,8 +170,8 @@ function showDonation(donation, isNew) {
 
 // Handles bids cache if empty and chooses one at random to show.
 function showBid() {
-	//if (!bidsCache.length) bidsCache = bidsRep.value; // Refill bids cache if it's empty.
-	if (!bidsCache.length) bidsCache = bidsTemp;
+	if (!bidsCache.length) bidsCache = bidsRep.value; // Refill bids cache if it's empty.
+	//if (!bidsCache.length) bidsCache = bidsTemp;
 	var random = getRandomInt(bidsCache.length);
 	var bid = bidsCache[random]; // Pick random bid from the cache.
 	bidsCache.splice(random, 1); // Remove this bid from the cache.
@@ -208,8 +206,8 @@ function showBid() {
 
 // Handles prize cache if empty and chooses one at random to show.
 function showPrize() {
-	//if (!prizeCache.length) prizeCache = prizesRep.value; // Refill prize cache if it's empty.
-	if (!prizeCache.length) prizeCache = prizesTemp;
+	if (!prizeCache.length) prizeCache = prizesRep.value; // Refill prize cache if it's empty.
+	//if (!prizeCache.length) prizeCache = prizesTemp;
 	var random = getRandomInt(prizeCache.length);
 	var prize = prizeCache[random]; // Pick random prize from the cache.
 	prizeCache.splice(random, 1); // Remove this prize from the cache.
