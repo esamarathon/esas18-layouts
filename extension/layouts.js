@@ -1,5 +1,3 @@
-// TODO: allow stuff to be change in the config
-
 'use strict';
 var clone = require('clone');
 var fs = require('fs');
@@ -43,15 +41,17 @@ layouts.value = layoutsTemp.slice(0);
 // Current layout info stored in here. Defaults to the first one in the list above.
 var currentGameLayout = nodecg.Replicant('currentGameLayout', {defaultValue: clone(layouts.value[0])});
 
+var obsConfig = nodecg.bundleConfig.obs || {};
+
 // CSS -> OBS source names
 // (OBS source names need to be moved to the config file.)
 var obsSourceKeys = {
-	'gameCapture1': 'Game Capture 1',
-	'gameCapture2': 'Game Capture 2',
-	'gameCapture3': 'Game Capture 3',
-	'gameCapture4': 'Game Capture 4',
-	'webcam1': 'Camera Capture 1',
-	'webcam2': 'Camera Capture 2'
+	'gameCapture1': obsConfig.capture1 || 'Game Capture 1',
+	'gameCapture2': obsConfig.capture2 || 'Game Capture 2',
+	'gameCapture3': obsConfig.capture3 || 'Game Capture 3',
+	'gameCapture4': obsConfig.capture4 || 'Game Capture 4',
+	'webcam1': obsConfig.camera1 || 'Camera Capture 1',
+	'webcam2': obsConfig.camera2 || 'Camera Capture 2'
 };
 
 // Message used to change layout, usually manually.
@@ -177,7 +177,7 @@ function findLayoutInfo(code) {
 function setOBSSourceSettings(source, config) {
 	// Setup options for this source.
 	var options = {
-		'scene-name': 'Game Layout',
+		'scene-name': obsConfig.gameLayout || 'Game Layout',
 		'item': obsSourceKeys[source],
 		'visible': config ? true : false
 	};
