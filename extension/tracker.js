@@ -1,5 +1,8 @@
 'use strict';
 
+// The bundle name where all the run information is pulled from.
+var speedcontrolBundle = 'nodecg-speedcontrol';
+
 // Referencing packages.
 var cheerio = require('cheerio');
 var request = require('request-promise').defaults({jar: true}); // Automatically saves and re-uses cookies.
@@ -14,18 +17,26 @@ var isFirstLogin = true;
 var stream1Total = 0;
 var stream2Total = 0;
 
+// Settings for information that changes depending on the stream we're on.
 var eventShort = '2018s1';
-if (nodecg.bundleConfig.stream2)
+var streamID = 1;
+if (nodecg.bundleConfig.stream2) {
 	eventShort = '2018s2';
+	streamID = 2;
+}
 
 // Replicants.
 var donationTotal = nodecg.Replicant('donationTotal', {defaultValue: 0});
 var recentDonations = nodecg.Replicant('recentDonations', {defaultValue: []});
+var otherStreamInfo = nodecg.Replicant('otherStreamInfo', {defaultValue: null});
 
 if (!nodecg.bundleConfig.tracker) {
 	nodecg.log.error('You must set the tracker login details in the config file.');
 	process.exit(1);
 }
+
+// Key used for POST requests to the server.
+var postKey = nodecg.bundleConfig.tracker.postKey || 'DEFAULT_KEY';
 
 // Getting the initial donation total on startup.
 // We need to add both events together to get the correct total.
@@ -93,6 +104,33 @@ repeater.on('total', data => {
 	var bothTotals = stream1Total + stream2Total;
 	donationTotal.value = bothTotals
 	nodecg.log.info('Updated donation total received:', '$'+bothTotals.toFixed(2));
+});
+
+// Triggered when stream information changes (for either stream).
+// Also triggered on connection.
+repeater.on('streamInfo', data => {
+	// Update with the correct stream information.
+	if (streamID === 1)
+		otherStreamInfo.value = data.stream2;
+	if (streamID === 2)
+		otherStreamInfo.value = data.stream1;
+
+	console.log(otherStreamInfo.value);
+});
+
+// POSTs run data when it's changed in nodecg-speedcontrol to the server.
+var runDataActiveRun = nodecg.Replicant('runDataActiveRun', speedcontrolBundle);
+runDataActiveRun.on('change', (newVal, oldVal) => {
+	request.post({
+		url: repeaterURL+'/stream_info?key='+postKey,
+		body: JSON.stringify({
+			stream: streamID,
+			runData: newVal ? newVal : null
+		}),
+		headers: {'Content-Type': 'application/json; charset=utf-8'}
+	}, (err, resp, body) => {
+		// POST done
+	});
 });
 
 // https://github.com/GamesDoneQuick/agdq18-layouts/blob/master/extension/index.js
