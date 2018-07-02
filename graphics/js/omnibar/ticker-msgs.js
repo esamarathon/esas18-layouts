@@ -23,7 +23,9 @@ var messageTypeChance = {
 	3: 2, // Recent Top Donation
 	4: 1, // ESA promotional message
 	5: 1, // StC promotional message
-	6: 1  // Donation URL message
+	6: 2, // Donation URL message
+	7: 2, // Other stream run information
+	8: 1  // Other stream promotion
 }
 
 // Choose a random index on startup.
@@ -36,6 +38,7 @@ var prizesRep = nodecg.Replicant('prizes');
 prizesRep.on('change', newVal => {prizeCache = newVal}); // Refill cache on change.
 var runDataArray = nodecg.Replicant('runDataArray', speedcontrolBundle);
 var runDataActiveRun = nodecg.Replicant('runDataActiveRun', speedcontrolBundle);
+var otherStreamInfo = nodecg.Replicant('otherStreamInfo');
 
 // JQuery selectors.
 var messagesContainer, messagesLine1, messagesLine2, messageLinesWrapper;
@@ -144,7 +147,22 @@ function showTickerMessages() {
 	
 	// Donation URL message.
 	if (messageType === 6) {
-		displayMessage('<span class="textGlow">Donate @ <span class="greyText">donations.esamarathon.com</span></span>', null, 33, null, true);
+		var eventShort = nodecg.bundleConfig.stream2 ? '2018s2' : '2018s1';
+		displayMessage('<span class="textGlow">Donate @ <span class="greyText">donations.esamarathon.com/donate/'+eventShort+'</span></span>', null, 33, null, true);
+	}
+
+	// Other stream run information.
+	if (messageType === 7) {
+		if (otherStreamInfo.value && !otherStreamInfo.value.game.toLowerCase().includes('offline'))
+			showOtherStreamInfo();
+		else
+			retry = true;
+	}
+
+	// Other stream promotion.
+	if (messageType === 8) {
+		var streamChannel = nodecg.bundleConfig.stream2 ? 'esa' : 'esamarathon2';
+		displayMessage('<span class="textGlow">Watch more great runs over @ <span class="greyText">twitch.tv/'+streamChannel+'</span>!</span>', null, 33, null, true);
 	}
 	
 	chooseRandomMessageType();
@@ -240,6 +258,15 @@ function showUpcomingRun() {
 	var when = moment.unix(randomRun.scheduledS).fromNow();
 	var line1 = '<span class="messageUppercase textGlow">Coming Up '+when+':</span> '+randomRun.game;
 	var line2 = randomRun.category+', ran on '+randomRun.system+' with '+formPlayerNamesString(randomRun);
+	
+	displayMessage(line1, line2, 25, 22);
+}
+
+// Show information about the run on the other stream.
+function showOtherStreamInfo() {
+	var streamChannel = nodecg.bundleConfig.stream2 ? 'esa' : 'esamarathon2';
+	var line1 = '<span class="messageUppercase textGlow">Currently on @ twitch.tv/'+streamChannel+':</span> '+otherStreamInfo.value.game;
+	var line2 = otherStreamInfo.value.category+', ran on '+otherStreamInfo.value.system+' with '+formPlayerNamesString(otherStreamInfo.value);
 	
 	displayMessage(line1, line2, 25, 22);
 }

@@ -114,8 +114,6 @@ repeater.on('streamInfo', data => {
 		otherStreamInfo.value = data.stream2;
 	if (streamID === 2)
 		otherStreamInfo.value = data.stream1;
-
-	console.log(otherStreamInfo.value);
 });
 
 // POSTs run data when it's changed in nodecg-speedcontrol to the server.
