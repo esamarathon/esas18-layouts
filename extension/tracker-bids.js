@@ -2,8 +2,6 @@
 
 // https://github.com/GamesDoneQuick/agdq18-layouts/blob/master/extension/bids.js
 
-// CURRENTLY TAGETS THE ESA WINTER EVENT, THAT STUFF NEEDS TO GO IN CONFIG ANYWAY
-
 // Referencing packages.
 var request = require('request');
 
@@ -12,13 +10,19 @@ var nodecg = require('./utils/nodecg-api-context').get();
 var apiURL = 'https://donations.esamarathon.com/search';
 var refreshTime = 60000; // Get bids every 60s.
 
+// ID 2: Stream 1
+// ID 4: Stream 2
+var eventID = 2;
+if (nodecg.bundleConfig.stream2)
+	eventID = 4;
+
 // Replicants.
 var bids = nodecg.Replicant('bids', {defaultValue: []});
 
 // Get the open bids from the API.
 updateBids();
 function updateBids() {
-	request(apiURL+'/?event=1&type=allbids&state=OPENED', (err, resp, body) => {
+	request(apiURL+'/?event='+eventID+'&type=allbids&state=OPENED', (err, resp, body) => {
 		if (!err && resp.statusCode === 200) {
 			var currentBids = processRawBids(JSON.parse(body));
 			bids.value = currentBids;

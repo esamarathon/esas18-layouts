@@ -1,17 +1,22 @@
 'use strict';
 
-// CURRENTLY TAGETS THE ESA WINTER EVENT, THAT STUFF NEEDS TO GO IN CONFIG ANYWAY
-
 // Referencing packages.
 var cheerio = require('cheerio');
 var request = require('request-promise').defaults({jar: true}); // Automatically saves and re-uses cookies.
 
 // Declaring other variables.
 var nodecg = require('./utils/nodecg-api-context').get();
-var statsURL = 'https://donations.esamarathon.com/1?json';
+var statsURL1 = 'https://donations.esamarathon.com/2?json';
+var statsURL2 = 'https://donations.esamarathon.com/4?json';
 var repeaterURL = 'https://repeater.esamarathon.com';
 var loginURL = 'https://donations.esamarathon.com/admin/login/';
 var isFirstLogin = true;
+var stream1Total = 0;
+var stream2Total = 0;
+
+var eventShort = '2018s1';
+if (nodecg.bundleConfig.stream2)
+	eventShort = '2018s2';
 
 // Replicants.
 var donationTotal = nodecg.Replicant('donationTotal', {defaultValue: 0});
@@ -23,13 +28,27 @@ if (!nodecg.bundleConfig.tracker) {
 }
 
 // Getting the initial donation total on startup.
-request(statsURL, (err, resp, body) => {
+// We need to add both events together to get the correct total.
+var total = 0;
+request(statsURL1, (err, resp, body) => {
 	if (!err && resp.statusCode === 200) {
 		body = JSON.parse(body);
-		var total = parseFloat(body.agg.amount);
+		var streamTotal = body.agg.amount ? parseFloat(body.agg.amount) : 0;
+		total += streamTotal;
+		stream1Total = streamTotal;
+	}
+}).then(() => {
+	request(statsURL2, (err, resp, body) => {
+		if (!err && resp.statusCode === 200) {
+			body = JSON.parse(body);
+			var streamTotal = body.agg.amount ? parseFloat(body.agg.amount) : 0;
+			total += streamTotal;
+			stream2Total = streamTotal;
+		}
+	}).then(() => {
 		donationTotal.value = total;
 		nodecg.log.info('Initial donation total checked:', '$'+total);
-	}
+	});
 });
 
 // Log into the tracker before querying stuff on it.
@@ -50,21 +69,30 @@ repeater.on('error', err => nodecg.log.warn('Repeater socket error:', err));
 
 // Triggered when a new donation that can be shown on stream is received.
 repeater.on('donation', data => {
-	nodecg.log.info('Received new donation with ID %s.', data.id);
-	recentDonations.value.push(data);
-	
-	// Caps this replicant to 10.
-	if (recentDonations.value.length > 10)
-		recentDonations.value = recentDonations.value.slice(0, 10);
-	
-	nodecg.sendMessage('newDonation', data);
+	// Only accept the donation if it's for this stream.
+	if (data.event === eventShort) {
+		nodecg.log.info('Received new donation with ID %s.', data.id);
+		recentDonations.value.push(data);
+		
+		// Caps this replicant to 10.
+		if (recentDonations.value.length > 10)
+			recentDonations.value = recentDonations.value.slice(0, 10);
+		
+		nodecg.sendMessage('newDonation', data);
+	}
 });
 
 // Triggered when the updated donation total is received.
 repeater.on('total', data => {
-	var total = parseFloat(data.new_total);
-	donationTotal.value = total;
-	nodecg.log.info('Updated donation total received:', '$'+total.toFixed(2));
+	// Update the relevant variable depending on the event.
+	if (data.event === '2018s1')
+		stream1Total = parseFloat(data.new_total);
+	if (data.event === '2018s2')
+		stream2Total = parseFloat(data.new_total);
+	
+	var bothTotals = stream1Total + stream2Total;
+	donationTotal.value = bothTotals
+	nodecg.log.info('Updated donation total received:', '$'+bothTotals.toFixed(2));
 });
 
 // https://github.com/GamesDoneQuick/agdq18-layouts/blob/master/extension/index.js
