@@ -31,6 +31,10 @@ function connect() {
 	client.on('system-player', onSystemPlayer);
 }
 
+// Listen for NodeCG messages from dashboard/layouts.
+nodecg.listenFor('pausePlaySong', toggleSongPlayback);
+nodecg.listenFor('skipSong', skipSong);
+
 function onConnect() {
 	nodecg.log.info('MPD connection successful.');
 }
@@ -99,8 +103,8 @@ function updateCurrentSong() {
 }
 
 // Can be used to pause/unpause music track.
-function toggleSongPlayback(pause) {
-	var pause = pause ? '1' : '0';
+function toggleSongPlayback() {
+	var pause = songData.value.playing ? 1 : 0;
 	client.sendCommand('pause '+pause);
 }
 
