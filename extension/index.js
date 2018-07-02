@@ -14,4 +14,5 @@ module.exports = function(nodecg) {
 	require('./layouts');
 	require('./emotes');
 	require('./tracker');
+	require('./music');
 }

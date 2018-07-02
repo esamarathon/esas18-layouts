@@ -16,6 +16,14 @@
 				"camera2": {"type": "string", "default": "Camera Capture 2"}
 			}
 		},
+		"mpd": {
+			"type": "object",
+			"properties": {
+				"address": {"type": "string", "default": "localhost"},
+				"port": {"type": "integer", "default": 6600},
+				"volume": {"type": "integer", "default": 10}
+			}
+		},
 		"tracker": {
 			"type": "object",
 			"properties": {
