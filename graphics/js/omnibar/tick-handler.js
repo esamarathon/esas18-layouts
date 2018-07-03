@@ -8,7 +8,6 @@ $(() => {
 	setTimeout(tick, 200); setInterval(tick, tickRate);
 	function tick() {
 		changeESALogo(); // esa-logo.js
-		changeDonationTotalStuff(); // donation-total.js
 		showTickerMessages(); // ticker-msgs.js
 	}
 });
