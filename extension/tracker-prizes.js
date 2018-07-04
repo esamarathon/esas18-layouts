@@ -39,7 +39,8 @@ function processRawPrizes(prizes) {
 			id: prize.pk,
 			name: prize.fields.name,
 			provided: prize.fields.provider || 'Anonymous',
-			minimum_bid: parseFloat(prize.fields.minimumbid)
+			minimum_bid: parseFloat(prize.fields.minimumbid),
+			image: prize.fields.image
 		};
 		
 		// If there's a start run, use it's starting time.
