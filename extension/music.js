@@ -4,6 +4,8 @@ const mpd = require('mpd');
 
 var mpdConfig = nodecg.bundleConfig.mpd || {};
 var volume = mpdConfig.volume || 10;
+var currentVolume = volume;
+var fadeInterval;
 
 // Stores song data to be displayed on layouts.
 var songData = nodecg.Replicant('songData', {
@@ -32,7 +34,14 @@ function connect() {
 }
 
 // Listen for NodeCG messages from dashboard/layouts.
-nodecg.listenFor('pausePlaySong', toggleSongPlayback);
+nodecg.listenFor('pausePlaySong', () => {
+	if (songData.value.playing)
+		fadeOut();
+	else
+		fadeIn();
+});
+nodecg.listenFor('playSong', fadeIn); // To be used on layouts.
+nodecg.listenFor('pauseSong', fadeOut); // To be used on layouts.
 nodecg.listenFor('skipSong', skipSong);
 
 function onConnect() {
@@ -123,5 +132,41 @@ function shufflePlaylist() {
 
 // Used to set the player volume to whatever the variable is set to.
 function setVolume() {
-	client.sendCommand('setvol '+volume)
+	client.sendCommand('setvol '+currentVolume)
+}
+
+// Used to fade out and pause the song.
+function fadeOut() {
+	clearInterval(fadeInterval);
+	currentVolume = volume;
+	setVolume();
+
+	function loop() {
+		currentVolume--;
+		setVolume();
+		if (currentVolume <= 0) {
+			clearInterval(fadeInterval);
+			toggleSongPlayback();
+		}
+	}
+
+	fadeInterval = setInterval(loop, 200);
+}
+
+// Used to unpause and fade in the song.
+function fadeIn() {
+	clearInterval(fadeInterval);
+	currentVolume = 0;
+	toggleSongPlayback();
+	setVolume();
+
+	function loop() {
+		currentVolume++;
+		setVolume();
+		if (currentVolume >= volume) {
+			clearInterval(fadeInterval);
+		}
+	}
+
+	fadeInterval = setInterval(loop, 200);
 }
