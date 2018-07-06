@@ -101,6 +101,10 @@
 	justify-content: space-evenly;
 }
 
+#gameName {
+	font-size: 40px;
+}
+
 #sponsorLogoWrapper {
 	left: 758px;
 	top: 727px;

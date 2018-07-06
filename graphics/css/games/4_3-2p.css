@@ -54,6 +54,7 @@
 	text-align: center;
 	flex-direction: column; /* Top to bottom */
 	justify-content: space-evenly;
+	white-space: nowrap;
 }
 
 #sponsorLogoWrapper {

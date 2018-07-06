@@ -10,7 +10,7 @@ body {
 	padding: 0;
 }
 
-/* Background image. */
+/* Background image. Not currently actually used, adding image in OBS. */
 #background {
 	position: fixed;
 	background-image: url('../img/background.png');
@@ -44,8 +44,8 @@ body {
 	box-sizing: border-box;
 }
 
-/* Makes the game/webcam box have a background. */
-.gameCapture, .webcam {background-color: rgba(0,0,0,1);}
+/* Makes the game/webcam box have a background. In production it needs to not have one. */
+/*.gameCapture, .webcam {background-color: rgba(0,0,0,1);}*/
 
 /* Basic flex container class which auto centres it's contents. */
 .flexContainer {

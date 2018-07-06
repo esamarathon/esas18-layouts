@@ -34,6 +34,21 @@
 	text-align: center;
 	flex-direction: column; /* Top to bottom */
 	justify-content: space-evenly;
+
+	padding-top: 20px;
+	padding-bottom: 20px;
+}
+
+#infoContainer > div {
+	padding-bottom: 20px;
+}
+
+#infoContainer > div:last-child {
+	padding-bottom: 0;
+}
+
+.sponsorLogo {
+	margin: 20px;
 }
 
 .infoDivider {
