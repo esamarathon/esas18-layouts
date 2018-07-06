@@ -1,0 +1,20 @@
+/* Some general settings used for everything and other minor changes to the body. */
+body {
+	overflow: hidden;
+	margin: 0;
+	padding: 0;
+}
+
+img {
+	position: fixed;
+}
+
+#yellow {
+	left: 623px;
+	top: 1080px;
+}
+
+#purple {
+	left: -623px;
+	top: -1080px;
+}

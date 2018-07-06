@@ -76,6 +76,15 @@ runDataActiveRun.on('change', (newVal, oldVal) => {
 	}
 });
 
+// Listens for transitions in OBS to happen.
+obs.on('TransitionBegin', (data) => {
+	// If we're using a certain transition, send a message that causes
+	// a transition in a HTML overlay to happen.
+	if (data.name === 'Blank Stinger') {
+		nodecg.sendMessage('startTransition');
+	}
+});
+
 function changeGameLayout(info, callback) {
 	// Set replicant to have the correct information for use elsewhere.
 	currentGameLayout.value = clone(info);
