@@ -5,7 +5,7 @@ $(() => {
 	sponsorImages.on('change', newVal => {
 		// If we aren't currently doing a rotation and there are logos available, start it off.
 		if (!init && newVal.length > 0) {
-			setInterval(rotateSponsors, 10000);
+			setInterval(rotateSponsors, 60000);
 			rotateSponsors();
 			init = true;
 		}
