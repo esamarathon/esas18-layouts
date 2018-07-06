@@ -113,6 +113,9 @@ body {
 }
 #timer .char3, #timer .char6 {width: 0.22em;}
 
+/* These elements need to be 0 opacity on load so they fade in correctly. */
+#gameName, #gameAdditionalDetails, #timer, .infoDivider {opacity: 0;}
+
 #sponsorLogoWrapper {
 	width: 100%;
 	height: 100%;
