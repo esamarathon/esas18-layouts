@@ -68,7 +68,7 @@ body {
 }
 .playerContainer img {height: 100%;}
 .playerContainer > *:nth-child(n+2) {margin-left: 3px;}
-#playersWrapper > .playerContainer:nth-child(n+2) {margin-top: 10px;}
+#playersWrapper > .playerContainerStorage:nth-child(n+2) {margin-top: 10px;}
 .playerWrapperMulti {outline: 0;}
 
 /* Purple box that sits next to the runner names on races when their timer has finished. */
@@ -80,6 +80,10 @@ body {
 	font-size: 33px;
 	padding: 10px;
 	box-sizing: border-box;
+}
+
+#infoContainer {
+	padding: 0 20px;
 }
 
 #gameName {
@@ -109,7 +113,25 @@ body {
 }
 #timer .char3, #timer .char6 {width: 0.22em;}
 
-/* ?Temporary? */
-#sponsorLogo {
-	padding: 20px;
+#sponsorLogoWrapper {
+	width: 100%;
+	height: 100%;
+	display: flex;
+}
+
+.sponsorLogoWrapperGrow {
+	flex-grow: 1; /* Make sure sponsor logo takes up all available space. */
+}
+
+.sponsorLogo {
+	/*background-image: url('../img/example-sponsor.png');*/
+	background-repeat: no-repeat;
+	background-size: contain;
+	background-position: center center;
+	flex-grow: 1;
+}
+
+/* For safety to make sure stuff never appears on screen while in temporary storage. */
+#temporaryStorage {
+	opacity: 0;
 }

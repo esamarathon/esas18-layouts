@@ -19,15 +19,6 @@ $(() => {
 		clearTimeout(backupTimerTO);
 		backupTimerTO = setTimeout(backupTimer, 1000);
 	});
-
-	// Updates the timer when the game layout style is changed.
-	// Maybe this should be done in the layout.change.js file?
-	var currentLayout = nodecg.Replicant('currentGameLayout');
-	currentLayout.on('change', newVal => {
-		if (newVal && currentTime) {
-			updateTimer(currentTime);
-		}
-	});
 	
 	// Backup timer that takes over if the connection to the server is lost.
 	// Based on the last timestamp that was received.

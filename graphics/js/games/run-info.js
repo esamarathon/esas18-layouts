@@ -15,16 +15,7 @@ $(() => {
 				runDataActiveRunCache = newVal;
 			}
 		}
-		else animationSetField(gameTitle, 'The Beginning');
-	});
-
-	// Updates the information when the game layout style is changed.
-	// Maybe this should be done in the layout.change.js file?
-	var currentLayout = nodecg.Replicant('currentGameLayout');
-	currentLayout.on('change', newVal => {
-		if (newVal && runDataActiveRunCache.game) {
-			updateSceneFields(runDataActiveRunCache);
-		}
+		else animationSetField($('#gameName'), 'The Beginning');
 	});
 	
 	// Sets information on the layout for the run.

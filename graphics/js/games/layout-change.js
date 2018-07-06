@@ -2,7 +2,6 @@
 $(() => {
 	// Replicants
 	var layouts = nodecg.Replicant('gameLayouts');
-	
 	var currentLayout = nodecg.Replicant('currentGameLayout');
 
 	var extraElemsContainer = $('#extraElements');
@@ -35,25 +34,44 @@ $(() => {
 
 	// Adds extra elements to the layout that are needed depending on what is needed.
 	function addExtraElements(layoutInfo) {
+		moveElementsToTempStorage(); // Move importants elements to temporary storage if needed.
 		extraElemsContainer.empty(); // Remove anything already added.
 
 		// Game Capture/Player Wrappers
 		if (!layoutInfo.gameCaptures || layoutInfo.gameCaptures === 1 || layoutInfo.code === 'geoguessr' || layoutInfo.ds) {
-			extraElemsContainer.append('<div id="playersWrapper" class="storageBox flexContainer">');
+			// Create element for all players and move in all correct elements.
+			var playersElem = $('<div id="playersWrapper" class="storageBox flexContainer">');
+			$(".playerContainerStorage").detach().appendTo(playersElem);
+			extraElemsContainer.append(playersElem);
 		}
 		if (layoutInfo.gameCaptures >= 2 || layoutInfo.ds) {
 			if (layoutInfo.code !== 'geoguessr' && !layoutInfo.ds) {
-				extraElemsContainer.append(createPlayerWrapperMultiElement('1'));
-				extraElemsContainer.append(createPlayerWrapperMultiElement('2'));
+				// Create element for player 1 and move in correct element.
+				var playerElem1 = createPlayerWrapperMultiElement('1');
+				$("#playerContainerStorage1").detach().appendTo(playerElem1);
+				extraElemsContainer.append(playerElem1);
+
+				// Create element for player 2 and move in correct element.
+				var playerElem2 = createPlayerWrapperMultiElement('2');
+				$("#playerContainerStorage2").detach().appendTo(playerElem2);
+				extraElemsContainer.append(playerElem2);
 			}
 			extraElemsContainer.append(createGameCaptureElement('2'));
 		}
 		if (layoutInfo.gameCaptures >= 3) {
-			extraElemsContainer.append(createPlayerWrapperMultiElement('3'));
+			// Create element for player 3 and move in correct element.
+			var playerElem3 = createPlayerWrapperMultiElement('3');
+			$("#playerContainerStorage3").detach().appendTo(playerElem3);
+			extraElemsContainer.append(playerElem3);
+
 			extraElemsContainer.append(createGameCaptureElement('3'));
 		}
 		if (layoutInfo.gameCaptures >= 4) {
-			extraElemsContainer.append(createPlayerWrapperMultiElement('4'));
+			// Create element for player 4 and move in correct element.
+			var playerElem4 = createPlayerWrapperMultiElement('4');
+			$("#playerContainerStorage4").detach().appendTo(playerElem4);
+			extraElemsContainer.append(playerElem4);
+
 			extraElemsContainer.append(createGameCaptureElement('4'));
 		}
 
@@ -66,21 +84,32 @@ $(() => {
 		var infoContainerElem = $('<div id="infoContainer" class="storageBox flexContainer">')
 
 		// If there needs to be a wrapper DIV for the game/addition details or not.
-		if (!layoutInfo.combineGameNameAndAdditional)
-			infoContainerElem.append('<div id="gameName"></div><div id="gameAdditionalDetails"></div>');
-		else
-			infoContainerElem.append('<div><div id="gameName"></div><div id="gameAdditionalDetails"></div></div>');
+		if (layoutInfo.combineGameNameAndAdditional)  {
+			var combineGameAndAdditionalElem = $('<div>');
+
+			// Move needed elements in.
+			$("#gameName").detach().appendTo(combineGameAndAdditionalElem);
+			$("#gameAdditionalDetails").detach().appendTo(combineGameAndAdditionalElem);
+
+			infoContainerElem.append(combineGameAndAdditionalElem);
+		}
+
+		else {
+			// Move needed elements in.
+			$("#gameName").detach().appendTo(infoContainerElem);
+			$("#gameAdditionalDetails").detach().appendTo(infoContainerElem);
+		}
 
 		// Timer
-		infoContainerElem.append('<div id="timer">');
-
+		$("#timer").detach().appendTo(infoContainerElem);
+		
 		// If the sponsor logo is in the info container (from above) or it's own thing.
-		if (!layoutInfo.sponsorInInfo)
-			extraElemsContainer.append('<div id="sponsorLogo" class="storageBox flexContainer">');
-		else {
-			// Currently, having the class "flexContainer" when it's not needed doesn't break anything, it might do in the future?
+		if (layoutInfo.sponsorInInfo) {
 			infoContainerElem.append('<div class="infoDivider">');
-			infoContainerElem.append('<div id="sponsorLogo" class="flexContainer">');
+			$("#sponsorLogoWrapper").addClass('sponsorLogoWrapperGrow').detach().appendTo(infoContainerElem);
+		}
+		else {
+			$("#sponsorLogoWrapper").addClass('storageBox').detach().appendTo(extraElemsContainer);
 		}
 
 		// Add all this to the page.
@@ -97,6 +126,15 @@ $(() => {
 
 	function createPlayerWrapperMultiElement(code) {
 		return $('<div id="playerWrapperMulti'+code+'" class="playerWrapperMulti storageBox flexContainer">');
+	}
+
+	// Move elements that hold information back into temporary storage if needed.
+	function moveElementsToTempStorage() {
+		$("#gameName").detach().appendTo('#temporaryStorage');
+		$("#gameAdditionalDetails").detach().appendTo('#temporaryStorage');
+		$("#timer").detach().appendTo('#temporaryStorage');
+		$("#sponsorLogoWrapper").removeClass('storageBox').removeClass('sponsorLogoWrapperGrow').detach().appendTo('#temporaryStorage');
+		$(".playerContainerStorage").detach().appendTo('#temporaryStorage');
 	}
 	
 	// Set the CSS of the layout so everything can be styled correctly.

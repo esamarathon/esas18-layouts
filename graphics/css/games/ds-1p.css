@@ -40,20 +40,17 @@
 	line-height: 1.1;
 	text-align: center;
 	justify-content: space-evenly;
+	white-space: nowrap;
 }
 
-.infoDivider {
-	border-left: 3px solid #ffbd16;
-	height: 50%;
-}
-
-#sponsorLogo {
-	height: 100%;
+#sponsorLogoWrapper {
 	order: -2; /* Puts the sponsor logo first in the flexbox. */
+	width: 400px;
+	flex-grow: 0; /* On this layout we want the sponsor logo to have a fixed width. */
 }
 
-#sponsorLogo img {
-	height: 60%;
+.sponsorLogo {
+	margin: 15px;
 }
 
 .infoDivider {

@@ -17,10 +17,6 @@
 	height: 70px;
 }
 
-/*#playerWrapperMulti1 > .finishTime {
-	order: -1; /* Puts the finish time first in the flexbox. */
-/*}*/
-
 #playerWrapperMulti2 {
 	left: 641px;
 	top: 483px;
@@ -69,11 +65,15 @@
 	justify-content: space-evenly;
 }
 
-#sponsorLogo {
+#sponsorLogoWrapper {
 	left: 0px;
 	top: 556px;
 	width: 560px;
 	height: 444px;
 
 	outline: 0;
+}
+
+.sponsorLogo {
+	margin: 50px;
 }

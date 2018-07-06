@@ -105,27 +105,8 @@ function animationChangePlayerData(selector, playerData, twitch, hideCoop, showC
 }
 
 function animationChangeSponsorImage(element, assetURL) {
-	// Add in the next sponsor logo.
-	var nextElement = $('<img class="sponsorLogo sponsorLogoNext">').appendTo(element);
-	nextElement.attr('src', assetURL);
-	nextElement.on('load', () => {
-		// Fade out current sponsor logo.
-		var currentElement = $('.sponsorLogoCurrent', element);
-		currentElement.animate({'opacity': '0'}, 1000, 'linear');
-		
-		// Some code to figure out how to fit the sponsor images into the available box.
-		var containerAR = element.width()/element.height();
-		var logoAR = nextElement.width()/nextElement.height();
-		//console.log('containerAR: '+containerAR*1.5);
-		//console.log('logoAR: '+logoAR);
-		var fillClass = (containerAR*1.5 > logoAR) ? 'fillheight' : 'fillwidth';
-		if ($('html').attr('data-sceneid') === '16_9-2p-mcbingo') fillClass = 'fillwidth'; // Manual override for this scene.
-		nextElement.addClass(fillClass);
-		
-		// Fade in next sponsor logo and change the classes.
-		nextElement.animate({'opacity': '1'}, 1000, 'linear', () => {
-			currentElement.remove();
-			nextElement.removeClass('sponsorLogoNext').addClass('sponsorLogoCurrent');
-		});
+	animationFadeOutElement(element, () => {
+		element.css('background-image', 'url("'+assetURL+'")');
+		animationFadeInElement(element);
 	});
 }

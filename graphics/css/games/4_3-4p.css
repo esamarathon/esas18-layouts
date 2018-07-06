@@ -26,7 +26,7 @@
 	justify-content: flex-start; /* Aligns horizontally left. */
 }
 
-#playerWrapperMulti2 > .finishTime, #playerWrapperMulti4 > .finishTime {
+#playerWrapperMulti2 .finishTime, #playerWrapperMulti4 .finishTime {
 	order: -1; /* Puts the finish time first in the flexbox. */
 }
 
@@ -95,11 +95,15 @@
 	justify-content: space-evenly;
 }
 
-#sponsorLogo {
+#sponsorLogoWrapper {
 	left: 668px;
 	top: 0795px;
 	width: 584px;
 	height: 205px;
 
 	outline: 0;
+}
+
+.sponsorLogo {
+	margin: 30px;
 }

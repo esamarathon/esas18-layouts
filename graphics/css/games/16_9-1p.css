@@ -35,9 +35,13 @@
 	justify-content: space-evenly;
 }
 
-#sponsorLogo {
+#sponsorLogoWrapper {
 	left: 0px;
 	top: 503px;
 	width: 478px;
 	height: 497px;
+}
+
+.sponsorLogo {
+	margin: 40px;
 }
