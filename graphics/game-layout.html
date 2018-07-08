@@ -13,6 +13,7 @@
 		<script src="js/games/layout-change.js"></script>
 		<script src="js/animation.js"></script>
 		<script src="js/games/run-info.js"></script>
+		<script src="js/games/players.js"></script>
 		<script src="js/games/timer.js"></script>
 		<script src="js/sponsors.js"></script>
 		<script src="js/auto-highlighting.js"></script>
@@ -28,49 +29,72 @@
 		<!-- Game area(s) -->
 		<div id="gameCapture1" class="storageBox gameCapture"></div>
 
+		<!-- Players wrapper for 1 player layouts. -->
+		<div id="playersWrapper" class="storageBox flexContainer">
+			<div id="playerContainer1" class="playerContainer flexContainer">
+				<img src="img/player-solo.png">
+				<span class="playerName">/tharixer</span>
+				<img class="flag" src="https://www.speedrun.com/images/flags/gb.png">
+			</div>
+			<div id="playerContainer2" class="playerContainer flexContainer">
+				<img src="img/player-solo.png">
+				<span class="playerName">/tharixer</span>
+				<img class="flag" src="https://www.speedrun.com/images/flags/gb.png">
+			</div>
+			<div id="playerContainer3" class="playerContainer flexContainer">
+				<img src="img/player-solo.png">
+				<span class="playerName">/tharixer</span>
+				<img class="flag" src="https://www.speedrun.com/images/flags/gb.png">
+			</div>
+			<div id="playerContainer4" class="playerContainer flexContainer">
+				<img src="img/player-solo.png">
+				<span class="playerName">/tharixer</span>
+				<img class="flag" src="https://www.speedrun.com/images/flags/gb.png">
+			</div>
+		</div>
+
+		<!-- Player wrappers for 2+ player layouts. -->
+		<div id="playerWrapperMulti1" class="playerWrapperMulti storageBox flexContainer">
+			<div id="playerContainer1" class="playerContainer flexContainer">
+				<img src="img/player-1.png">
+				<span class="playerName">/tharixer</span>
+				<img class="flag" src="https://www.speedrun.com/images/flags/gb.png">
+			</div>
+			<div class="finishTime flexContainer">99:99:99</div>
+		</div>
+		<div id="playerWrapperMulti2" class="playerWrapperMulti storageBox flexContainer">
+			<div id="playerContainer2" class="playerContainer flexContainer">
+				<img src="img/player-2.png">
+				<span class="playerName">/tharixer</span>
+				<img class="flag" src="https://www.speedrun.com/images/flags/gb.png">
+			</div>
+			<div class="finishTime flexContainer">99:99:99</div>
+		</div>
+		<div id="playerWrapperMulti3" class="playerWrapperMulti storageBox flexContainer">
+			<div id="playerContainer3" class="playerContainer flexContainer">
+				<img src="img/player-3.png">
+				<span class="playerName">/tharixer</span>
+				<img class="flag" src="https://www.speedrun.com/images/flags/gb.png">
+			</div>
+			<div class="finishTime flexContainer">99:99:99</div>
+		</div>
+		<div id="playerWrapperMulti4" class="playerWrapperMulti storageBox flexContainer">
+			<div id="playerContainer4" class="playerContainer flexContainer">
+				<img src="img/player-4.png">
+				<span class="playerName">/tharixer</span>
+				<img class="flag" src="https://www.speedrun.com/images/flags/gb.png">
+			</div>
+			<div class="finishTime flexContainer">99:99:99</div>
+		</div>
+
 		<!-- Temporary storage -->
-		<!-- Stuff here is moved into the correct places in JavaScript -->
+		<!-- Stuff here is moved into the correct places in JavaScript. -->
 		<div id="temporaryStorage">
 			<div id="gameName"></div>
 			<div id="gameAdditionalDetails"></div>
 			<div id="timer"></div>
 			<div id="sponsorLogoWrapper">
 				<div class="sponsorLogo"></div>
-			</div>
-
-			<!-- Players -->
-			<!-- Currently temporary code for layout checking -->
-			<div id="playerContainerStorage1" class="playerContainerStorage flexContainer">
-				<div class="playerContainer flexContainer">
-					<img src="img/twitch-logo.png">
-					<span class="playerName">/tharixer</span>
-					<img src="https://www.speedrun.com/images/flags/gb.png">
-				</div>
-				<div class="finishTime flexContainer">99:99:99</div>
-			</div>
-			<div id="playerContainerStorage2" class="playerContainerStorage flexContainer">
-				<div class="playerContainer flexContainer">
-					<img src="img/twitch-logo.png">
-					<span class="playerName">/tharixer</span>
-					<img src="https://www.speedrun.com/images/flags/gb.png">
-				</div>
-				<div class="finishTime flexContainer">99:99:99</div>
-			</div>
-			<div id="playerContainerStorage3" class="playerContainerStorage flexContainer">
-				<div class="playerContainer flexContainer">
-					<img src="img/twitch-logo.png">
-					<span class="playerName">/tharixer</span>
-					<img src="https://www.speedrun.com/images/flags/gb.png">
-				</div>
-				<div class="finishTime flexContainer">99:99:99</div>
-			</div>
-			<div id="playerContainerStorage4" class="playerContainerStorage flexContainer">
-				<div class="playerContainer flexContainer">
-					<img src="img/twitch-logo.png">
-					<span class="playerName">/tharixer</span>
-					<img src="https://www.speedrun.com/images/flags/gb.png">
-				</div>
-				<div class="finishTime flexContainer">99:99:99</div>
 			</div>
 		</div>
 		

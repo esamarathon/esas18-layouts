@@ -37,40 +37,32 @@ $(() => {
 		moveElementsToTempStorage(); // Move importants elements to temporary storage if needed.
 		extraElemsContainer.empty(); // Remove anything already added.
 
+		// Disable all player wrappers at the start, so the correct ones can be made visible later.
+		changeVisibility('.playerWrapperMulti', false);
+		changeVisibility('#playersWrapper', false);
+
 		// Game Capture/Player Wrappers
 		if (!layoutInfo.gameCaptures || layoutInfo.gameCaptures === 1 || layoutInfo.code === 'geoguessr' || layoutInfo.ds) {
-			// Create element for all players and move in all correct elements.
-			var playersElem = $('<div id="playersWrapper" class="storageBox flexContainer">');
-			$(".playerContainerStorage").detach().appendTo(playersElem);
-			extraElemsContainer.append(playersElem);
+			// Toggle on the correct wrapper to show the player names.
+			changeVisibility('#playersWrapper', true);
 		}
 		if (layoutInfo.gameCaptures >= 2 || layoutInfo.ds) {
 			if (layoutInfo.code !== 'geoguessr' && !layoutInfo.ds) {
-				// Create element for player 1 and move in correct element.
-				var playerElem1 = createPlayerWrapperMultiElement('1');
-				$("#playerContainerStorage1").detach().appendTo(playerElem1);
-				extraElemsContainer.append(playerElem1);
-
-				// Create element for player 2 and move in correct element.
-				var playerElem2 = createPlayerWrapperMultiElement('2');
-				$("#playerContainerStorage2").detach().appendTo(playerElem2);
-				extraElemsContainer.append(playerElem2);
+				// Toggle on the correct wrappers to show the player names.
+				changeVisibility('#playerWrapperMulti1', true);
+				changeVisibility('#playerWrapperMulti2', true);
 			}
 			extraElemsContainer.append(createGameCaptureElement('2'));
 		}
 		if (layoutInfo.gameCaptures >= 3) {
-			// Create element for player 3 and move in correct element.
-			var playerElem3 = createPlayerWrapperMultiElement('3');
-			$("#playerContainerStorage3").detach().appendTo(playerElem3);
-			extraElemsContainer.append(playerElem3);
+			// Toggle on the correct wrapper to show the player name.
+			changeVisibility('#playerWrapperMulti3', true);
 
 			extraElemsContainer.append(createGameCaptureElement('3'));
 		}
 		if (layoutInfo.gameCaptures >= 4) {
-			// Create element for player 4 and move in correct element.
-			var playerElem4 = createPlayerWrapperMultiElement('4');
-			$("#playerContainerStorage4").detach().appendTo(playerElem4);
-			extraElemsContainer.append(playerElem4);
+			// Toggle on the correct wrapper to show the player name.
+			changeVisibility('#playerWrapperMulti4', true);
 
 			extraElemsContainer.append(createGameCaptureElement('4'));
 		}
@@ -105,7 +97,7 @@ $(() => {
 		
 		// If the sponsor logo is in the info container (from above) or it's own thing.
 		if (layoutInfo.sponsorInInfo) {
-			infoContainerElem.append('<div class="infoDivider">');
+			infoContainerElem.append('<div class="infoDivider" style="opacity:1;">');
 			$("#sponsorLogoWrapper").addClass('sponsorLogoWrapperGrow').detach().appendTo(infoContainerElem);
 		}
 		else {
@@ -124,17 +116,20 @@ $(() => {
 		return $('<div id="webcam'+code+'" class="storageBox webcam">');
 	}
 
-	function createPlayerWrapperMultiElement(code) {
-		return $('<div id="playerWrapperMulti'+code+'" class="playerWrapperMulti storageBox flexContainer">');
-	}
-
 	// Move elements that hold information back into temporary storage if needed.
 	function moveElementsToTempStorage() {
 		$("#gameName").detach().appendTo('#temporaryStorage');
 		$("#gameAdditionalDetails").detach().appendTo('#temporaryStorage');
 		$("#timer").detach().appendTo('#temporaryStorage');
 		$("#sponsorLogoWrapper").removeClass('storageBox').removeClass('sponsorLogoWrapperGrow').detach().appendTo('#temporaryStorage');
-		$(".playerContainerStorage").detach().appendTo('#temporaryStorage');
+		//$(".playerContainerStorage").detach().appendTo('#temporaryStorage');
+	}
+
+	// Change if an element is visible or not.
+	function changeVisibility(elem, isVisible) {
+		$(elem).css({
+			visibility: isVisible ? 'visible' : 'hidden'
+		});
 	}
 	
 	// Set the CSS of the layout so everything can be styled correctly.
