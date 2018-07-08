@@ -6,6 +6,7 @@ var mpdConfig = nodecg.bundleConfig.mpd || {};
 var volume = mpdConfig.volume || 10;
 var currentVolume = volume;
 var fadeInterval;
+var connected = false;
 
 // Stores song data to be displayed on layouts.
 var songData = nodecg.Replicant('songData', {
@@ -45,6 +46,7 @@ nodecg.listenFor('pauseSong', fadeOut); // To be used on layouts.
 nodecg.listenFor('skipSong', skipSong);
 
 function onConnect() {
+	connected = true;
 	nodecg.log.info('MPD connection successful.');
 }
 
@@ -74,6 +76,7 @@ function onReady() {
 }
 
 function onEnd() {
+	connected = false;
 	nodecg.log.warn('MPD connection lost, retrying in 5 seconds.');
 	setTimeout(connect, 5000);
 }
@@ -137,6 +140,8 @@ function setVolume() {
 
 // Used to fade out and pause the song.
 function fadeOut() {
+	if (!connected) return;
+	
 	clearInterval(fadeInterval);
 	currentVolume = volume;
 	setVolume();
@@ -155,6 +160,8 @@ function fadeOut() {
 
 // Used to unpause and fade in the song.
 function fadeIn() {
+	if (!connected) return;
+
 	clearInterval(fadeInterval);
 	currentVolume = 0;
 	toggleSongPlayback();
