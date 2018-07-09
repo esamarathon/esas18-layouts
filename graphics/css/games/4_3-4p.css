@@ -1,15 +1,15 @@
 /* Diagonal lines on the background. */
 .bgLines {
-	left: 692px;
+	left: 695px;
 	top: 773px;
 	width: 234px;
 	height: 208px;
 }
 
 #webcam1 {
-	left: 668px;
+	left: 671px;
 	top: 336px;
-	width: 584px;
+	width: 578px;
 	height: 326px;
 }
 
@@ -19,9 +19,9 @@
 }
 
 #playerWrapperMulti1 {
-	left: 668px;
+	left: 671px;
 	top: 213px;
-	width: 584px;
+	width: 578px;
 	height: 50px;
 	justify-content: flex-start; /* Aligns horizontally left. */
 }
@@ -31,25 +31,25 @@
 }
 
 #playerWrapperMulti2 {
-	left: 668px;
+	left: 671px;
 	top: 273px;
-	width: 584px;
+	width: 578px;
 	height: 50px;
 	justify-content: flex-end; /* Aligns horizontally right. */
 }
 
 #playerWrapperMulti3 {
-	left: 668px;
+	left: 671px;
 	top: 675px;
-	width: 584px;
+	width: 578px;
 	height: 50px;
 	justify-content: flex-start; /* Aligns horizontally left. */
 }
 
 #playerWrapperMulti4 {
-	left: 668px;
+	left: 671px;
 	top: 735px;
-	width: 584px;
+	width: 578px;
 	height: 50px;
 	justify-content: flex-end; /* Aligns horizontally right. */
 }
@@ -57,35 +57,35 @@
 #gameCapture1 {
 	left: 0px;
 	top: 0px;
-	width: 665px;
+	width: 668px;
 	height: 499px;
 }
 
 #gameCapture2 {
-	left: 1255px;
+	left: 1252px;
 	top: 0px;
-	width: 665px;
+	width: 668px;
 	height: 499px;
 }
 
 #gameCapture3 {
 	left: 0px;
 	top: 502px;
-	width: 665px;
+	width: 668px;
 	height: 498px;
 }
 
 #gameCapture4 {
-	left: 1255px;
+	left: 1252px;
 	top: 502px;
-	width: 665px;
+	width: 668px;
 	height: 498px;
 }
 
 #infoContainer {
-	left: 668px;
+	left: 671px;
 	top: 0px;
-	width: 584px;
+	width: 578px;
 	height: 203px;
 
 	outline: 0;
@@ -97,9 +97,9 @@
 }
 
 #sponsorLogoWrapper {
-	left: 668px;
-	top: 0795px;
-	width: 584px;
+	left: 671px;
+	top: 795px;
+	width: 578px;
 	height: 205px;
 
 	outline: 0;
