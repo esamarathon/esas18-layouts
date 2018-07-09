@@ -7,6 +7,10 @@ $(() => {
 		$('#yellow').stop();
 		$('#purple').stop();
 
+		// Show the elements (in case they are hidden).
+		$('#yellow').show();
+		$('#purple').show();
+
 		// Return images to correct positions.
 		$('#yellow').css({left: '623px', top: '1080px'});
 		$('#purple').css({left: '-623px', top: '-1080px'});
@@ -21,6 +25,10 @@ $(() => {
 			$('#purple').animate({left: '623px', top: '1080px'}, 800, () => {
 				$('#yellow').removeAttr('style');
 				$('#purple').removeAttr('style');
+				
+				// Hide the elements.
+				$('#yellow').hide();
+				$('#purple').hide();
 			});
 		}, 1000);
 	});
