@@ -21,6 +21,11 @@
         "file": "omnibar.html",
         "width": 1920,
         "height": 80
+	  },
+	  {
+        "file": "transition.html",
+        "width": 1920,
+        "height": 1080
       },
       {
         "file": "intermission.html",
@@ -29,11 +34,6 @@
       },
       {
         "file": "game-layout.html",
-        "width": 1920,
-        "height": 1080
-      },
-      {
-        "file": "transition.html",
         "width": 1920,
         "height": 1080
       }
@@ -61,7 +61,17 @@
           "jpg",
           "jpeg",
           "png",
-          "gif"
+          "svg"
+        ]
+      },
+      {
+        "name": "sponsor-slides",
+        "title": "Sponsor Slides",
+        "allowedTypes": [
+          "jpg",
+          "jpeg",
+          "png",
+          "svg"
         ]
       }
     ]
