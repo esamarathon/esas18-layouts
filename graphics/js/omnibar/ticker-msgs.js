@@ -247,7 +247,8 @@ function showUpcomingRun() {
 		var randomInt = getRandomInt(nextRunsCache.length);
 		
 		// Check if run is still to come, if not we need to ignore it.
-		if (nextRunsCache[randomInt].scheduledS > moment().unix())
+		// Also need to ignore it if there is no scheduled time set.
+		if (nextRunsCache[randomInt].scheduledS && nextRunsCache[randomInt].scheduledS > moment().unix())
 			randomRun = nextRunsCache[randomInt];
 		
 		nextRunsCache.splice(randomInt, 1);
