@@ -41,6 +41,7 @@ layouts.value = layoutsTemp.slice(0);
 // Current layout info stored in here. Defaults to the first one in the list above.
 var currentGameLayout = nodecg.Replicant('currentGameLayout', {defaultValue: clone(layouts.value[0])});
 
+var lastScene = nodecg.Replicant('lastOBSScene'); // Stores the last scene (except the sponsor video).
 var obsConfig = nodecg.bundleConfig.obs || {};
 
 // CSS -> OBS source names
@@ -53,6 +54,15 @@ var obsSourceKeys = {
 	'webcam1': obsConfig.camera1 || 'Camera Capture 1',
 	'webcam2': obsConfig.camera2 || 'Camera Capture 2'
 };
+
+// Fired when the OBS WebSocket actually connects.
+obs.on('ConnectionOpened', () => {
+	// Get current scene.
+	obs.send('GetCurrentScene', {}, (err, data) => {
+		if (!err && !data.name.toLowerCase().includes('sponsor'))
+			lastScene.value = data.name;
+	});
+});
 
 // Message used to change layout, usually manually.
 nodecg.listenFor('changeGameLayout', (id, callback) => {
@@ -87,6 +97,18 @@ obs.on('TransitionBegin', (data) => {
 	if (data.name === 'Blank Stinger') {
 		nodecg.sendMessage('startTransition');
 	}
+});
+
+// Listen for scene switches to update the replicant.
+obs.on('SwitchScenes', (data) => {
+	if (!data['scene-name'].toLowerCase().includes('sponsor'))
+		lastScene.value = data['scene-name'];
+});
+
+// Switch back to the last scene when the sponsor video finishes.
+nodecg.listenFor('sponsorVideoFinished', () => {
+	if (!lastScene.value) return;
+	obs.send('SetCurrentScene', {'scene-name': lastScene.value});
 });
 
 function changeGameLayout(info, callback) {

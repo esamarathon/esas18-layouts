@@ -1,8 +1,8 @@
 'use strict';
 $(() => {
 	var init = false;
-	var sponsorImages = nodecg.Replicant('assets:sponsors');
-	sponsorImages.on('change', newVal => {
+	var sponsorLogos = nodecg.Replicant('assets:sponsor-logos');
+	sponsorLogos.on('change', newVal => {
 		// If we aren't currently doing a rotation and there are logos available, start it off.
 		if (!init && newVal.length > 0) {
 			setInterval(rotateSponsors, 60000);
@@ -14,8 +14,8 @@ $(() => {
 	// Rotate through logos.
 	var index = 0;
 	function rotateSponsors() {
-		animationChangeSponsorImage($('.sponsorLogo'), sponsorImages.value[index].url);
+		animationChangeSponsorImage($('.sponsorLogo'), sponsorLogos.value[index].url);
 		index++;
-		if (index >= sponsorImages.value.length) index = 0;
+		if (index >= sponsorLogos.value.length) index = 0;
 	}
 });

@@ -8,7 +8,8 @@ module.exports = function(nodecg) {
 	
 	// Initalising some replicants.
 	// Doing this in an extension so we don't need to declare the options everywhere else.
-	// none yet :( (some are done in other extension files)
+	var currentSponsorVideo = nodecg.Replicant('currentSponsorVideo', {defaultValue: {info: {}, played: false}});
+	var sponsorVideosLastTimePlayed = nodecg.Replicant('sponsorVideosLastTimePlayed', {defaultValue: {}});
 	
 	// Other extension files we need to load.
 	require('./layouts');

@@ -12,7 +12,7 @@
   },
   "homepage": "https://github.com/esamarathon/esas18-layouts#readme",
   "nodecg": {
-    "compatibleRange": "~0.9.0",
+    "compatibleRange": "^1.0.0",
     "dependencies": [
       "speedcontrol/nodecg-speedcontrol:~0.9"
     ],
@@ -26,6 +26,12 @@
         "file": "transition.html",
         "width": 1920,
         "height": 1080
+      },
+	  {
+        "file": "sponsor-video.html",
+        "width": 1920,
+		"height": 1080,
+		"singleInstance": true
       },
       {
         "file": "intermission.html",
@@ -47,6 +53,12 @@
         "workspace": "Scene Editing"
       },
       {
+        "name": "sponsor-video-control",
+        "title": "Sponsor Video Control",
+        "width": 3,
+        "file": "sponsor-video-control.html"
+      },
+      {
         "name": "music-player",
         "title": "Music Player",
         "width": 2,
@@ -55,7 +67,7 @@
     ],
     "assetCategories": [
       {
-        "name": "sponsors",
+        "name": "sponsor-logos",
         "title": "Sponsor Logos",
         "allowedTypes": [
           "jpg",
@@ -65,13 +77,21 @@
         ]
       },
       {
+        "name": "sponsor-videos",
+        "title": "Sponsor Videos",
+        "allowedTypes": [
+          "mp4"
+        ]
+      },
+      {
         "name": "sponsor-slides",
-        "title": "Sponsor Slides",
+        "title": "Sponsor Slide Images/Videos",
         "allowedTypes": [
           "jpg",
           "jpeg",
           "png",
-          "svg"
+		  "svg",
+		  "mp4"
         ]
       }
     ]
