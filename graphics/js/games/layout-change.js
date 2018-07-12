@@ -122,14 +122,6 @@ $(() => {
 		$("#gameAdditionalDetails").detach().appendTo('#temporaryStorage');
 		$("#timer").detach().appendTo('#temporaryStorage');
 		$("#sponsorLogoWrapper").removeClass('storageBox').removeClass('sponsorLogoWrapperGrow').detach().appendTo('#temporaryStorage');
-		//$(".playerContainerStorage").detach().appendTo('#temporaryStorage');
-	}
-
-	// Change if an element is visible or not.
-	function changeVisibility(elem, isVisible) {
-		$(elem).css({
-			visibility: isVisible ? 'visible' : 'hidden'
-		});
 	}
 	
 	// Set the CSS of the layout so everything can be styled correctly.

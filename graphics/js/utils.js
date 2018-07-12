@@ -108,3 +108,10 @@ function formatDollarAmount(amount, forceRemoveCents) {
 	else
 		return '$'+Math.floor(amount).toLocaleString('en-US', {minimumFractionDigits: 0});
 }
+
+// Change if an element is visible or not.
+function changeVisibility(elem, isVisible) {
+	$(elem).css({
+		visibility: isVisible ? 'visible' : 'hidden'
+	});
+}
