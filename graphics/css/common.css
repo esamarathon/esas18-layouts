@@ -60,6 +60,7 @@ body {
 	padding: 3px;
 	height: 50px;
 	background-color: #ffbd16;
+	opacity: 0; /* These elements need to be 0 opacity on load so they fade in correctly. */
 }
 .playerName {
 	font-size: 30px;
@@ -67,7 +68,7 @@ body {
 	margin: 0 7px !important;
 }
 .playerContainer img {height: 100%;}
-.playerContainer > *:nth-child(n+2) {margin-left: 3px;}
+.playerContainer > *:nth-child(n+3) {margin-left: 3px;}
 #playersWrapper > .playerContainer:nth-child(n+2) {margin-top: 10px;}
 .playerWrapperMulti {outline: 0;}
 

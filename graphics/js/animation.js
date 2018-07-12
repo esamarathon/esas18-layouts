@@ -2,9 +2,9 @@
 
 // Simple fade out/in animation by using opacity.
 function animationSetField(selector, newHTML, callback) {
-	$(selector).animate({'opacity': '0'}, 1000, 'linear', () => {
+	$(selector).animate({'opacity': '0'}, 1000, 'linear').promise().done(() => {
 		if (newHTML) selector.html(newHTML);
-		$(selector).animate({'opacity': '1'}, 1000, 'linear', () => {
+		$(selector).animate({'opacity': '1'}, 1000, 'linear').promise().done(() => {
 			if (callback) callback();
 		});
 	});
@@ -12,14 +12,28 @@ function animationSetField(selector, newHTML, callback) {
 
 // Simple fade out for 1s.
 function animationFadeOutElement(selector, callback) {
-	$(selector).animate({'opacity': '0'}, 1000, 'linear', () => {
+	$(selector).animate({'opacity': '0'}, 1000, 'linear').promise().done(() => {
 		if (callback) callback();
 	});
 }
 
 // Simple fade in for 1s.
 function animationFadeInElement(selector, callback) {
-	$(selector).animate({'opacity': '1'}, 1000, 'linear', () => {
+	$(selector).animate({'opacity': '1'}, 1000, 'linear').promise().done(() => {
+		if (callback) callback();
+	});
+}
+
+// Simple fade out for X amount of time.
+function animationFadeOutElementMS(selector, ms, callback) {
+	$(selector).animate({'opacity': '0'}, ms, 'linear').promise().done(() => {
+		if (callback) callback();
+	});
+}
+
+// Simple fade in for X amount of time.
+function animationFadeInElementMS(selector, ms, callback) {
+	$(selector).animate({'opacity': '1'}, ms, 'linear').promise().done(() => {
 		if (callback) callback();
 	});
 }
@@ -46,64 +60,7 @@ function animationUpdateDonationTotal(selector, oldVal, newVal) {
 	}, 4000, 'linear');
 }
 
-// Used to clean player containers that are not needed.
-// (This doesn't actually clear them, just hides the elements for now).
-function animationCleanPlayerData(selector) {
-	var elementsToFadeOut = '.playerLogo, .playerText, .playerFlag, .playerCoOp';
-	$(selector).find(elementsToFadeOut).animate({'opacity': '0'}, 1000, 'linear');
-}
-
-function animationChangePlayerData(selector, playerData, twitch, hideCoop, showCoop) {
-	// Get a URL for flag image if region is set, if old and new URL are the same, nothing is done.
-	if (playerData.region)
-		var flagURL = 'https://www.speedrun.com/images/flags/'+playerData.region.toLowerCase()+'.png';
-	var leaveFlag = $('.playerFlag', selector).attr('src') === flagURL;
-	
-	// Configuring elements that need fading out this time.
-	var elementsToFadeOut = '.playerLogo, .playerText';
-	if (!leaveFlag) elementsToFadeOut += ', .playerFlag';
-	if (hideCoop) elementsToFadeOut += ', .playerCoOp';
-	
-	// Do the actual fading out by going to opacity 0.
-	$(selector).find(elementsToFadeOut).animate({'opacity': '0'}, 1000, 'linear');
-	
-	// Triggers once everything from the above animate is done.
-	$(selector).find(elementsToFadeOut).promise().done(() => {
-		// Hide these elements if we want to completely remove them.
-		if (!leaveFlag) $('.playerFlag', selector).hide();
-		if (hideCoop) $('.playerCoOp', selector).hide();
-		
-		if (twitch) {
-			var name = (playerData.twitch) ? '/'+playerData.twitch : '???';
-			$('.playerLogo', selector).removeClass('nameLogo').addClass('twitchLogo');
-		}
-		
-		else {
-			var name = playerData.name;
-			$('.playerLogo', selector).removeClass('twitchLogo').addClass('nameLogo');
-		}
-		
-		$('.playerText', selector).html(name);
-		
-		// If changing the flag and we have a URL to set, do that and show it.
-		if (!leaveFlag && flagURL) {
-			$('.playerFlag', selector).attr('src', flagURL);
-			$('.playerFlag', selector).show();
-		}
-		
-		// Configuring elements that need fading in this time.
-		var elementsToFadeIn = '.playerLogo, .playerText';
-		if (!leaveFlag) elementsToFadeIn += ', .playerFlag';
-		if (showCoop) {
-			elementsToFadeIn += ', .playerCoOp';
-			$('.playerCoOp', selector).show();
-		}
-		
-		// Do the actual fading in by going to opacity 1.
-		$(selector).find(elementsToFadeIn).animate({'opacity': '1'}, 1000, 'linear');
-	});
-}
-
+// Fades out old image, changes to new one, fades in.
 function animationChangeSponsorImage(element, assetURL) {
 	animationFadeOutElement(element, () => {
 		element.css('background-image', 'url("'+assetURL+'")');
