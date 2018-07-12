@@ -99,6 +99,10 @@ body {
 	color: #b7b7b7;
 }
 
+#gameCategory, #gameSystem, #gameEstimate {
+	display: inline-block;
+}
+
 #timer {
 	font-size: 110px;
 	margin-top: -0.15em;
