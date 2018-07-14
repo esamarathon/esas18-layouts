@@ -35,6 +35,13 @@ body {
 	height: 265px;
 }
 
+#esaLogo {
+	position: fixed;
+	background-repeat: no-repeat;
+	background-size: contain;
+	background-position: center center;
+}
+
 /* All areas that store something. */
 /* A transparent box with 3px yellow outline. */
 .storageBox {

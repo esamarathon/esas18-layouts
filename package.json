@@ -21,17 +21,17 @@
         "file": "omnibar.html",
         "width": 1920,
         "height": 80
-	  },
-	  {
+      },
+      {
         "file": "transition.html",
         "width": 1920,
         "height": 1080
       },
-	  {
+      {
         "file": "sponsor-video.html",
         "width": 1920,
-		"height": 1080,
-		"singleInstance": true
+        "height": 1080,
+        "singleInstance": true
       },
       {
         "file": "intermission.html",
@@ -90,8 +90,8 @@
           "jpg",
           "jpeg",
           "png",
-		  "svg",
-		  "mp4"
+          "svg",
+          "mp4"
         ]
       }
     ]

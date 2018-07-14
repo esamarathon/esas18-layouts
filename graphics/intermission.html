@@ -3,11 +3,59 @@
 	<head>
 		<meta charset="UTF-8">
 		
+		<!-- CSS -->
+		<link href="css/common.css" rel="stylesheet"/>
+		<link href="css/intermission.css" rel="stylesheet"/>
+		
 		<!-- JavaScript -->
 		<script src="../bower_components/jquery/dist/jquery.min.js"></script>
-		<script src="js/music.js"></script>
+		<script src="../bower_components/letteringjs/jquery.lettering.js"></script>
+		<script src="js/utils.js"></script>
+		<script src="js/animation.js"></script>
+		<script src="js/sponsors.js"></script>
+		<script src="js/intermission/general.js"></script>
+		<script src="js/intermission/runs.js"></script>
+		<script src="js/intermission/reader.js"></script>
+		<script src="js/intermission/music.js"></script>
 	</head>
 	<body>
-		<!-- content to be added -->
+		<!-- Background image -->
+		<div id="background"></div>
+		<div class="bgLines"></div>
+
+		<!-- Webcam(s) -->
+		<div id="webcam1" class="storageBox webcam"></div>
+
+		<!-- Our Logo -->
+		<div id="esaLogo"></div>
+		
+		<!-- Sponsor Logos -->
+		<div id="sponsorLogoWrapper" class="storageBox">
+			<div class="sponsorLogo"></div>
+		</div>
+
+		<!-- Coming Up Next (always on screen) -->
+		<div id="comingUpNext" class="comingUpContainer flexContainer"></div>
+
+		<!-- Rotating sponsor slides (sometimes on screen) -->
+		<div id="rotatingSponsorSlidesBox" class="rotatingInfoBox">
+			<video class="videoPlayer" autoplay muted loop>
+				<source class="videoSrc" type="video/mp4">
+			</video>
+		</div>
+
+		<!-- Rotating coming up runs (sometimes on screen) -->
+		<div id="rotatingComingUpRunsBox" class="rotatingInfoBox flexContainer"></div>
+
+		<!-- Reader/Music information -->
+		<div id="readerMusicInfo" class="flexContainer">
+			<img id="micIcon" src="img/mic-icon.png">
+			<div id="readerInfo" class="flexContainer">
+				<div class="name"></div>
+				<img class="flag">
+			</div>
+			<img src="img/mcat-icon.png">
+			<div id="musicInfo"></div>
+		</div>
 	</body>
 </html>

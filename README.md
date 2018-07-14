@@ -19,3 +19,10 @@ I also like to use a batch file like this to run MPD on Windows, to try and make
 START mpd.exe mpd.conf
 WMIC process where name="mpd.exe" CALL setpriority "above normal"
 ```
+
+## FlagCarrier Configuration
+You will need to install the [speedcontrol-flagcarrier](https://github.com/speedcontrol/speedcontrol-flagcarrier) bundle to use this part, along with using one of the FlagCarrier applications to set them.
+
+For donation readers (the ones off camera), their group_id should be `donations`, and there should only be 1 position, which should be `reader`.
+
+For hosts (the ones on camera), their group_id should be `hosts`, and the available positions should be `left`, `midleft`, `middle`, `midright` and `right`.
