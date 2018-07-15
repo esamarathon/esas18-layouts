@@ -19,7 +19,7 @@ $(() => {
 
 		// If the video has been played before, force back to the last scene.
 		if (currentVideo.value.played) {
-			setTimeout(() =>nodecg.sendMessage('sponsorVideoFinished'), 5000);
+			setTimeout(() => nodecg.sendMessage('sponsorVideoFinished'), 5000);
 			return;
 		}
 

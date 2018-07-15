@@ -36,6 +36,7 @@
 
 .comingUpContainer {
 	flex-direction: column;
+	opacity: 0;
 }
 
 .comingUpHeader {
@@ -45,6 +46,7 @@
 	text-align: center;
 	font-size: 41px;
 	color: black;
+	text-transform: uppercase;
 }
 
 .comingUpBody {
@@ -53,6 +55,16 @@
 	flex: 1;
 	text-align: center;
 	font-size: 41px; /* to be decided */
+	flex-direction: column;
+}
+
+#gameAdditionalDetails {
+	opacity: 1;
+}
+
+.gameCategory, .gameConsole, .gamePlayers {
+	margin: 5px;
+	font-size: 30px;
 }
 
 #comingUpNext {
@@ -76,9 +88,20 @@
 	opacity: 0;
 }
 
-.videoPlayer {
+#sponsorVideoPlayer {
 	width: 100%;
 	height: 100%;
+	display: none;
+}
+
+#sponsorSlideDisplay {
+	width: 100%;
+	height: 100%;
+	/*background-image: url('../img/example-slide.png');*/
+	background-repeat: no-repeat;
+	background-size: contain;
+	background-position: center center;
+	display: none;
 }
 
 #rotatingComingUpRunsBox {

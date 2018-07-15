@@ -2,11 +2,6 @@
 $(() => {
 	// The bundle name where all the run information is pulled from.
 	var speedcontrolBundle = 'nodecg-speedcontrol';
-	
-	setInterval(() => {
-		animationFadeInElement($('#rotatingSponsorSlidesBox'));
-		animationFadeOutElement($('#rotatingComingUpRunsBox'));
-	}, 10000);
 });
 
 // Reduce the font size if the song title happens to go onto 2 lines.
