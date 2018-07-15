@@ -106,6 +106,16 @@ obs.on('TransitionBegin', (data) => {
 obs.on('SwitchScenes', (data) => {
 	lastScene.value = currentScene.value;
 	currentScene.value = data['scene-name'];
+
+	if (currentScene.value.includes('intermission') && !lastScene.value.includes('intermission')) {
+		// start music
+		nodecg.sendMessage('playSong');
+	}
+
+	else if (!currentScene.value.includes('intermission') && lastScene.value.includes('intermission')) {
+		// stop music
+		nodecg.sendMessage('pauseSong');
+	}
 });
 
 // Switch back to the last scene when the sponsor video finishes.
