@@ -41,7 +41,8 @@ layouts.value = layoutsTemp.slice(0);
 // Current layout info stored in here. Defaults to the first one in the list above.
 var currentGameLayout = nodecg.Replicant('currentGameLayout', {defaultValue: clone(layouts.value[0])});
 
-var lastScene = nodecg.Replicant('lastOBSScene'); // Stores the last scene (except the sponsor video).
+var lastScene = nodecg.Replicant('lastOBSScene');
+var currentScene = nodecg.Replicant('currentOBSScene');
 var obsConfig = nodecg.bundleConfig.obs || {};
 
 // CSS -> OBS source names
@@ -59,8 +60,10 @@ var obsSourceKeys = {
 obs.on('ConnectionOpened', () => {
 	// Get current scene.
 	obs.send('GetCurrentScene', {}, (err, data) => {
-		if (!err && !data.name.toLowerCase().includes('sponsor'))
-			lastScene.value = data.name;
+		if (!err) {
+			lastScene.value = currentScene.value;
+			currentScene.value = data.name;
+		}
 	});
 });
 
@@ -101,8 +104,8 @@ obs.on('TransitionBegin', (data) => {
 
 // Listen for scene switches to update the replicant.
 obs.on('SwitchScenes', (data) => {
-	if (!data['scene-name'].toLowerCase().includes('sponsor'))
-		lastScene.value = data['scene-name'];
+	lastScene.value = currentScene.value;
+	currentScene.value = data['scene-name'];
 });
 
 // Switch back to the last scene when the sponsor video finishes.
