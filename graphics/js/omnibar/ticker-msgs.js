@@ -25,8 +25,10 @@ var messageTypeChance = {
 	5: 1, // StC promotional message
 	6: 2, // Donation URL message
 	7: 2, // Other stream run information
-	8: 1  // Other stream promotion
-}
+	8: 1, // Other stream promotion
+	9: 1, // Team promotion.
+	10: 0.2 // Stay Hydrated
+};
 
 // Choose a random index on startup.
 chooseRandomMessageType(true);
@@ -163,6 +165,16 @@ function showTickerMessages() {
 	if (messageType === 8) {
 		var streamChannel = nodecg.bundleConfig.stream2 ? 'esa' : 'esamarathon2';
 		displayMessage('<span class="textGlow">Watch more great runs over @ <span class="greyText">twitch.tv/'+streamChannel+'</span>!</span>', null, 33, null, true);
+	}
+
+	// Team promotion.
+	if (messageType === 9 ) {
+		displayMessage('<span class="textGlow">Check out our Twitch team @ <span class="greyText">twitch.tv/team/esa</span>!</span>', null, 33, null, true);
+	}
+
+	// Stay Hydrated
+	if (messageType === 10) {
+		displayMessage('<span class="textGlow">Are you remembering to stay hydrated?</span>', null, 33, null, true);
 	}
 	
 	chooseRandomMessageType();
@@ -342,7 +354,18 @@ function chooseRandomMessageType(init) {
 
 	for (var messageTypeKey in messageTypeChance) {
 		if (!init && messageTypeKey === messageType) continue; // Skip current message type.
-		for (var i = 0; i < messageTypeChance[messageTypeKey]; i++) {
+		var chance = messageTypeChance[messageTypeKey];
+
+		// Rare message dice roll on if it appears or not.
+		if (chance < 1) {
+			var random = getRandomFloat(1/chance);
+			if (random >= (1/chance)-1) {
+				chance = 1;
+			}
+			else continue; // Skip current message type.
+		}
+
+		for (var i = 0; i < chance; i++) {
 			messageTypeList.push(parseInt(messageTypeKey));
 		}
 	}

@@ -82,6 +82,10 @@ function getRandomInt(max) {
 	return Math.floor(Math.random()*Math.floor(max));
 }
 
+function getRandomFloat(max) {
+	return Math.random()*max;
+}
+
 // Used to get the width of supplied text.
 function getTextWidth(text, size) {
 	var canvas = document.createElement('canvas');
