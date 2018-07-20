@@ -107,14 +107,18 @@ obs.on('SwitchScenes', (data) => {
 	lastScene.value = currentScene.value;
 	currentScene.value = data['scene-name'];
 
-	if (currentScene.value.includes('intermission') && !lastScene.value.includes('intermission')) {
+	if (currentScene.value.toLowerCase().includes('intermission') && !lastScene.value.toLowerCase().includes('intermission')) {
 		// start music
 		nodecg.sendMessage('playSong');
 	}
 
-	else if (!currentScene.value.includes('intermission') && lastScene.value.includes('intermission')) {
+	else if (!currentScene.value.toLowerCase().includes('intermission') && lastScene.value.toLowerCase().includes('intermission')) {
 		// stop music
 		nodecg.sendMessage('pauseSong');
+	}
+
+	if (currentScene.value.toLowerCase().includes('(ads)')) {
+		nodecg.sendMessageToBundle('playTwitchAd', speedcontrolBundle, () => {});
 	}
 });
 
