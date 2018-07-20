@@ -155,7 +155,7 @@ function showTickerMessages() {
 
 	// Other stream run information.
 	if (messageType === 7) {
-		if (otherStreamInfo.value && !otherStreamInfo.value.game.toLowerCase().includes('offline'))
+		if (otherStreamInfo.value && !formPlayerNamesString(otherStreamInfo.value).toLowerCase().includes('offline'))
 			showOtherStreamInfo();
 		else
 			retry = true;
