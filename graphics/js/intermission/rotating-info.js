@@ -5,30 +5,35 @@ $(() => {
 
 	var slides = nodecg.Replicant('assets:sponsor-slides');
 	var currentScene = nodecg.Replicant('currentOBSScene');
+	var bidsRep = nodecg.Replicant('bids');
+	var prizesRep = nodecg.Replicant('prizes');
 
+	var defaultRotate = 20000;
 	var lastElem;
 	var rotateIndex = 0;
-	var rotateTotal = 2;
+	var rotateTotal = 4;
 	var rotateTimeout;
 	var videoEvt;
 
-	currentScene.on('change', newVal => {
-		if (newVal.includes('intermission')) {
-			rotateIndex = 0;
-			rotate();
-		}
+	NodeCG.waitForReplicants(slides, currentScene, bidsRep, prizesRep).then(() => {
+		currentScene.on('change', newVal => {
+			if (newVal.toLowerCase().includes('intermission')) {
+				rotateIndex = 0;
+				rotate();
+			}
 
-		else {
-			clearTimeout(rotateTimeout);
-			animationFadeOutElement(lastElem);
+			else {
+				clearTimeout(rotateTimeout);
+				animationFadeOutElement(lastElem);
 
-			// Stop/remove video if needed.
-			$('#sponsorVideoPlayer')[0].removeEventListener('timeupdate', videoEvt);
-			$('#sponsorVideoPlayer')[0].removeEventListener('ended', videoEvt);
-			$('#sponsorVideoPlayer')[0].pause();
-			$('#sponsorVideoPlayer > .videoSrc').removeAttr('src');
-			$('#sponsorVideoPlayer')[0].load();
-		}
+				// Stop/remove video if needed.
+				$('#sponsorVideoPlayer')[0].removeEventListener('timeupdate', videoEvt);
+				$('#sponsorVideoPlayer')[0].removeEventListener('ended', videoEvt);
+				$('#sponsorVideoPlayer')[0].pause();
+				$('#sponsorVideoPlayer > .videoSrc').removeAttr('src');
+				$('#sponsorVideoPlayer')[0].load();
+			}
+		});
 	});
 
 	function rotate() {
@@ -42,6 +47,16 @@ $(() => {
 			showSponsorSlides();
 		}
 
+		// Bids
+		if (rotateIndex === 2) {
+			showBids();
+		}
+
+		// Prizes
+		if (rotateIndex === 3) {
+			showPrizes();
+		}
+
 		rotateIndex++;
 		if (rotateIndex >= rotateTotal)
 			rotateIndex = 0;
@@ -51,7 +66,69 @@ $(() => {
 		animationFadeOutElement(lastElem);
 		lastElem = $('#rotatingComingUpRunsBox');
 		animationFadeInElement($('#rotatingComingUpRunsBox'));
-		rotateTimeout = setTimeout(rotate, 10000);
+		rotateTimeout = setTimeout(rotate, defaultRotate);
+	}
+	
+	function showPrizes() {
+		var prize = prizesRep.value[getRandomInt(prizesRep.value.length)];
+		var prizeBox = $('#rotatingPrizesBox');
+		if (prize.image) {
+			$('.prizeImg', prizeBox).show();
+			$('.prizeImg', prizeBox).attr('src', prize.image);
+		}
+		else {
+			$('.prizeImg', prizeBox).hide();
+		}
+		$('.prizeName > span', prizeBox).html(prize.name);
+		$('.prizeProvider > span', prizeBox).html(prize.provided);
+		$('.prizeMinDonation > span', prizeBox).html(formatDollarAmount(prize.minimum_bid));
+
+		animationFadeOutElement(lastElem);
+		lastElem = $('#rotatingPrizesBox');
+		animationFadeInElement($('#rotatingPrizesBox'));
+		rotateTimeout = setTimeout(rotate, defaultRotate);
+	}
+
+	function showBids() {
+		var bidsBox = $('#rotatingBidsBox');
+		var bid = bidsRep.value[getRandomInt(bidsRep.value.length)];
+		var optionsString = '';
+
+		// Normal Goal
+		if (!bid.options) {
+			$('.bidsHeader > span', bidsBox).html('Upcoming Goal');
+			optionsString = formatDollarAmount(bid.total)+'/'+formatDollarAmount(bid.goal);
+			$('.bidsAmount', bidsBox).css('font-size', '45px');
+		}
+		
+		// Bid War
+		else {
+			$('.bidsHeader > span', bidsBox).html('Upcoming Bid War');
+			$('.bidsAmount', bidsBox).css('font-size', '35px');
+			var optionsFormatted = [];
+			bid.options.forEach(option => {
+				optionsFormatted.push(option.name+' ('+formatDollarAmount(option.total)+')');
+			});
+			if (!optionsFormatted.length)
+				optionsString += '<i>No options submitted yet, be the first!</i>';
+			else {
+				if (bid.allow_user_options)
+					optionsFormatted.push('<i>...or you could submit your own idea!</i>');
+			}
+
+			optionsFormatted = optionsFormatted.slice(0, 4);
+			if (optionsFormatted.length) optionsString = optionsFormatted.join('<br>');
+		}
+
+		$('.bidsGame', bidsBox).html(bid.game+' - '+bid.category);
+		$('.bidsName', bidsBox).html(bid.name);
+		//$('.bidsDesc', bidsBox).html('('+bid.description+')');
+		$('.bidsAmount', bidsBox).html(optionsString);
+		
+		animationFadeOutElement(lastElem);
+		lastElem = $('#rotatingBidsBox');
+		animationFadeInElement($('#rotatingBidsBox'));
+		rotateTimeout = setTimeout(rotate, defaultRotate);
 	}
 
 	var sponsorIndex = 0;
@@ -89,7 +166,7 @@ $(() => {
 				animationFadeOutElement(lastElem);
 				lastElem = $('#rotatingSponsorSlidesBox');
 				animationFadeInElement($('#rotatingSponsorSlidesBox'));
-				rotateTimeout = setTimeout(rotate, 10000);
+				rotateTimeout = setTimeout(rotate, defaultRotate);
 			});
 		}
 
