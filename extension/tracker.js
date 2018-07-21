@@ -116,6 +116,25 @@ repeater.on('streamInfo', data => {
 		otherStreamInfo.value = data.stream1;
 });
 
+// Triggered when data is received from the omnibar moderation website.
+// Currently can either be Twitch subscribers or Twitter tweets.
+repeater.on('omnibarMod', data => {
+	console.log(data);
+
+	// Tweets from Twitter.
+	if (data.provider === 'twitter' && data.type === 'tweet') {
+		nodecg.sendMessage('newTweet', data);
+	}
+
+	else if (data.provider === 'twitch') {
+		nodecg.sendMessage('newSub', data);
+
+		/*if (data.type === 'sub') {}
+		if (data.type === 'resub') {}
+		if (data.type === 'giftsub') {}*/
+	}
+});
+
 // POSTs run data when it's changed in nodecg-speedcontrol to the server.
 var runDataActiveRun = nodecg.Replicant('runDataActiveRun', speedcontrolBundle);
 runDataActiveRun.on('change', (newVal, oldVal) => {

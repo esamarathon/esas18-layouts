@@ -43,17 +43,17 @@ $(() => {
 		}
 
 		// Sponsor Slides
-		if (rotateIndex === 1) {
+		if (rotateIndex === 1 && slides.value.length) {
 			showSponsorSlides();
 		}
 
 		// Bids
-		if (rotateIndex === 2) {
+		if (rotateIndex === 2 && bidsRep.value.length) {
 			showBids();
 		}
 
 		// Prizes
-		if (rotateIndex === 3) {
+		if (rotateIndex === 3 && prizesRep.value.length) {
 			showPrizes();
 		}
 

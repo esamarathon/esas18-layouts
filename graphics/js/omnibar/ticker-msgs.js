@@ -5,6 +5,8 @@ var speedcontrolBundle = 'nodecg-speedcontrol';
 
 // Declaring other variables.
 var newDonations = []; // Any new donations are stored for check on the ticks.
+var newSubs = []; // Any new subscribers are stored for check on the ticks.
+var newTweets = []; // Any new tweets are stored for check on the ticks.
 var recentTopDonation;
 var showRecentTopDonation;
 var recentTopDonationTO;
@@ -62,6 +64,40 @@ nodecg.listenFor('newDonation', donation => {
 	}
 });
 
+nodecg.listenFor('newSub', subData => {
+	newSubs.push(subData);
+});
+
+nodecg.listenFor('newTweet', tweetData => {
+	newTweets.push(tweetData);
+});
+
+/*var subExample = {
+	message: {
+		trailing: 'This is a nice marathon youve got here',
+		tags: {
+			'system-msg': 'AyyJmc\\sjust\\ssubscribed\\swith\\sTwitch\\sPrime!'
+		}	
+	}
+};
+
+setTimeout(() => {
+	newSubs.push(subExample);
+}, 10000);*/
+
+/*var tweetExample = {
+	message: {
+		full_text: 'Leaving for #ESASummer18 now - gonna be picking up 4 Danish mystery guests on the way, stay tuned for more pics 👀 https://t.co/KqlLQlS5sJ'
+	},
+	user: {
+		name: 'Flippy_O'
+	}
+};
+
+setTimeout(() => {
+	newTweets.push(tweetExample);
+}, 10000);*/
+
 // Donation test code below.
 /*var donationExample = {
 	id: 1,
@@ -95,6 +131,18 @@ function showTickerMessages() {
 	if (newDonations.length > 0) {
 		showDonation(newDonations[0], true);
 		newDonations.shift(); // Remove first donation.
+		return;
+	}
+
+	if (newSubs.length > 0) {
+		showSub(newSubs[0]);
+		newSubs.shift(); // Remove first sub.
+		return;
+	}
+
+	if (newTweets.length > 0) {
+		showTweet(newTweets[0]);
+		newTweets.shift(); // Remove first tweet.
 		return;
 	}
 	
@@ -196,6 +244,37 @@ function showDonation(donation, isNew) {
 	message = (message && message !== '') ? message.replace(/\s\s+|\n/g, ' ') : undefined;
 	
 	displayMessage(line1, message, 25, 22);
+}
+
+function showTweet(tweetData) {
+	var user = tweetData.user.name;
+
+	// Regex removes multiple spaces/newlines from tweets.
+	var message = tweetData.message.full_text;
+	message = (message && message !== '') ? message.replace(/\s\s+|\n/g, ' ') : undefined;
+
+	// Regex removes Twitter URL shortener links.
+	message = message.replace(/https:\/\/t\.co\/\w+/g, '');
+
+	var line1 = '<img src="img/twitter-logo.png" class="emoji"> '+user;
+	var line2 = message;
+
+	displayMessage(line1, line2, 25, 22);
+}
+
+function showSub(subData) {
+	var systemMsg = subData.message.tags['system-msg'].replace(/\\s/g, ' ');
+
+	// Regex removes multiple spaces/newlines from custom resub message.
+	if (subData.message.trailing) {
+		var message = subData.message.trailing;
+		message = (message && message !== '') ? message.replace(/\s\s+|\n/g, ' ') : undefined;
+	}
+
+	var line1 = systemMsg;
+	var line2 = message;
+
+	displayMessage(line1, line2, 25, 22);
 }
 
 // Handles bids cache if empty and chooses one at random to show.
