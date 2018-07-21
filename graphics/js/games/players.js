@@ -16,13 +16,11 @@ $(() => {
 
 	var finishTimes = $('.finishTime'); // Array of finish timers (*should* be in the same order as the players).
 
-	var tickRateName = 10000;
-	var tickRateTwitch = 5000;
+	var tickRateName = 45000;
+	var tickRateTwitch = 15000;
 	var tickTimeout;
 	var currentTeamsData = []; // All teams data is stored here for reference when changing.
 	var teamMemberIndex = []; // Stores what team member of each team is currently being shown.
-	
-	//setTimeout(() => {$('.finishTime').css({display: 'flex'}).animate({opacity: 1}, 1000);}, 1000);
 
 	var runDataActiveRunCache = {};
 	
@@ -66,8 +64,13 @@ $(() => {
 				$('.nameLogo', elem).show();
 				$(elem).width('');
 				$('.playerName', elem).html(member.name);
-				$('.flag', elem).attr('src', 'https://www.speedrun.com/images/flags/'+member.region.toLowerCase()+'.png');
-
+				if (member.region) {
+					$('.flag', elem).attr('src', 'https://www.speedrun.com/images/flags/'+member.region.toLowerCase()+'.png');
+					$('.flag', elem).show();
+				}
+				else {
+					$('.flag', elem).hide();
+				}
 				$(elem).css('display', 'flex');
 				animationFadeInElement(elem);
 			});
@@ -86,7 +89,13 @@ $(() => {
 				$('.twitchLogo', elem).hide();
 				$('.nameLogo', elem).show();
 				$('.playerName', elem).html(member.name);
-				$('.flag', elem).attr('src', 'https://www.speedrun.com/images/flags/'+member.region.toLowerCase()+'.png');
+				if (member.region) {
+					$('.flag', elem).attr('src', 'https://www.speedrun.com/images/flags/'+member.region.toLowerCase()+'.png');
+					$('.flag', elem).show();
+				}
+				else {
+					$('.flag', elem).hide();
+				}
 
 				$(elem).css('display', 'flex');
 				animationFadeInElement(elem);
@@ -110,8 +119,8 @@ $(() => {
 
 			var member = team.members[i];
 
-			// Skip to next loop if no member exists or has no Twitch set.
-			if (!member || !member.twitch) return true;
+			// Skip to next loop if no member exists.
+			if (!member) return true;
 
 			var twitchDisplay = $('.twitchLogo', elem).css('display');
 
@@ -161,8 +170,17 @@ $(() => {
 			var oldWidth = $(elem).width(); // Store old width.
 
 			// Change what the name says based on what we're going to display.
-			var name = (twitch) ? '/'+member.twitch : member.name;
+			var name = (twitch && member.twitch) ? '/'+member.twitch : member.name;
+			if (!member.twitch) name = '???';
 			$('.playerName', elem).html(name);
+
+			if (member.region) {
+				$('.flag', elem).attr('src', 'https://www.speedrun.com/images/flags/'+member.region.toLowerCase()+'.png');
+				$('.flag', elem).show();
+			}
+			else {
+				$('.flag', elem).hide();
+			}
 
 			// Get new width and set back to old width.
 			$(elem).width('');
