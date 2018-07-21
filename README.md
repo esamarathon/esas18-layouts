@@ -34,3 +34,10 @@ You will need to install the [speedcontrol-flagcarrier](https://github.com/speed
 For donation readers (the ones off camera), their group_id should be `donations`, and there should only be 1 position, which should be `reader`.
 
 For hosts (the ones on camera), their group_id should be `hosts`, and the available positions should be `left`, `midleft`, `middle`, `midright` and `right`.
+
+## API Endpoints
+
+These are mostly intended for using on a Stream Deck.
+
+`/api/playsponsorvideo` to trigger playing a sponsor video if applicable (the scene should be named `Sponsor Video`).
+`/api/changestctext` to cycle the Save the Children blurb that is on the host dashboard.

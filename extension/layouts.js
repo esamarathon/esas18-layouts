@@ -43,6 +43,7 @@ var currentGameLayout = nodecg.Replicant('currentGameLayout', {defaultValue: clo
 
 var lastScene = nodecg.Replicant('lastOBSScene');
 var currentScene = nodecg.Replicant('currentOBSScene');
+var currentSponsorVideo = nodecg.Replicant('currentSponsorVideo');
 var obsConfig = nodecg.bundleConfig.obs || {};
 
 // CSS -> OBS source names
@@ -126,6 +127,13 @@ obs.on('SwitchScenes', (data) => {
 nodecg.listenFor('sponsorVideoFinished', () => {
 	if (!lastScene.value) return;
 	obs.send('SetCurrentScene', {'scene-name': lastScene.value});
+});
+
+// Play the sponsor video if this message is sent and the current one hasn't been played yet.
+nodecg.listenFor('playSponsorVideo', () => {
+	if (!currentSponsorVideo.value.played) {
+		obs.send('SetCurrentScene', {'scene-name': 'Sponsor Video'});
+	}
 });
 
 function changeGameLayout(info, callback) {
