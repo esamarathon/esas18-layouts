@@ -1,6 +1,8 @@
 @import url('https://fonts.googleapis.com/css?family=Montserrat:600&subset=cyrillic,cyrillic-ext,latin-ext,vietnamese');
 
 body {
+	height: 90vh;
+	width: 90hw;
 	font-family: 'Montserrat', sans-serif;
 	color: white;
 	background-color: #212121;
@@ -68,22 +70,4 @@ body {
 
 .gameFinal:before {
 	content: 'FINAL TIME: '
-}
-
-#column4 {
-	height: 100vh;
-}
-
-#streamEmbed {
-	width: 100%;
-	height: 25%;
-	box-sizing: border-box;
-	border: 0;
-}
-
-#chatEmbed {
-	width: 100%;
-	height: 70%;
-	box-sizing: border-box;
-	border: 0;
 }
