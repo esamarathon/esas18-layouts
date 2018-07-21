@@ -4,7 +4,7 @@ $(() => {
 	var speedcontrolBundle = 'nodecg-speedcontrol';
 	
 	// JQuery selectors.
-	//var finishTimeContainers = $('.finishTimeContainer'); // Array
+	var finishTimes = $('.finishTime'); // Array of finish timers (*should* be in the same order as the players).
 	
 	// Declaring other variables.
 	var currentTime;
@@ -45,27 +45,32 @@ $(() => {
 	}
 	
 	// Used to hide finish times for everyone.
-	/*nodecg.listenFor('resetTime', speedcontrolBundle, () => {
-		finishTimeContainers.each((index, element) => {
-			$('#finishTime', element).html('');
+	nodecg.listenFor('resetTime', speedcontrolBundle, () => {
+		console.log('resetTime')
+		finishTimes.each((index, element) => {
+			$(element).html('');
+			$(element).hide();
 			$(element).css('opacity', '0');
 		});
-	});*/
+	});
 	
 	// Used to hide finish timers just for the specified index.
-	/*nodecg.listenFor('timerReset', speedcontrolBundle, index => {
-		var container = finishTimeContainers.eq(index);
-		$('#finishTime', container).html('');
-		container.addClass('hideFinishTime');
-		container.css('opacity', '0');
-	});*/
+	nodecg.listenFor('timerReset', speedcontrolBundle, index => {
+		console.log('timerReset')
+		var container = finishTimes.eq(index);
+		$(container).html('');
+		$(container).hide();
+		$(container).css('opacity', '0');
+	});
 	
 	// Used to show finish timers for the specified index.
-	/*nodecg.listenFor('timerSplit', speedcontrolBundle, index => {
-		if (finishTimeContainers.length > 1) {
-			var container = finishTimeContainers.eq(index);
-			$('#finishTime', container).html(currentTime);
-			container.css('opacity', '100');
+	nodecg.listenFor('timerSplit', speedcontrolBundle, index => {
+		console.log('timerSplit')
+		if (finishTimes.length > 1) {
+			var container = finishTimes.eq(index);
+			$(container).html(currentTime);
+			$(container).show();
+			$(container).css('opacity', '100');
 		}
-	});*/
+	});
 });
