@@ -41,7 +41,7 @@ $(() => {
 		
 		$('#timer').html(time);
 		$('#timer').lettering(); // Makes each character into a <span>.
-		currentTime = newVal;
+		currentTime = time;
 	}
 	
 	// Used to hide finish times for everyone.
@@ -69,7 +69,7 @@ $(() => {
 		if (finishTimes.length > 1) {
 			var container = finishTimes.eq(index);
 			$(container).html(currentTime);
-			$(container).show();
+			$(container).css('display', 'flex');
 			$(container).css('opacity', '100');
 		}
 	});
