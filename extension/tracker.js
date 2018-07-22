@@ -119,8 +119,6 @@ repeater.on('streamInfo', data => {
 // Triggered when data is received from the omnibar moderation website.
 // Currently can either be Twitch subscribers or Twitter tweets.
 repeater.on('omnibarMod', data => {
-	console.log(data);
-
 	// Tweets from Twitter.
 	if (data.provider === 'twitter' && data.type === 'tweet') {
 		nodecg.sendMessage('newTweet', data);
