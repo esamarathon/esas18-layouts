@@ -60,11 +60,11 @@ $(() => {
         // Show flag if country code is set, otherwise hide it.
         var countryCode = hostData.country_code;
         if (countryCode) {
-            $('#hostNameStorage > #'+pos+' > flag').attr('src', 'https://www.speedrun.com/images/flags/'+countryCode.toLowerCase()+'.png');
-            $('#hostNameStorage > #'+pos+' > flag').show();
+            $('#hostNameStorage > #'+pos+' > .flag').attr('src', 'https://www.speedrun.com/images/flags/'+countryCode.toLowerCase()+'.png');
+            $('#hostNameStorage > #'+pos+' > .flag').show();
         }
         else {
-            $('#hostNameStorage > #'+pos+' > flag').hide();
+            $('#hostNameStorage > #'+pos+' > .flag').hide();
         }
     }
 
