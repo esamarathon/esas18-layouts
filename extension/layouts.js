@@ -107,19 +107,21 @@ obs.on('TransitionBegin', (data) => {
 obs.on('SwitchScenes', (data) => {
 	lastScene.value = currentScene.value;
 	currentScene.value = data['scene-name'];
+	//var currentSceneLC = currentScene.value.toLowerCase();
+	//var lastSceneLC = lastScene.value.toLowerCase();
 
-	if (currentScene.value.toLowerCase().includes('intermission') && !lastScene.value.toLowerCase().includes('intermission')) {
+	/*if ((currentSceneLC.includes('fullscreen hosts') || currentSceneLC.includes('intermission')) && (!lastScene.value.toLowerCase().includes('fullscreen hosts') || !lastScene.value.toLowerCase().includes('intermission'))) {
 		// start music
 		nodecg.sendMessage('playSong');
-	}
+	}*/
 
-	else if (!currentScene.value.toLowerCase().includes('intermission') && lastScene.value.toLowerCase().includes('intermission')) {
+	/*else if ((lastScene.value.toLowerCase().includes('fullscreen hosts') || lastScene.value.toLowerCase().includes('intermission')) && (!currentSceneLC.includes('fullscreen hosts') || !currentSceneLC.includes('intermission'))) {
 		// stop music
 		nodecg.sendMessage('pauseSong');
-	}
+	}*/
 
 	if (currentScene.value.toLowerCase().includes('(ads)')) {
-		nodecg.sendMessageToBundle('playTwitchAd', speedcontrolBundle, () => {});
+		nodecg.sendMessageToBundle('playTwitchAd', speedcontrolBundle);
 	}
 });
 
