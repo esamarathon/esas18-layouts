@@ -176,9 +176,22 @@ $(() => {
 		}
 	}
 	
+	// (As of writing) triggered from a dashboard button and also when a run's timer ends
+	nodecg.listenFor('forceRefreshIntermission', speedcontrolBundle, () => {
+		refreshNextRunsData();
+	});
+	
 	// Update upcoming game info when needed.
+	var pageInit = false;
 	var runDataActiveRun = nodecg.Replicant('runDataActiveRun', speedcontrolBundle);
 	runDataActiveRun.on('change', newVal => {
+		if (!pageInit) {
+			pageInit = true;
+			refreshNextRunsData();
+		}
+	});
+	
+	function refreshNextRunsData() {
 		var nextRuns = getNextRuns(runDataActiveRun.value, 4);
 		var whenTotal = 0; // Totals all the estimates for calculating the "in about X" lines.
 
@@ -205,7 +218,7 @@ $(() => {
 
 			animationFadeInElement($('.comingUpContainer'));
 		});
-	});
+	}
 
 	function createUpcomingGameElem(runData, elemToAppendTo, when) {
 		var headerElem = $('<div class="comingUpHeader flexContainer">');
@@ -214,7 +227,7 @@ $(() => {
 		if (!when)
 			headerElem.html('Coming Up Next');
 		else
-			headerElem.html(when);
+			headerElem.html('Coming Up Later');
 
 		// (this is messy)
 		bodyElem.append('<div class="gameName">'+runData.game+'</div>');
