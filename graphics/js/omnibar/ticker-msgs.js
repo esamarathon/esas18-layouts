@@ -271,7 +271,13 @@ function showTweet(tweetData) {
 	message = (message && message !== '') ? message.replace(/\s\s+|\n/g, ' ') : undefined;
 
 	// Regex removes Twitter URL shortener links.
-	message = message.replace(/https:\/\/t\.co\/\w+/g, '');
+	message = message.replace(/https:\/\/t\.co\/\w+/g, match => {
+		if(tweetData.message.entities && tweetData.message.entities.urls && tweetData.message.entities.urls.length > 0) {
+			replacementUrl = tweetData.message.entities.urls.find(urlInfo => urlInfo.url === match);
+			if(replacementUrl) return replacementUrl.display_url;
+		}
+		return '';
+	});
 
 	var line1 = '<img src="img/twitter-logo.png" class="emoji"> '+escapeHtml(user);
 	var line2 = escapeHtml(message);
