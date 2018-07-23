@@ -79,9 +79,12 @@ $(() => {
 		else {
 			$('.prizeImg', prizeBox).hide();
 		}
-		$('.prizeName > span', prizeBox).html(prize.name);
-		$('.prizeProvider > span', prizeBox).html(prize.provided);
-		$('.prizeMinDonation > span', prizeBox).html(formatDollarAmount(prize.minimum_bid));
+		$('#prizeName', prizeBox).html(prize.name);
+		$('#prizeProvider', prizeBox).html(prize.provided);
+		$('#prizeMinDonation', prizeBox).html(formatDollarAmount(prize.minimum_bid));
+		// calculate the time until the prize period ends and render it as a human readable string ("an hour", "20 minutes")
+		const timeUntil = moment(prize.end_timestamp).fromNow();
+		$('#prizeDeadline', prizeBox).html(timeUntil);
 
 		animationFadeOutElement(lastElem);
 		lastElem = $('#rotatingPrizesBox');
@@ -235,5 +238,35 @@ $(() => {
 
 		elemToAppendTo.append(headerElem);
 		elemToAppendTo.append(bodyElem);
+	}
+
+
+	nodecg.listenFor('twitchAdStarted', speedcontrolBundle, adInfo => {
+		setAdCountdown(adInfo.duration);
+	});
+
+	var adEnds = 0;
+	function setAdCountdown(duration) {
+		adEnds = Date.now() + duration * 1000;
+		updateAdCountdown();
+	}
+
+	function lpad(str, format) {
+		if(format.length > str.length) return format.slice(0, format.length - str.length)+str;
+		else return str;
+	}
+
+	function updateAdCountdown() {
+		const remainingAdTime = (adEnds - Date.now())/1000;
+		if(remainingAdTime > 0) {
+			const minutes = ''+Math.floor(remainingAdTime/60);
+			const seconds = ''+Math.floor(remainingAdTime - minutes*60);
+			$('#twitchAdCountdownTime').text(`${lpad(minutes, '00')}:${lpad(seconds, '00')}`);
+			$('#twitchAdCountdownTimer').show();
+			setTimeout(updateAdCountdown, 100);
+		} else {
+			$('#twitchAdCountdownTime').text('00:00');
+			$('#twitchAdCountdownTimer').hide('fast');
+		}
 	}
 });

@@ -127,11 +127,11 @@
 	margin-top: 20px;
 }
 
-#prizeWrapper > .prizeName {
+#prizeWrapper > .prizeTitle {
 	font-size: 40px;
 }
 
-#prizeWrapper > .prizeProvider {
+#prizeWrapper > .prizeDeadline {
 	font-size: 30px;
 }
 
@@ -207,4 +207,17 @@
 #musicInfo {
 	line-height: 100%;
 	flex: 1; /* Makes the music info fill up the rest of the flexbox space. */
+}
+
+#twitchAdCountdownTimer {
+	position: absolute;
+	bottom: 0;
+	right: 0;
+	padding: 8px;
+	font-size: 20px;
+	border: 3px solid #ffbd16;
+	border-width: 3px 0 0 3px;
+	background-color: rgba(0,0,0,0.3);
+	width: 200px;
+	display: none;
 }
