@@ -25,7 +25,7 @@ body {
 }
 
 #donationTotalHeader, #prizesHeader, #bidsHeader, #scheduleHeader, #stcInfoHeader {
-	font-size: 30px;
+	font-size: 45px;
 	text-align: center;
 }
 
@@ -45,14 +45,14 @@ body {
 
 .prize, .bid, .run {
 	width: 100%;
-	font-size: 25px;
+	font-size: 40px;
 	padding: 20px 0;
 	text-align: center;
 	border-bottom: 5px solid white;
 }
 
 .prizeName, .bidGame, .gameName {
-	font-size: 35px;
+	font-size: 45px;
 }
 
 .bidName:after {
@@ -61,7 +61,7 @@ body {
 
 #stcInfoContainer {
 	padding-top: 10px;
-	font-size: 23px;
+	font-size: 40px;
 }
 
 .gameTime:before {

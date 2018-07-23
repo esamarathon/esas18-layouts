@@ -51,7 +51,7 @@ $(() => {
 		var i = 0;
 		bidsContainer.html('');
 		newVal.forEach(bid => {
-			if (i >= 6) return;
+			if (i >= 2) return;
 			var bidElement = bidHTML.clone();
 			$('.bidGame', bidElement).html(bid.game+' - '+bid.category);
 			$('.bidName', bidElement).html(bid.name);
@@ -103,7 +103,7 @@ $(() => {
 	function setRuns() {
 		runsContainer.html('');
 		var indexOfCurrentRun = findIndexInRunDataArray(runDataActiveRun.value);
-		for (var i = -1; i < 3; i++) {
+		for (var i = -1; i < 2; i++) {
 			var run = runDataArray.value[indexOfCurrentRun+i];
 			if (run) {
 				var runElement = runHTML.clone();
