@@ -62,7 +62,7 @@
 	opacity: 1;
 }
 
-.gameCategory, .gameConsole, .gamePlayers {
+.gameCategory, .gameConsole, .gamePlayers, .gameEstimate {
 	margin: 5px;
 	font-size: 30px;
 }

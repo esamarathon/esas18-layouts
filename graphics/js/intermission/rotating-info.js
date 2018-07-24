@@ -233,14 +233,13 @@ $(() => {
 			headerElem.html('Coming Up Next');
 		else
 			headerElem.html('Coming Up Later');
-
-		// (this is messy)
+		
 		bodyElem.append('<div class="gameName">'+runData.game+'</div>');
-
 		var additionalDetails = $('<div id="gameAdditionalDetails" class="flexContainer">');
 		if (runData.category) additionalDetails.append('<div class="gameCategory">'+runData.category+'</div>');
 		if (runData.system) additionalDetails.append('<div class="gameConsole">'+runData.system+'</div>');
 		additionalDetails.append('<div class="gamePlayers">'+formPlayerNamesString(runData)+'</div>');
+		if (runData.estimate) additionalDetails.append('<div class="estimate">EST: '+runData.estimate+'</div>');
 		bodyElem.append(additionalDetails);
 		elemToAppendTo.append(headerElem);
 		elemToAppendTo.append(bodyElem);
