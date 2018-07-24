@@ -16,7 +16,7 @@ $(() => {
 	var videoEvt;
 
 	NodeCG.waitForReplicants(slides, currentScene, bidsRep, prizesRep).then(() => {
-		currentScene.on('change', newVal => {
+		/*currentScene.on('change', newVal => {
 			if (newVal.toLowerCase().includes('intermission')) {
 				rotateIndex = 0;
 				rotate();
@@ -33,7 +33,9 @@ $(() => {
 				$('#sponsorVideoPlayer > .videoSrc').removeAttr('src');
 				$('#sponsorVideoPlayer')[0].load();
 			}
-		});
+		});*/
+
+		rotate();
 	});
 
 	function rotate() {
