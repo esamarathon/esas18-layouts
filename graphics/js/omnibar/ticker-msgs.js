@@ -295,7 +295,7 @@ function showSub(subData) {
 	}
 
 	var line1 = escapeHtml(systemMsg);
-	var line2 = escapeHtml(message);
+	var line2 = message && escapeHtml(message);
 
 	displayMessage(line1, line2, 25, 22);
 }
