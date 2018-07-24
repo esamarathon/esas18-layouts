@@ -39,6 +39,6 @@ For hosts (the ones on camera), their group_id should be `hosts`, and the availa
 
 These are mostly intended for using on a Stream Deck.
 
-`/api/playsponsorvideo` to trigger playing a sponsor video if applicable (the scene should be named `Sponsor Video`).
-`/api/changestctext` to change to/cycle the Save the Children blurb that is on the host dashboard.
-`/api/changesponsortext` to change to/cycle the sponsor blurb that is on the host dashboard.
+- `/api/playsponsorvideo` to trigger playing a sponsor video if applicable (the scene should be named `Sponsor Video`).
+- `/api/changestctext` to change to/cycle the Save the Children blurb that is on the host dashboard.
+- `/api/changesponsortext` to change to/cycle the sponsor blurb that is on the host dashboard.
