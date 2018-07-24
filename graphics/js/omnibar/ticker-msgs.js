@@ -362,7 +362,9 @@ function showUpcomingRun() {
 		
 		// Check if run is still to come, if not we need to ignore it.
 		// Also need to ignore it if there is no scheduled time set.
-		if (nextRunsCache[randomInt].scheduledS && nextRunsCache[randomInt].scheduledS > moment().unix())
+		if (nextRunsCache[randomInt].scheduledS
+			&& nextRunsCache[randomInt].scheduledS > moment().unix()
+			&& !formPlayerNamesString(nextRunsCache[randomInt]).toLowerCase().includes('offline'))
 			randomRun = nextRunsCache[randomInt];
 		
 		nextRunsCache.splice(randomInt, 1);
