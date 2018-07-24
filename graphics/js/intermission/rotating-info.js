@@ -242,9 +242,8 @@ $(() => {
 		elemToAppendTo.append(bodyElem);
 	}
 
-
-	nodecg.listenFor('twitchAdStarted', speedcontrolBundle, adInfo => {
-		setAdCountdown(adInfo.duration);
+	nodecg.listenFor('twitchAdStarted', speedcontrolBundle, (err, adInfo) => {
+		if (!err) setAdCountdown(adInfo.duration);
 	});
 
 	var adEnds = 0;
