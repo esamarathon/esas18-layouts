@@ -39,28 +39,36 @@ if (!nodecg.bundleConfig.tracker) {
 var postKey = nodecg.bundleConfig.tracker.postKey || 'DEFAULT_KEY';
 
 // Getting the initial donation total on startup.
+updateDontationTotalFromAPI();
+setInterval(updateDontationTotalFromAPI, 60000); // Also do this every 60s as a socket fallback.
+
+// Get donation total from HTTPS API, backup for the repeater socket server.
 // We need to add both events together to get the correct total.
-var total = 0;
-request(statsURL1, (err, resp, body) => {
-	if (!err && resp.statusCode === 200) {
-		body = JSON.parse(body);
-		var streamTotal = body.agg.amount ? parseFloat(body.agg.amount) : 0;
-		total += streamTotal;
-		stream1Total = streamTotal;
-	}
-}).then(() => {
-	request(statsURL2, (err, resp, body) => {
+function updateDontationTotalFromAPI() {
+	var total = 0;
+	request(statsURL1, (err, resp, body) => {
 		if (!err && resp.statusCode === 200) {
 			body = JSON.parse(body);
 			var streamTotal = body.agg.amount ? parseFloat(body.agg.amount) : 0;
 			total += streamTotal;
-			stream2Total = streamTotal;
+			stream1Total = streamTotal;
 		}
 	}).then(() => {
-		donationTotal.value = total;
-		nodecg.log.info('Initial donation total checked:', '$'+total);
+		request(statsURL2, (err, resp, body) => {
+			if (!err && resp.statusCode === 200) {
+				body = JSON.parse(body);
+				var streamTotal = body.agg.amount ? parseFloat(body.agg.amount) : 0;
+				total += streamTotal;
+				stream2Total = streamTotal;
+			}
+		}).then(() => {
+			if (donationTotal.value > total) return; // If total is lower, assume something went wrong.
+			if (donationTotal.value !== total)
+				nodecg.log.info('API donation total changed:', '$'+total);
+			donationTotal.value = total;
+		});
 	});
-});
+}
 
 // Log into the tracker before querying stuff on it.
 loginToTracker().then(() => {
@@ -143,8 +151,10 @@ runDataActiveRun.on('change', (newVal, oldVal) => {
 			runData: newVal ? newVal : null
 		}),
 		headers: {'Content-Type': 'application/json; charset=utf-8'}
-	}, (err, resp, body) => {
-		// POST done
+	}).then(() => {
+		nodecg.log.info('Successfully sent new active run data to repeater server.');
+	}).catch(err => {
+		nodecg.log.warn('Failed to send new active run data to repeater server.');
 	});
 });
 
