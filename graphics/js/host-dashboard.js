@@ -53,7 +53,6 @@ $(() => {
 			$('.prizeName', prizeElement).html(prize.name);
 			$('.prizeProvider', prizeElement).html(prize.provided);
 			$('.prizeMinDonation', prizeElement).html(formatDollarAmount(prize.minimum_bid));
-			console.log(prize.end_timestamp)
 			$('.prizeEnd', prizeElement).html(moment(prize.end_timestamp).format('Do HH:mm'));
 			prizesContainer.append(prizeElement);
 		});
@@ -156,6 +155,6 @@ $(() => {
 		switchableInfoHeader.html('Sponsor Information');
 		switchableInfoContainer.html(sponsorText[sponsorInfoIndex]);
 		sponsorInfoIndex++;
-		if (sponsorInfoIndex >= sponsorText.length) sponsorInfoIndexs = 0;
+		if (sponsorInfoIndex >= sponsorText.length) sponsorInfoIndex = 0;
 	}
 });
