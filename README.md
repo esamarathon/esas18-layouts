@@ -23,7 +23,7 @@ WMIC process where name="mpd.exe" CALL setpriority "above normal"
 ```
 
 ## Automatic Twitch Ads
-To have Twitch ads play automatically when you switch to a certain scene, put `(ad)` somewhere in the scene's name.
+To have Twitch ads play automatically when you switch to a certain scene, put `(ads)` somewhere in the scene's name.
 
 ## Transition
 For the overlay transition to work, you need to add a new Stinger, call it `Blank Stinger`, set it to the `BlankTransition.mov` file in the `obs-assets` directory in this bundle, and set the transition point to 900ms.
@@ -40,4 +40,5 @@ For hosts (the ones on camera), their group_id should be `hosts`, and the availa
 These are mostly intended for using on a Stream Deck.
 
 `/api/playsponsorvideo` to trigger playing a sponsor video if applicable (the scene should be named `Sponsor Video`).
-`/api/changestctext` to cycle the Save the Children blurb that is on the host dashboard.
+`/api/changestctext` to change to/cycle the Save the Children blurb that is on the host dashboard.
+`/api/changesponsortext` to change to/cycle the sponsor blurb that is on the host dashboard.

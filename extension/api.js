@@ -18,4 +18,11 @@ app.get('/api/changestctext', (req, res) => {
 	res.end();
 });
 
+// Change Sponsor text on the host dashboard.
+app.get('/api/changesponsortext', (req, res) => {
+	nodecg.sendMessage('hostdash_changeSponsorText');
+	res.status(200);
+	res.end();
+});
+
 nodecg.mount(app);
