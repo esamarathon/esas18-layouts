@@ -121,7 +121,16 @@ obs.on('SwitchScenes', (data) => {
 	}*/
 
 	if (currentScene.value.toLowerCase().includes('(ads)')) {
-		nodecg.sendMessageToBundle('playTwitchAd', speedcontrolBundle);
+		nodecg.sendMessageToBundle('playTwitchAd', speedcontrolBundle, returnedInfo => {
+			if(returnedInfo.successful) {
+				console.log("Twitch ad playing successfully")
+				data.ad = returnedInfo.result;
+			}
+			else {
+				console.log("Could not play twitch ad", returnedInfo.error);
+				data.ad = null;
+			}
+		});
 	}
 });
 

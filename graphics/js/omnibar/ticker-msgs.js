@@ -246,6 +246,23 @@ function showDonation(donation, isNew) {
 	displayMessage(line1, message, 25, 22);
 }
 
+var entityMap = {
+	'&': '&amp;',
+	'<': '&lt;',
+	'>': '&gt;',
+	'"': '&quot;',
+	"'": '&#39;',
+	'/': '&#x2F;',
+	'`': '&#x60;',
+	'=': '&#x3D;'
+};
+
+function escapeHtml (string) {
+	return String(string).replace(/[&<>"'`=\/]/g, function (s) {
+		return entityMap[s];
+	});
+}
+
 function showTweet(tweetData) {
 	var user = tweetData.user.name;
 
@@ -254,10 +271,16 @@ function showTweet(tweetData) {
 	message = (message && message !== '') ? message.replace(/\s\s+|\n/g, ' ') : undefined;
 
 	// Regex removes Twitter URL shortener links.
-	message = message.replace(/https:\/\/t\.co\/\w+/g, '');
+	message = message.replace(/https:\/\/t\.co\/\w+/g, match => {
+		if(tweetData.message.entities && tweetData.message.entities.urls && tweetData.message.entities.urls.length > 0) {
+			replacementUrl = tweetData.message.entities.urls.find(urlInfo => urlInfo.url === match);
+			if(replacementUrl) return replacementUrl.display_url;
+		}
+		return '';
+	});
 
-	var line1 = '<img src="img/twitter-logo.png" class="emoji"> '+user;
-	var line2 = message;
+	var line1 = '<img src="img/twitter-logo.png" class="emoji"> '+escapeHtml(user);
+	var line2 = escapeHtml(message);
 
 	displayMessage(line1, line2, 25, 22);
 }
@@ -271,8 +294,8 @@ function showSub(subData) {
 		message = (message && message !== '') ? message.replace(/\s\s+|\n/g, ' ') : undefined;
 	}
 
-	var line1 = systemMsg;
-	var line2 = message;
+	var line1 = escapeHtml(systemMsg);
+	var line2 = escapeHtml(message);
 
 	displayMessage(line1, line2, 25, 22);
 }

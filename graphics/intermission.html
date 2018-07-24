@@ -26,7 +26,11 @@
 		<div class="bgLines"></div>
 
 		<!-- Webcam(s) -->
-		<div id="webcam1" class="storageBox webcam"></div>
+		<div id="webcam1" class="storageBox webcam">
+			<div id="twitchAdCountdownTimer">
+				Twitch Ads Running: <span id="twitchAdCountdownTime">00:00</div>
+			</div>
+		</div>
 
 		<!-- Our Logo -->
 		<div id="esaLogo"></div>
@@ -66,9 +70,9 @@
 			<div id="prizeWrapper">
 				<div class="prizeHeader flexContainer">Prize Available</div>
 				<img class="prizeImg prizeChild">
-				<div class="prizeName prizeChild"><span>?</span></div>
-				<div class="prizeProvider prizeChild">Provided by <span>?</span></div>
-				<div class="prizeMinDonation prizeChild">Minimum donation amount: <span>?</span></div>
+				<div class="prizeChild prizeTitle"><span id="prizeName">?</span> provided by <span id="prizeProvider">?</span></div>
+				<div class="prizeChild prizeMinDonation">Minimum donation amount: <span id="prizeMinDonation">?</span></div>
+				<div class="prizeChild prizeDeadline">Donate within <span id="prizeDeadline">?</span></div>
 			</div>
 		</div>
 
