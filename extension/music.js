@@ -34,6 +34,22 @@ function connect() {
 	client.on('system-player', onSystemPlayer);
 }
 
+var currentScene = nodecg.Replicant('currentOBSScene');
+currentScene.on('change', (newVal, oldVal) => {
+	newVal = newVal ? newVal.toLowerCase() : undefined;
+	oldVal = oldVal ? oldVal.toLowerCase() : undefined;
+
+	// Stop music
+	if (oldVal && !oldVal.includes('intermission') && newVal.includes('intermission')) {
+		fadeIn();
+	}
+
+	// Start music
+	else if (oldVal && oldVal.includes('intermission') && !newVal.includes('intermission')) {
+		fadeOut();
+	}
+});
+
 // Listen for NodeCG messages from dashboard/layouts.
 nodecg.listenFor('pausePlaySong', () => {
 	if (songData.value.playing)
@@ -41,8 +57,6 @@ nodecg.listenFor('pausePlaySong', () => {
 	else
 		fadeIn();
 });
-nodecg.listenFor('playSong', fadeIn); // To be used on layouts.
-nodecg.listenFor('pauseSong', fadeOut); // To be used on layouts.
 nodecg.listenFor('skipSong', skipSong);
 
 function onConnect() {
@@ -151,7 +165,7 @@ function fadeOut() {
 		setVolume();
 		if (currentVolume <= 0) {
 			clearInterval(fadeInterval);
-			toggleSongPlayback();
+			client.sendCommand('pause 1');
 		}
 	}
 
@@ -164,7 +178,7 @@ function fadeIn() {
 
 	clearInterval(fadeInterval);
 	currentVolume = 0;
-	toggleSongPlayback();
+	client.sendCommand('pause 0');
 	setVolume();
 
 	function loop() {
