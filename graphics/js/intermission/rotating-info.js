@@ -85,7 +85,7 @@ $(() => {
 		$('#prizeProvider', prizeBox).html(prize.provided);
 		$('#prizeMinDonation', prizeBox).html(formatDollarAmount(prize.minimum_bid));
 		// calculate the time until the prize period ends and render it as a human readable string ("an hour", "20 minutes")
-		const timeUntil = moment(prize.end_timestamp).fromNow();
+		const timeUntil = moment(prize.end_timestamp).fromNow(true);
 		$('#prizeDeadline', prizeBox).html(timeUntil);
 
 		animationFadeOutElement(lastElem);
