@@ -12,7 +12,6 @@ var showRecentTopDonation;
 var recentTopDonationTO;
 var topDonationDelay = 300000; // 5 minutes
 var showingMessage = false;
-var bidsCache = [];
 var prizeCache = [];
 var nextRunsCache = [];
 var messageType = 0;
@@ -37,7 +36,6 @@ chooseRandomMessageType(true);
 
 // Replicants
 var bidsRep = nodecg.Replicant('bids');
-bidsRep.on('change', newVal => {bidsCache = newVal}); // Refill cache on change.
 var prizesRep = nodecg.Replicant('prizes');
 prizesRep.on('change', newVal => {prizeCache = newVal}); // Refill cache on change.
 var runDataArray = nodecg.Replicant('runDataArray', speedcontrolBundle);
@@ -118,6 +116,35 @@ setTimeout(() => {
 //var bidsTemp = JSON.parse('[{"id":3,"name":"zoton2 finishes the tracker","total":999,"game":"Inspector Gadget: Mad Robots Invasion","category":"Any%","goal":1000},{"id":4,"name":"Language","total":20,"game":"The Simpsons: Hit & Run","category":"All Story Missions","options":[{"id":5,"parent":4,"name":"English","total":0},{"id":6,"parent":4,"name":"French","total":0},{"id":7,"parent":4,"name":"German","total":0},{"id":8,"parent":4,"name":"Spanish","total":20}]}]');
 //var prizesTemp = JSON.parse('[{"id":2,"name":"Stream Deck","provided":"Elgato","minimum_bid":5,"start_timestamp":"2018-02-20T05:00:00Z","end_timestamp":"2018-02-21T11:00:00Z"}]');
 
+// returns a random bid (filtered to bids in the next 24h, with a slight bias towards bids coming soon)
+lastBidID = null;
+function getRandomBid() {
+	const bidChoices = [];
+	let totalWeight = 0;
+	bidsRep.forEach(bid => {
+		// anything within the next 10 minutes has a relative weight of 1, beyond that theres a geometric falloff
+		let weight = Math.max(Math.min(10 * 60 * 1000 / (bid.end_time - Date.now()), 1), 0);
+		if(bid.id === lastBidID) weight = 0;
+		bidChoices.push({bid, weight});
+		totalWeight += weight;
+	});
+	let randomValue = Math.random();
+	let choice = null;
+	bidChoices.forEach(option => {
+		// the actual chance is the relative weight divided by the total weight
+		const chance = option.weight / totalWeight;
+		if(chance >= randomValue) {
+			lastBidID = option.bid.id;
+			choice = option.bid;
+			return false;
+		} else {
+			randomValue -= chance;
+		}
+	})
+	return choice;
+}
+
+
 // Cycles the actual ticker messages that can be shown.
 // Triggered every tick from tick-handler.js
 function showTickerMessages() {
@@ -148,12 +175,7 @@ function showTickerMessages() {
 	
 	// Bids
 	if (messageType === 0) {
-		//if (bidsTemp.length > 0) {
-		if (bidsRep.value.length > 0) {
-			showBid();
-		}
-		else
-			retry = true;
+		if(!showBid()) retry = true;
 	}
 	
 	// Prizes
@@ -302,11 +324,8 @@ function showSub(subData) {
 
 // Handles bids cache if empty and chooses one at random to show.
 function showBid() {
-	if (!bidsCache.length) bidsCache = bidsRep.value; // Refill bids cache if it's empty.
-	//if (!bidsCache.length) bidsCache = bidsTemp;
-	var random = getRandomInt(bidsCache.length);
-	var bid = bidsCache[random]; // Pick random bid from the cache.
-	bidsCache.splice(random, 1); // Remove this bid from the cache.
+	var bid = getRandomBid();
+	if(!bid) return null;
 	
 	var line2;
 	
@@ -334,6 +353,7 @@ function showBid() {
 	}
 	
 	displayMessage(line1, line2, 25, 23);
+	return bid;
 }
 
 // Handles prize cache if empty and chooses one at random to show.
