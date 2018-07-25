@@ -302,7 +302,7 @@ function showTweet(tweetData) {
 	});
 
 	var line1 = '<img src="img/twitter-logo.png" class="emoji"> '+escapeHtml(user);
-	var line2 = escapeHtml(message);
+	var line2 = message;
 
 	displayMessage(line1, line2, 25, 22);
 }
@@ -317,7 +317,7 @@ function showSub(subData) {
 	}
 
 	var line1 = escapeHtml(systemMsg);
-	var line2 = message && escapeHtml(message);
+	var line2 = message;
 
 	displayMessage(line1, line2, 25, 22);
 }
