@@ -295,7 +295,7 @@ function showTweet(tweetData) {
 	// Regex removes Twitter URL shortener links.
 	message = message.replace(/https:\/\/t\.co\/\w+/g, match => {
 		if(tweetData.message.entities && tweetData.message.entities.urls && tweetData.message.entities.urls.length > 0) {
-			replacementUrl = tweetData.message.entities.urls.find(urlInfo => urlInfo.url === match);
+			const replacementUrl = tweetData.message.entities.urls.find(urlInfo => urlInfo.url === match);
 			if(replacementUrl) return replacementUrl.display_url;
 		}
 		return '';

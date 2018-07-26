@@ -1,0 +1,36 @@
+{
+    "extends": "airbnb-base",
+    "env": {
+      "node": true,
+      "es6": true,
+      "browser": true
+    },
+    "root": true,
+    "rules": {
+      "object-curly-spacing": [2, "always"],
+      "comma-dangle": [
+        2,
+        "never"
+      ],
+      "no-param-reassign": "off",
+      "no-plusplus": ["warn", { "allowForLoopAfterthoughts": true }],
+      "arrow-parens": [
+        2,
+        "as-needed"
+      ],
+      "require-jsdoc": "off",
+      "no-underscore-dangle": "off",
+      "no-invalid-this": "off",
+      "no-mixed-operators": "off",
+      "newline-per-chained-call": "off",
+      "class-methods-use-this": "off",
+      "max-len": [
+        1,
+        150
+      ],
+      "prefer-destructuring": "off",
+      "linebreak-style": [1,"unix"],
+      "indent": ["error", "tab"]
+    }
+  }
+  
