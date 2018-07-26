@@ -39,29 +39,38 @@ $(() => {
 	});
 
 	function rotate() {
+		var retry = true;
+
 		// Upcoming Runs
 		if (rotateIndex === 0) {
 			showUpcomingRuns();
+			retry = false;
 		}
 
 		// Sponsor Slides
 		if (rotateIndex === 1 && slides.value.length) {
 			showSponsorSlides();
+			retry = false;
 		}
 
 		// Bids
 		if (rotateIndex === 2 && bidsRep.value.length) {
 			showBids();
+			retry = false;
 		}
 
 		// Prizes
 		if (rotateIndex === 3 && prizesRep.value.length) {
 			showPrizes();
+			retry = false;
 		}
 
 		rotateIndex++;
 		if (rotateIndex >= rotateTotal)
 			rotateIndex = 0;
+
+		if (retry)
+			rotate();
 	}
 	
 	function showUpcomingRuns() {
