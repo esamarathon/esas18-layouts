@@ -30,7 +30,12 @@
       ],
       "prefer-destructuring": "off",
       "linebreak-style": [1,"unix"],
-      "indent": ["error", "tab"]
+			"indent": ["error", "tab"],
+      "no-tabs": "off",
+      "no-use-before-define": "off",
+      "no-restricted-syntax": "off",
+      "no-var": "off",
+      "vars-on-top": "off"
     }
   }
   
