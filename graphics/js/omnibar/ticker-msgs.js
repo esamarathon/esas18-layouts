@@ -117,11 +117,11 @@ setTimeout(() => {
 //var prizesTemp = JSON.parse('[{"id":2,"name":"Stream Deck","provided":"Elgato","minimum_bid":5,"start_timestamp":"2018-02-20T05:00:00Z","end_timestamp":"2018-02-21T11:00:00Z"}]');
 
 // returns a random bid (filtered to bids in the next 24h, with a slight bias towards bids coming soon)
-lastBidID = null;
+var lastBidID = null;
 function getRandomBid() {
 	const bidChoices = [];
 	let totalWeight = 0;
-	bidsRep.forEach(bid => {
+	bidsRep.value.forEach(bid => {
 		// anything within the next 10 minutes has a relative weight of 1, beyond that theres a geometric falloff
 		let weight = Math.max(Math.min(10 * 60 * 1000 / (bid.end_time - Date.now()), 1), 0);
 		if(bid.id === lastBidID) weight = 0;
