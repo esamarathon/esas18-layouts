@@ -1,0 +1,61 @@
+#webcam1 {
+	left: 572px;
+	top: 563px;
+	width: 777px;
+	height: 437px;
+}
+
+#verticalSplitLine {
+	position: fixed;
+	left: 959px;
+	top: 0;
+	height: 563px;
+	border-left: 3px solid #ffbd16;
+}
+
+.playersSideContainer {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	justify-content: flex-end;
+	position: fixed;
+}
+
+#playersLeft {
+	left: 0px;
+	top: 0px;
+	width: 569px;
+	height: 1000px;
+}
+
+#playersRight {
+	left: 1352px;
+	top: 0px;
+	width: 568px;
+	height: 1000px;
+	align-items: flex-end;
+}
+
+.playersWrapper {
+	display: flex;
+    background-color: rgba(0,0,0,0.5);
+	padding: 10px;
+	margin: 10px;
+	font-size: 50px;
+}
+
+.playersWrapper > img {
+	padding-left: 10px;
+}
+
+#playersHost {
+	position: fixed;
+	left: 572px;
+	top: 563px;
+	width: 777px;
+	height: 437px;
+	
+	display: flex;
+	align-items: flex-end;
+	justify-content: center;
+}

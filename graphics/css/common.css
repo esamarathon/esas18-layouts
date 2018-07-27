@@ -152,3 +152,8 @@ body {
 #temporaryStorage {
 	opacity: 0;
 }
+
+.dndDeadPlayer {
+	text-decoration: line-through;
+	color: darkred;
+}
