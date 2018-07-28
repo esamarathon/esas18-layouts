@@ -38,11 +38,22 @@ $(() => {
 	function updateSceneFields(runData) {
 		currentTeamsData = [];
 
-		runData.teams.forEach(team => {
-			var teamData = {members: []};
-			team.members.forEach(member => {teamData.members.push(createMemberData(member));});
-			currentTeamsData.push(teamData);
-		});
+		// For this co-op run that uses 2 screens, pretend each co-op partner is in a different team.
+		if (runData.game.toLowerCase() === 'kirby & the amazing mirror') {
+			for (var i = 0; i < 2; i++) {
+				var teamData = {members: []};
+				teamData.members.push(createMemberData(runData.teams[0].members[i]));
+				currentTeamsData.push(teamData);
+			}
+		}
+
+		else {
+			runData.teams.forEach(team => {
+				var teamData = {members: []};
+				team.members.forEach(member => {teamData.members.push(createMemberData(member));});
+				currentTeamsData.push(teamData);
+			});
+		}
 
 		animationFadeOutElement(playerContainers, () => {
 			// For 1P we only care about the first team and any extra co-op players.
