@@ -130,7 +130,7 @@ function getRandomBid() {
 		totalWeight += weight;
 	});
 	let randomValue = Math.random();
-	return bidChoices.find(option => {
+	const bidToReturn = bidChoices.find(option => {
 		// the actual chance is the relative weight divided by the total weight
 		const chance = option.weight / totalWeight;
 		if (chance >= randomValue) {
@@ -139,7 +139,9 @@ function getRandomBid() {
 		}
 		randomValue -= chance;
 		return false;
-	}).bid;
+	});
+	if (bidToReturn) return bidToReturn.bid;
+	return null;
 }
 
 
