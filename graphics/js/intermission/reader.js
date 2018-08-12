@@ -13,7 +13,7 @@ $(() => {
 			$('#readerInfo').css('display', 'flex'); // using .show() doesn't change it to a flexbox correctly.
 
 			// Change to display name.
-			$('#readerInfo .name').html(newVal.donations.reader.display_name);
+			$('#readerInfo .name').text(newVal.donations.reader.display_name);
 
 			// Show flag if country code is set, otherwise hide it.
 			var countryCode = newVal.donations.reader.country_code;

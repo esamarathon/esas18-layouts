@@ -55,7 +55,7 @@ $(() => {
         $('#hostNameStorage > #'+pos).css('display', 'flex');
 
         // Change to display name.
-        $('#hostNameStorage > #'+pos+' > span').html(hostData.display_name);
+        $('#hostNameStorage > #'+pos+' > span').text(hostData.display_name);
 
         // Show flag if country code is set, otherwise hide it.
         var countryCode = hostData.country_code;

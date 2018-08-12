@@ -74,7 +74,7 @@ $(() => {
 				$('.twitchLogo', elem).hide();
 				$('.nameLogo', elem).show();
 				$(elem).width('');
-				$('.playerName', elem).html(member.name);
+				$('.playerName', elem).text(member.name);
 				if (member.region) {
 					$('.flag', elem).attr('src', 'https://www.speedrun.com/images/flags/'+member.region.toLowerCase()+'.png');
 					$('.flag', elem).show();
@@ -99,7 +99,7 @@ $(() => {
 				$(elem).width('');
 				$('.twitchLogo', elem).hide();
 				$('.nameLogo', elem).show();
-				$('.playerName', elem).html(member.name);
+				$('.playerName', elem).text(member.name);
 				if (member.region) {
 					$('.flag', elem).attr('src', 'https://www.speedrun.com/images/flags/'+member.region.toLowerCase()+'.png');
 					$('.flag', elem).show();
@@ -183,7 +183,7 @@ $(() => {
 			// Change what the name says based on what we're going to display.
 			var name = (twitch && member.twitch) ? '/'+member.twitch : member.name;
 			if (!member.twitch) name = '???';
-			$('.playerName', elem).html(name);
+			$('.playerName', elem).text(name);
 
 			if (member.region) {
 				$('.flag', elem).attr('src', 'https://www.speedrun.com/images/flags/'+member.region.toLowerCase()+'.png');

@@ -24,9 +24,9 @@ $(() => {
 
 		animationSetField($('#gameName'), runData.game);
 		animationSetField($('#gameAdditionalDetails')); // Needs to be faded in/out too.
-		$('#gameCategory').html(runData.category);
-		$('#gameSystem').html(' / '+runData.system);
-		$('#gameEstimate').html(' / EST: '+runData.estimate);
+		$('#gameCategory').text(runData.category);
+		$('#gameSystem').text(' / '+runData.system);
+		$('#gameEstimate').text(' / EST: '+runData.estimate);
 		animationSetField($('#timer')); // Fade out/in the timer as well.
 		animationSetField($('.infoDivider')); // Fade out/in the divider if it exists as well.
 		animationSetField($('#infoContainer #sponsorLogoWrapper')); // Fade out/in the sponsor logo if it's in the info box.

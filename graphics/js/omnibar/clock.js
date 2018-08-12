@@ -12,7 +12,7 @@ $(() => {
 		var currentTime = moment().format('HH:mm');
 		//if (hasColon) clock.html(currentTime.replace(' ', '<span> </span>'));
 		//else clock.html(currentTime.replace(' ', '<span>:</span>'));
-		clock.html(currentTime);
+		clock.text(currentTime);
 		//hasColon = !hasColon;
 	}
 });

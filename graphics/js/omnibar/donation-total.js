@@ -8,7 +8,7 @@ $(() => {
 	donationTotal.on('change', (newVal, oldVal) => {
 		// If the page has just been loaded, just print the current value, otherwise do the animation.
 		if (!oldVal)
-			amountText.html(formatDollarAmount(newVal, true));
+			amountText.text(formatDollarAmount(newVal, true));
 		else
 			animationUpdateDonationTotal(amountText, oldVal, newVal);
 	});

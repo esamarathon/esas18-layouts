@@ -17,7 +17,7 @@ $(() => {
 			$('#musicInfo').hide();
 		}
 
-		$('#musicInfo').html(newVal.title);
+		$('#musicInfo').text(newVal.title);
 
 		setMusicTitleSize();
 	});

@@ -243,24 +243,6 @@ function showTickerMessages() {
 	if (retry) { showTickerMessages(); }
 }
 
-// Formats donations to be sent to displayMessage.
-function showDonation(donation, isNew) {
-	var user = donation.donor_visiblename;
-	var amount = ` (${formatDollarAmount(parseFloat(donation.amount))})`;
-	let line1;
-	if (isNew) {
-		line1 = `<span class="messageUppercase textGlow">New Donation:</span> ${user}${amount}`;
-	} else {
-		line1 = user + amount;
-	}
-
-	// Regex removes multiple spaces/newlines from donation messages.
-	var message = donation.comment;
-	message = (message && message !== '') ? message.replace(/\s\s+|\n/g, ' ') : undefined;
-
-	displayMessage(line1, message, 25, 22);
-}
-
 var entityMap = {
 	'&': '&amp;',
 	'<': '&lt;',
@@ -274,6 +256,24 @@ var entityMap = {
 
 function escapeHtml(string) {
 	return String(string).replace(/[&<>"'`=/]/g, s => entityMap[s]);
+}
+
+// Formats donations to be sent to displayMessage.
+function showDonation(donation, isNew) {
+	var user = donation.donor_visiblename;
+	var amount = ` (${formatDollarAmount(parseFloat(donation.amount))})`;
+	let line1;
+	if (isNew) {
+		line1 = `<span class="messageUppercase textGlow">New Donation:</span> ${user}${amount}`;
+	} else {
+		line1 = user + amount;
+	}
+
+	// Regex removes multiple spaces/newlines from donation messages.
+	var message = donation.comment;
+	message = (message && message !== '') ? escapeHtml(message.replace(/\s\s+|\n/g, ' ')) : undefined;
+
+	displayMessage(line1, message, 25, 22);
 }
 
 function showTweet(tweetData) {
