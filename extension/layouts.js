@@ -54,7 +54,6 @@ const currentGameLayout = nodecg.Replicant('currentGameLayout', { defaultValue: 
 
 const lastScene = nodecg.Replicant('lastOBSScene');
 const currentScene = nodecg.Replicant('currentOBSScene');
-const currentSponsorVideo = nodecg.Replicant('currentSponsorVideo');
 const obsConfig = nodecg.bundleConfig.obs || {};
 
 // CSS -> OBS source names
@@ -118,19 +117,6 @@ obs.on('SwitchScenes', data => {
 
 	if (currentScene.value.toLowerCase().includes('(ads)')) {
 		nodecg.sendMessageToBundle('playTwitchAd', speedcontrolBundle);
-	}
-});
-
-// Switch back to the last scene when the sponsor video finishes.
-nodecg.listenFor('sponsorVideoFinished', () => {
-	if (!lastScene.value) return;
-	obs.send('SetCurrentScene', { 'scene-name': lastScene.value });
-});
-
-// Play the sponsor video if this message is sent and the current one hasn't been played yet.
-nodecg.listenFor('playSponsorVideo', () => {
-	if (!currentSponsorVideo.value.played) {
-		obs.send('SetCurrentScene', { 'scene-name': 'Sponsor Video' });
 	}
 });
 
