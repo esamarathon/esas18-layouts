@@ -29,7 +29,8 @@ var messageTypeChance = {
 	8: 1, // Other stream promotion
 	9: 1, // Team promotion.
 	10: 0.2, // Stay Hydrated
-	11: 1 // BSG PayPal info
+	11: 1, // BSG PayPal info
+	12: 2 // ESA Winter 2019 Promo
 };
 
 // Choose a random index on startup.
@@ -243,6 +244,10 @@ function showTickerMessages() {
 
 	if (messageType === 11) {
 		displayMessage('<span class="textGlow">Your donations will be processed through the BSG Marathon\'s PayPal account.</span>', null, 33, null, true);
+	}
+
+	if (messageType === 12) {
+		displayMessage('<span class="textGlow">Can\'t get enough of ESA and speedrunning? Then look forward to <span class="greyText">ESA Winter 2019</span>: 16th - 24th February!</span>', null, 30, null, true);
 	}
 
 	chooseRandomMessageType();
