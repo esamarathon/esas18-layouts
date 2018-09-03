@@ -1,9 +1,11 @@
-
-
 const clone = require('clone');
 const fs = require('fs');
 const css = require('css');
 const nodecg = require('./utils/nodecg-api-context').get();
+
+if (nodecg.bundleConfig.obs && !nodecg.bundleConfig.obs.enable)
+	return;
+
 const obs = require('./utils/obs');
 
 // The bundle name where all the run information is pulled from.
