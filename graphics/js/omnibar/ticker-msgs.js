@@ -28,7 +28,8 @@ var messageTypeChance = {
 	7: 2, // Other stream run information
 	8: 1, // Other stream promotion
 	9: 1, // Team promotion.
-	10: 0.2 // Stay Hydrated
+	10: 0.2, // Stay Hydrated
+	11: 1 // BSG PayPal info
 };
 
 // Choose a random index on startup.
@@ -204,39 +205,44 @@ function showTickerMessages() {
 
 	// ESA promotional message.
 	if (messageType === 4) {
-		displayMessage('<span class="textGlow">This is European Speedrunner Assembly Summer 2018</span>', null, 33, null, true);
+		displayMessage('<span class="textGlow">This is United Kingdom Speedrunner Gathering Fall 2018</span>', null, 33, null, true);
 	}
 
 	// StC promotional message.
 	if (messageType === 5) {
-		displayMessage('<span class="textGlow">#ESASummer18 benefits Save the Children</span>', null, 33, null, true);
+		displayMessage('<span class="textGlow">#UKSGFall18 benefits YoungMinds</span>', null, 33, null, true);
 	}
 
 	// Donation URL message.
 	if (messageType === 6) {
-		var eventShort = nodecg.bundleConfig.stream2 ? '2018s2' : '2018s1';
-		displayMessage(`<span class="textGlow">Donate @ <span class="greyText">donations.esamarathon.com/donate/${eventShort}</span></span>`, null, 33, null, true);
+		displayMessage(`<span class="textGlow">Donate @ <span class="greyText">donations.esamarathon.com</span></span>`, null, 33, null, true);
 	}
 
 	// Other stream run information.
 	if (messageType === 7) {
-		if (otherStreamInfo.value && !formPlayerNamesString(otherStreamInfo.value).toLowerCase().includes('offline')) { showOtherStreamInfo(); } else { retry = true; }
+		retry = true;
+		//if (otherStreamInfo.value && !formPlayerNamesString(otherStreamInfo.value).toLowerCase().includes('offline')) { showOtherStreamInfo(); } else { retry = true; }
 	}
 
 	// Other stream promotion.
 	if (messageType === 8) {
-		var streamChannel = nodecg.bundleConfig.stream2 ? 'esa' : 'esamarathon2';
-		displayMessage(`<span class="textGlow">Watch more great runs over @ <span class="greyText">twitch.tv/${streamChannel}</span>!</span>`, null, 33, null, true);
+		retry = true;
+		//var streamChannel = nodecg.bundleConfig.stream2 ? 'esa' : 'esamarathon2';
+		//displayMessage(`<span class="textGlow">Watch more great runs over @ <span class="greyText">twitch.tv/${streamChannel}</span>!</span>`, null, 33, null, true);
 	}
 
 	// Team promotion.
 	if (messageType === 9) {
-		displayMessage('<span class="textGlow">Check out our Twitch team @ <span class="greyText">twitch.tv/team/esa</span>!</span>', null, 33, null, true);
+		displayMessage('<span class="textGlow">Check out the ESA Twitch team @ <span class="greyText">twitch.tv/team/esa</span>!</span>', null, 33, null, true);
 	}
 
 	// Stay Hydrated
 	if (messageType === 10) {
 		displayMessage('<span class="textGlow">Are you remembering to stay hydrated?</span>', null, 33, null, true);
+	}
+
+	if (messageType === 11) {
+		displayMessage('<span class="textGlow">Your donations will be processed through the BSG Marathon\'s PayPal account.</span>', null, 33, null, true);
 	}
 
 	chooseRandomMessageType();

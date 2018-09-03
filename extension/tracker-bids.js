@@ -10,8 +10,8 @@ var nodecg = require('./utils/nodecg-api-context').get();
 var apiURL = 'https://donations.esamarathon.com/search';
 var refreshTime = 60000; // Get bids every 60s.
 
-// ID ?: Stream 1
-var eventID = 2;
+// ID 5: Stream 1
+var eventID = 5;
 /*if (nodecg.bundleConfig.stream2)
 	eventID = 4;*/
 

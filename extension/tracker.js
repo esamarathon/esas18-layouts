@@ -1,7 +1,5 @@
 'use strict';
 
-// EVENT NAMES AND STATS URL NEED CHANGING WHEN WE GET THEM
-
 // The bundle name where all the run information is pulled from.
 var speedcontrolBundle = 'nodecg-speedcontrol';
 
@@ -11,7 +9,7 @@ var request = require('request-promise').defaults({jar: true}); // Automatically
 
 // Declaring other variables.
 var nodecg = require('./utils/nodecg-api-context').get();
-var statsURL1 = 'https://donations.esamarathon.com/2?json';
+var statsURL1 = 'https://donations.esamarathon.com/5?json';
 //var statsURL2 = 'https://donations.esamarathon.com/4?json';
 var repeaterURL = 'https://repeater.esamarathon.com';
 var loginURL = 'https://donations.esamarathon.com/admin/login/';
@@ -20,7 +18,7 @@ var stream1Total = 0;
 //var stream2Total = 0;
 
 // Settings for information that changes depending on the stream we're on.
-var eventShort = '2018s1';
+var eventShort = 'uksgf2018';
 var streamID = 1;
 /*if (nodecg.bundleConfig.stream2) {
 	eventShort = '2018s2';
