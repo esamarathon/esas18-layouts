@@ -247,7 +247,7 @@ function showTickerMessages() {
 	}
 
 	if (messageType === 12) {
-		displayMessage('<span class="textGlow">Can\'t get enough of ESA and speedrunning? Then look forward to <span class="greyText">ESA Winter 2019</span>: 16th - 24th February!</span>', null, 30, null, true);
+		displayMessage('<span class="textGlow">Can\'t get enough of speedrunning? Then look forward to <span class="greyText">ESA Winter 2019</span>: 16th - 24th February!</span>', null, 32, null, true);
 	}
 
 	chooseRandomMessageType();
