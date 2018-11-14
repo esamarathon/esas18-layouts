@@ -42,9 +42,6 @@ const layouts = nodecg.Replicant('gameLayouts', {
 		},
 		{
 			name: '3DS 1 Player', code: '3ds-1p', ds: true, sponsorInInfo: true, combineGameNameAndAdditional: true
-		},
-		{
-			name: 'GeoGuessr 1 Player', code: 'geoguessr', gameCaptures: 2, sponsorInInfo: true
 		}
 	],
 	persistent: false

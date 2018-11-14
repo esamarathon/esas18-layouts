@@ -52,31 +52,6 @@
         "file": "game-layout.html",
         "width": 1920,
         "height": 1080
-      },
-      {
-        "file": "sm64-relay.html",
-        "width": 1920,
-        "height": 1080
-      },
-      {
-        "file": "d&d-main.html",
-        "width": 1920,
-        "height": 1080
-      },
-      {
-        "file": "d&d-host.html",
-        "width": 1920,
-        "height": 1080
-      },
-      {
-        "file": "d&d-left.html",
-        "width": 1920,
-        "height": 1080
-      },
-      {
-        "file": "d&d-right.html",
-        "width": 1920,
-        "height": 1080
       }
     ],
     "dashboardPanels": [
@@ -98,18 +73,6 @@
         "title": "Music Player",
         "width": 2,
         "file": "music-player.html"
-      },
-      {
-        "name": "sm64-relay-control",
-        "title": "SM64 Relay Control",
-        "width": 3,
-        "file": "sm64-relay-control.html"
-      },
-      {
-        "name": "d&d-control",
-        "title": "D&D Control",
-        "width": 2,
-        "file": "d&d-control.html"
       }
     ],
     "assetCategories": [
