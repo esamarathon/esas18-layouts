@@ -193,7 +193,7 @@ function changeGameLayout(info, callback) {
 	// Loop through all sources and set their settings as needed.
 	for (const source in allSettings) {
 		if (Object.prototype.hasOwnProperty.call(allSettings, source)) {
-			setOBSSourceSettings(source, allSettings[source]);
+			//setOBSSourceSettings(source, allSettings[source]);
 		}
 	}
 
