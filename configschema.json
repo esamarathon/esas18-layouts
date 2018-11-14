@@ -6,6 +6,7 @@
 		"obs": {
 			"type": "object",
 			"properties": {
+				"enable": {"type": "boolean", "default": true},
 				"address": {"type": "string", "default": "localhost:4444"},
 				"password": {"type": "string"},
 				"gameLayout": {"type": "string", "default": "Game Layout"},
@@ -20,6 +21,7 @@
 		"mpd": {
 			"type": "object",
 			"properties": {
+				"enable": {"type": "boolean", "default": true},
 				"address": {"type": "string", "default": "localhost"},
 				"port": {"type": "integer", "default": 6600},
 				"volume": {"type": "integer", "default": 10}
