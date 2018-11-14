@@ -142,21 +142,23 @@ repeater.on('omnibarMod', data => {
 });
 
 // POSTs run data when it's changed in nodecg-speedcontrol to the server.
-var runDataActiveRun = nodecg.Replicant('runDataActiveRun', speedcontrolBundle);
-runDataActiveRun.on('change', (newVal, oldVal) => {
-	request.post({
-		url: repeaterURL+'/stream_info?key='+postKey,
-		body: JSON.stringify({
-			stream: streamID,
-			runData: newVal ? newVal : null
-		}),
-		headers: {'Content-Type': 'application/json; charset=utf-8'}
-	}).then(() => {
-		nodecg.log.info('Successfully sent new active run data to repeater server.');
-	}).catch(err => {
-		nodecg.log.warn('Failed to send new active run data to repeater server.');
+if (postKey && postKey !== 'DEFAULT_KEY') {
+	var runDataActiveRun = nodecg.Replicant('runDataActiveRun', speedcontrolBundle);
+	runDataActiveRun.on('change', (newVal, oldVal) => {
+		request.post({
+			url: repeaterURL+'/stream_info?key='+postKey,
+			body: JSON.stringify({
+				stream: streamID,
+				runData: newVal ? newVal : null
+			}),
+			headers: {'Content-Type': 'application/json; charset=utf-8'}
+		}).then(() => {
+			nodecg.log.info('Successfully sent new active run data to repeater server.');
+		}).catch(err => {
+			nodecg.log.warn('Failed to send new active run data to repeater server.');
+		});
 	});
-});
+}
 
 // https://github.com/GamesDoneQuick/agdq18-layouts/blob/master/extension/index.js
 // Fetch the login page, and run the response body through cheerio
