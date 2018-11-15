@@ -1,7 +1,5 @@
 'use strict';
 
-// Event ID 2 only is being used for prizes; all prizes are stored in stream 1's event.
-
 // Referencing packages.
 var request = require('request');
 var moment = require('moment');
@@ -17,7 +15,7 @@ var prizes = nodecg.Replicant('prizes', {defaultValue: []});
 // Get the prizes from the API.
 updatePrizes();
 function updatePrizes() {
-	request(apiURL+'/?event=2&type=prize&state=ACCEPTED', (err, resp, body) => {
+	request(apiURL+'/?event=6&type=prize&state=ACCEPTED', (err, resp, body) => {
 		if (!err && resp.statusCode === 200) {
 			var currentPrizes = processRawPrizes(JSON.parse(body));
 			prizes.value = currentPrizes;
