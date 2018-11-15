@@ -1,7 +1,7 @@
-# esas18-layouts
-The on-screen graphics used during European Speedrunner Assembly Summer 2018
+# esas18-layouts#esamov18
+The on-screen graphics used during European Speedrunner Assembly Movember 2018.
 
-Make sure to use the [esas18](https://github.com/speedcontrol/nodecg-speedcontrol/tree/esas18) branch of nodecg-speedcontrol when using this bundle!
+This NodeCG bundle also needs [nodecg-speedcontrol](https://github.com/speedcontrol/nodecg-speedcontrol) to change run information, play Twitch ads, etc.
 
 This bundle also heavily relies on the [obs-websocket](https://github.com/Palakis/obs-websocket) plugin, so make sure you have this installed (custom address/port and password can be specified in the bundle's config if needed).
 
@@ -34,11 +34,3 @@ You will need to install the [speedcontrol-flagcarrier](https://github.com/speed
 For donation readers (the ones off camera), their group_id should be `donations`, and there should only be 1 position, which should be `reader`.
 
 For hosts (the ones on camera), their group_id should be `hosts`, and the available positions should be `left`, `midleft`, `middle`, `midright` and `right`.
-
-## API Endpoints
-
-These are mostly intended for using on a Stream Deck.
-
-- `/api/playsponsorvideo` to trigger playing a sponsor video if applicable (the scene should be named `Sponsor Video`).
-- `/api/changestctext` to change to/cycle the Save the Children blurb that is on the host dashboard.
-- `/api/changesponsortext` to change to/cycle the sponsor blurb that is on the host dashboard.

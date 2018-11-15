@@ -1,5 +1,4 @@
 
-
 // The bundle name where all the run information is pulled from.
 var speedcontrolBundle = 'nodecg-speedcontrol';
 
