@@ -24,7 +24,8 @@ var messageTypeChance = {
 	5: 1, // The Movember Foundation promotional message
 	6: 2, // Donation URL message
 	7: 1, // Team promotion
-	8: 0.2 // Stay Hydrated
+	8: 0.2, // Stay Hydrated
+	9: 2 // ESA Winter 2019 Promo
 };
 
 // Choose a random index on startup.
@@ -221,6 +222,11 @@ function showTickerMessages() {
 	// Stay Hydrated
 	if (messageType === 8) {
 		displayMessage('<span class="textGlow">Are you remembering to stay hydrated?</span>', null, 33, null, true);
+	}
+
+	// ESA Winter 2019 Promo
+	if (messageType === 12) {
+		displayMessage('<span class="textGlow">Can\'t get enough of speedrunning? Then look forward to <span class="greyText">ESA Winter 2019</span>: 16th - 24th February!</span>', null, 32, null, true);
 	}
 
 	chooseRandomMessageType();
