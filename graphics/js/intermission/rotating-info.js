@@ -4,9 +4,9 @@ $(() => {
 	var speedcontrolBundle = 'nodecg-speedcontrol';
 
 	var slides = nodecg.Replicant('assets:sponsor-slides');
-	var currentScene = nodecg.Replicant('currentOBSScene');
 	var bidsRep = nodecg.Replicant('bids');
 	var prizesRep = nodecg.Replicant('prizes');
+	var runDataActiveRun = nodecg.Replicant('runDataActiveRun', speedcontrolBundle);
 
 	var defaultRotate = 20000;
 	var lastElem;
@@ -15,30 +15,13 @@ $(() => {
 	var rotateTimeout;
 	var videoEvt;
 
-	NodeCG.waitForReplicants(slides, currentScene, bidsRep, prizesRep).then(() => {
-		/*currentScene.on('change', newVal => {
-			if (newVal.toLowerCase().includes('intermission')) {
-				rotateIndex = 0;
-				rotate();
-			}
-
-			else {
-				clearTimeout(rotateTimeout);
-				animationFadeOutElement(lastElem);
-
-				// Stop/remove video if needed.
-				$('#sponsorVideoPlayer')[0].removeEventListener('timeupdate', videoEvt);
-				$('#sponsorVideoPlayer')[0].removeEventListener('ended', videoEvt);
-				$('#sponsorVideoPlayer')[0].pause();
-				$('#sponsorVideoPlayer > .videoSrc').removeAttr('src');
-				$('#sponsorVideoPlayer')[0].load();
-			}
-		});*/
-
+	NodeCG.waitForReplicants(slides, bidsRep, prizesRep, runDataActiveRun).then(() => {
+		refreshNextRunsData();
 		rotate();
 	});
 
 	function rotate() {
+		clearTimeout(rotateTimeout);
 		var retry = true;
 
 		// Upcoming Runs
@@ -195,16 +178,6 @@ $(() => {
 		refreshNextRunsData();
 	});
 	
-	// Update upcoming game info when needed.
-	var pageInit = false;
-	var runDataActiveRun = nodecg.Replicant('runDataActiveRun', speedcontrolBundle);
-	runDataActiveRun.on('change', newVal => {
-		if (!pageInit) {
-			pageInit = true;
-			refreshNextRunsData();
-		}
-	});
-	
 	function refreshNextRunsData() {
 		var nextRuns = getNextRuns(runDataActiveRun.value, 4);
 		var whenTotal = 0; // Totals all the estimates for calculating the "in about X" lines.
@@ -223,9 +196,10 @@ $(() => {
 				createUpcomingGameElem(nextRun, comingUpNextElem, null);
 		
 				for (var i = 1; i < nextRuns.length; i++) {
-					whenTotal = formETAUntilRun(nextRuns[i-1], whenTotal)[1];
+					var formedETA = formETAUntilRun(nextRuns[i-1], whenTotal);
+					whenTotal = formedETA[1];
 					var nextRunsContainer = $('<div class="comingUpContainer flexContainer">');
-					createUpcomingGameElem(nextRuns[i], nextRunsContainer, formETAUntilRun(nextRuns[i-1], whenTotal)[0]);
+					createUpcomingGameElem(nextRuns[i], nextRunsContainer, formedETA[0]);
 					$('#rotatingComingUpRunsBox').append(nextRunsContainer);
 				}
 			}
@@ -241,7 +215,7 @@ $(() => {
 		if (!when)
 			headerElem.html('Coming Up Next');
 		else
-			headerElem.html('Coming Up Later');
+			headerElem.html('Coming Up '+when);
 		
 		bodyElem.append('<div class="gameName">'+runData.game+'</div>');
 		var additionalDetails = $('<div id="gameAdditionalDetails" class="flexContainer">');
