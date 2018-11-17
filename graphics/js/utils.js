@@ -56,8 +56,14 @@ function formPlayerNamesString(runData) {
 		team.members.forEach(member => {teamMemberArray.push(member.names.international);});
 		namesArray.push(teamMemberArray.join(', '));
 	});
-	namesList = namesArray.join(' vs. ');
+	if (namesList.length) namesList = namesArray.join(' vs. ');
 	return namesList;
+}
+
+function checkForTotalRunners(runData) {
+	var amount = 0;
+	runData.teams.forEach(team => team.members.forEach(member => amount++));
+	return amount;
 }
 
 // Find array index of current run based on it's ID.

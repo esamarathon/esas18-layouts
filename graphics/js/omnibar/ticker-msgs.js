@@ -375,8 +375,7 @@ function showUpcomingRun() {
 		// Check if run is still to come, if not we need to ignore it.
 		// Also need to ignore it if there is no scheduled time set.
 		if (nextRunsCache[randomInt].scheduledS
-			&& nextRunsCache[randomInt].scheduledS > moment().unix()
-			&& !formPlayerNamesString(nextRunsCache[randomInt]).toLowerCase().includes('offline')) { randomRun = nextRunsCache[randomInt]; }
+			&& nextRunsCache[randomInt].scheduledS > moment().unix()) { randomRun = nextRunsCache[randomInt]; }
 
 		nextRunsCache.splice(randomInt, 1);
 		if (!nextRunsCache.length) break;
@@ -385,16 +384,11 @@ function showUpcomingRun() {
 
 	var when = moment.unix(randomRun.scheduledS).fromNow();
 	var line1 = `<span class="messageUppercase textGlow">Coming Up ${when}:</span> ${randomRun.game}`;
-	var line2 = `${randomRun.category}, ran on ${randomRun.system} with ${formPlayerNamesString(randomRun)}`;
+	var line2 = '';
 
-	displayMessage(line1, line2, 25, 22);
-}
-
-// Show information about the run on the other stream.
-function showOtherStreamInfo() {
-	var streamChannel = nodecg.bundleConfig.stream2 ? 'esa' : 'esamarathon2';
-	var line1 = `<span class="messageUppercase textGlow">Currently on @ twitch.tv/${streamChannel}:</span> ${otherStreamInfo.value.game}`;
-	var line2 = `${otherStreamInfo.value.category}, ran on ${otherStreamInfo.value.system} with ${formPlayerNamesString(otherStreamInfo.value)}`;
+	if (randomRun.category) line2 += `${randomRun.category}`;
+	if (randomRun.system) line2 += ` ran on ${randomRun.system}`
+	if (checkForTotalRunners(randomRun) > 0) line2 += ` with ${formPlayerNamesString(randomRun)}`
 
 	displayMessage(line1, line2, 25, 22);
 }
