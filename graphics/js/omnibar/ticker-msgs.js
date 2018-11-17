@@ -26,7 +26,7 @@ var messageTypeChance = {
 	7: 1, // Team promotion
 	8: 0.2, // Stay Hydrated
 	9: 2, // ESA Winter 2019 Promo
-	10: 1 // TMF information
+	10: 2 // TMF information
 };
 
 // Choose a random index on startup.
@@ -353,7 +353,7 @@ function showPrize() {
 	prizeCache.splice(random, 1); // Remove this prize from the cache.
 
 	var line1 = `<span class="messageUppercase textGlow">Prize Available:</span> ${prize.name}`;
-	var line2 = `Provided by ${prize.provided}, minimum donation amount: ${formatDollarAmount(prize.minimum_bid)}`;
+	var line2 = `Provided by ${prize.provided}, minimum donation amount: ${formatDollarAmount(prize.minimum_bid)} (donate in the next ${getPrizeTimeUntilString(prize)})`;
 
 	displayMessage(line1, line2, 26, 20);
 }

@@ -60,6 +60,7 @@ function formPlayerNamesString(runData) {
 	return namesList;
 }
 
+// Returns the total amount of runners/pllayers a run has.
 function checkForTotalRunners(runData) {
 	var amount = 0;
 	runData.teams.forEach(team => team.members.forEach(member => amount++));
@@ -117,6 +118,14 @@ function formatDollarAmount(amount, forceRemoveCents) {
 		return '$'+amount.toFixed(2);
 	else
 		return '$'+Math.floor(amount).toLocaleString('en-US', {minimumFractionDigits: 0});
+}
+
+// calculate the time until the prize period ends and render it as a human readable string ("an hour", "20 minutes")
+function getPrizeTimeUntilString(prize) {
+	var timeUntil = moment(prize.end_timestamp).fromNow(true);
+	timeUntil = timeUntil.replace('an ', ''); // Dirty fix for "Donate in the next an hour".
+	timeUntil = timeUntil.replace('a ', ''); // Dirty fix for "Donate in the next a day".
+	return timeUntil;
 }
 
 // Change if an element is visible or not.
