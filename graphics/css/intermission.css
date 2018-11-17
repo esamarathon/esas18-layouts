@@ -122,9 +122,12 @@
 	flex-direction: column;
 }
 
+#prizeWrapper > .prizeHeader {
+	margin-bottom: 20px;
+}
+
 #prizeWrapper > .prizeImg {
 	height: 400px;
-	margin-top: 20px;
 }
 
 #prizeWrapper > .prizeTitle {
