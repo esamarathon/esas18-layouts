@@ -357,7 +357,7 @@ function showPrize() {
 	prizeCache.splice(random, 1); // Remove this prize from the cache.
 
 	var line1 = `<span class="messageUppercase textGlow">Prize Available:</span> ${prize.name}`;
-	var line2 = `Provided by ${prize.provided}, minimum donation amount: ${formatDollarAmount(prize.minimum_bid)}`;
+	var line2 = `Provided by ${prize.provided}, minimum donation amount: ${formatDollarAmount(prize.minimum_bid)} (donate in the next ${getPrizeTimeUntilString(prize)})`;
 
 	displayMessage(line1, line2, 26, 20);
 }
