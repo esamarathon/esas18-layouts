@@ -86,7 +86,7 @@ $(() => {
 
 	function showBids() {
 		var bidsBox = $('#rotatingBidsBox');
-		var bid = bidsRep.value[getRandomInt(bidsRep.value.length)];
+		var bid = getRandomBid();
 		var optionsString = '';
 
 		// Normal Goal
@@ -124,6 +124,33 @@ $(() => {
 		lastElem = $('#rotatingBidsBox');
 		animationFadeInElement($('#rotatingBidsBox'));
 		rotateTimeout = setTimeout(rotate, defaultRotate);
+	}
+
+	// returns a random bid (filtered to bids in the next 24h, with a slight bias towards bids coming soon)
+	var lastBidID = null;
+	function getRandomBid() {
+		const bidChoices = [];
+		let totalWeight = 0;
+		bidsRep.value.forEach(bid => {
+			// anything within the next 10 minutes has a relative weight of 1, beyond that theres a quadratic falloff
+			let weight = Math.max(Math.min(10 * 60 * 1000 / (bid.end_time - Date.now()), 1), 0) ** 2;
+			if (bid.id === lastBidID) weight = 0;
+			bidChoices.push({ bid, weight });
+			totalWeight += weight;
+		});
+		let randomValue = Math.random();
+		const bidToReturn = bidChoices.find(option => {
+			// the actual chance is the relative weight divided by the total weight
+			const chance = option.weight / totalWeight;
+			if (chance >= randomValue) {
+				lastBidID = option.bid.id;
+				return true;
+			}
+			randomValue -= chance;
+			return false;
+		});
+		if (bidToReturn) return bidToReturn.bid;
+		return null;
 	}
 
 	var sponsorIndex = 0;

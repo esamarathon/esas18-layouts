@@ -144,7 +144,6 @@ function getRandomBid() {
 	return null;
 }
 
-
 // Cycles the actual ticker messages that can be shown.
 // Triggered every tick from tick-handler.js
 function showTickerMessages() {
