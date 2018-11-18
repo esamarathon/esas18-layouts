@@ -17,4 +17,5 @@ module.exports = function(nodecg) {
 	require('./tracker');
 	require('./music');
 	require('./api');
+	require('./twitch-ext');
 }
