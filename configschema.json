@@ -2,7 +2,6 @@
 	"$schema": "http://json-schema.org/draft-04/schema#",
 	"type": "object",
 	"properties": {
-		"stream2": {"type": "boolean", "default": false},
 		"obs": {
 			"type": "object",
 			"properties": {
@@ -33,6 +32,12 @@
 				"username": {"type": "string", "default": "TRACKER_USERNAME"},
 				"password": {"type": "string", "default": "TRACKER_PASSWORD"},
 				"postKey": {"type": "string", "default": "DEFAULT_KEY"}
+			}
+		},
+		"twitchExt": {
+			"type": "object",
+			"properties": {
+				"token": {"type": "string", "default": "EXTENSION_TOKEN"}
 			}
 		}
 	}
