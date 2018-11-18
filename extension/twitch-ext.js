@@ -15,12 +15,13 @@ if (!nodecg.bundleConfig.twitchExt || !nodecg.bundleConfig.twitchExt.token)
 nodecg.listenFor('updateFFZFollowing', 'nodecg-speedcontrol', setButtons);
 
 function setButtons(usernames) {
-	if (!usernames.length) return;
-
 	var usernamesString = usernames.join(',');
+	if (!usernames.length) usernamesString = '';
+	nodecg.log.info('Attempting to update Twitch extension "Featured Channels" information.');
 	request(`https://api.furious.pro/featuredchannels/bot/${nodecg.bundleConfig.twitchExt.token}/${usernamesString}`, (err, resp, body) => {
-		if (!err && resp.statusCode === 200) {
+		if (!err && resp.statusCode === 200)
 			nodecg.log.info('Successfully updated Twitch extension "Featured Channels" information.');
-		}
+		else
+			nodecg.log.warn('Error updating Twitch extension "Featured Channels" information.');
 	});
 }
