@@ -36,9 +36,11 @@ For donation readers (the ones off camera), their group_id should be `donations`
 For hosts (the ones on camera), their group_id should be `hosts`, and the available positions should be `left`, `midleft`, `middle`, `midright` and `right`.
 
 ## API Endpoints
-
 These are mostly intended for using on a Stream Deck.
 
 - `/api/playsponsorvideo` to trigger playing a sponsor video if applicable (the scene should be named `Sponsor Video`).
 - `/api/changestctext` to change to/cycle the Save the Children blurb that is on the host dashboard.
 - `/api/changesponsortext` to change to/cycle the sponsor blurb that is on the host dashboard.
+
+## "Featured Channels" Twitch Extension
+This bundle has the ability to automatically update the [Featured Channels](https://www.twitch.tv/ext/3zorofke3r7bu8pd0mb7s86qtfrgzj) Twitch extension, currently using the FrankerFaceZ support from the speedcontrol bundle to know when/what to set these as. For this to work a token from the extension must be supplied in the config.
