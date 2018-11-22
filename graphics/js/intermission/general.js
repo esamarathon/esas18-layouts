@@ -2,6 +2,11 @@
 $(() => {
 	// The bundle name where all the run information is pulled from.
 	var speedcontrolBundle = 'nodecg-speedcontrol';
+
+	// (As of writing) triggered from a dashboard button and also when a run's timer ends
+	nodecg.listenFor('forceRefreshIntermission', speedcontrolBundle, () => {
+		location.reload();
+	});
 });
 
 // Reduce the font size if the song title happens to go onto 2 lines.
