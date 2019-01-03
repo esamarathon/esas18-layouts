@@ -13,9 +13,9 @@
   "homepage": "https://github.com/esamarathon/esas18-layouts#readme",
   "nodecg": {
     "compatibleRange": "^1.0.0",
-    "dependencies": [
-      "speedcontrol/nodecg-speedcontrol:~0.9"
-    ],
+    "bundleDependencies": {
+      "nodecg-speedcontrol": "~0.9"
+    },
     "graphics": [
       {
         "file": "host-dashboard.html",
