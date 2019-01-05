@@ -387,7 +387,7 @@ function showUpcomingRun() {
 
 	if (randomRun.category) line2 += `${randomRun.category}`;
 	if (randomRun.system) line2 += ` ran on ${randomRun.system}`
-	if (checkForTotalRunners(randomRun) > 0) line2 += ` with ${formPlayerNamesString(randomRun)}`
+	if (checkForTotalPlayers(randomRun) > 0) line2 += ` with ${formPlayerNamesString(randomRun)}`
 
 	displayMessage(line1, line2, 25, 22);
 }

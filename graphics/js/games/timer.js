@@ -10,14 +10,19 @@ $(() => {
 	var currentTime;
 	var backupTimerTO;
 	
-	var stopwatch = nodecg.Replicant('stopwatch', speedcontrolBundle);
-	stopwatch.on('change', (newVal, oldVal) => {
-		if (!newVal) return;
-		updateTimer(newVal, oldVal);
-		
-		// Backup Timer
-		clearTimeout(backupTimerTO);
-		backupTimerTO = setTimeout(backupTimer, 1000);
+	var runDataActiveRun = nodecg.Replicant('runDataActiveRun', speedcontrolBundle);
+	var timer = nodecg.Replicant('timer', speedcontrolBundle);
+
+	NodeCG.waitForReplicants(runDataActiveRun, timer).then(() => {
+		timer.on('change', (newVal, oldVal) => {
+			if (!newVal) return;
+			updateTimer(newVal, oldVal);
+			updateFinishTimes(newVal, oldVal);
+			
+			// Backup Timer
+			clearTimeout(backupTimerTO);
+			backupTimerTO = setTimeout(backupTimer, 1000);
+		});
 	});
 	
 	// Backup timer that takes over if the connection to the server is lost.
@@ -25,9 +30,9 @@ $(() => {
 	// When the connection is restored, the server timer will recover and take over again.
 	function backupTimer() {
 		backupTimerTO = setTimeout(backupTimer, 200);
-		if (stopwatch.value.state === 'running') {
-			var missedTime = Date.now() - stopwatch.value.timestamp;
-			var timeOffset = stopwatch.value.milliseconds + missedTime;
+		if (timer.value.state === 'running') {
+			var missedTime = Date.now() - timer.value.timestamp;
+			var timeOffset = timer.value.milliseconds + missedTime;
 			updateTimer({time:msToTime(timeOffset)});
 		}
 	}
@@ -43,34 +48,24 @@ $(() => {
 		$('#timer').lettering(); // Makes each character into a <span>.
 		currentTime = time;
 	}
-	
-	// Used to hide finish times for everyone.
-	nodecg.listenFor('resetTime', speedcontrolBundle, () => {
-		console.log('resetTime')
-		finishTimes.each((index, element) => {
-			$(element).html('');
-			$(element).hide();
-			$(element).css('opacity', '0');
-		});
-	});
-	
-	// Used to hide finish timers just for the specified index.
-	nodecg.listenFor('timerReset', speedcontrolBundle, index => {
-		console.log('timerReset')
-		var container = finishTimes.eq(index);
-		$(container).html('');
-		$(container).hide();
-		$(container).css('opacity', '0');
-	});
-	
-	// Used to show finish timers for the specified index.
-	nodecg.listenFor('timerSplit', speedcontrolBundle, index => {
-		console.log('timerSplit')
-		if (finishTimes.length > 1) {
+
+	function updateFinishTimes(newVal, oldVal) {
+		if (finishTimes.length <= 1) return;
+
+		var teams = runDataActiveRun.value.teams;
+		teams.forEach((team, index) => {
+			var team = teams[index];
 			var container = finishTimes.eq(index);
-			$(container).html(currentTime);
-			$(container).css('display', 'flex');
-			$(container).css('opacity', '100');
-		}
-	});
+
+			if (newVal.teamFinishTimes[team.id] && (!oldVal || !oldVal.teamFinishTimes[team.id])) {
+				$(container).html(newVal.teamFinishTimes[team.id].time);
+				$(container).css('display', 'flex');
+			}
+
+			else if (oldVal && oldVal.teamFinishTimes[team.id] && !newVal.teamFinishTimes[team.id]) {
+				$(container).html('');
+				$(container).hide();
+			}
+		});
+	}
 });

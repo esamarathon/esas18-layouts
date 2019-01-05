@@ -122,8 +122,8 @@ $(() => {
 				var runElement = runHTML.clone();
 				if (i === -1) {
 					$('.justMissed', runElement).show();
-					if (runFinishTimes.value[runDataActiveRun.value.runID-1]) {
-						$('.gameFinal', runElement).html(runFinishTimes.value[runDataActiveRun.value.runID-1]);
+					if (runFinishTimes.value[runDataActiveRun.value.id-1]) {
+						$('.gameFinal', runElement).html(runFinishTimes.value[runDataActiveRun.value.id-1]);
 						$('.gameFinal', runElement).show();
 					}
 				}

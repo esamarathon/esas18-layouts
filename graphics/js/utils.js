@@ -50,20 +50,20 @@ function msToTime(duration, noHour) {
 // Goes through each team and members and makes a string to show the names correctly together.
 function formPlayerNamesString(runData) {
 	var namesArray = [];
-	var namesList = 'No Runner(s)';
+	var namesList = 'No Player(s)';
 	runData.teams.forEach(team => {
-		var teamMemberArray = [];
-		team.members.forEach(member => {teamMemberArray.push(member.names.international);});
-		namesArray.push(teamMemberArray.join(', '));
+		var teamPlayerArray = [];
+		team.players.forEach(player => {teamPlayerArray.push(player.name);});
+		namesArray.push(teamPlayerArray.join(', '));
 	});
 	if (namesList.length) namesList = namesArray.join(' vs. ');
 	return namesList;
 }
 
-// Returns the total amount of runners/pllayers a run has.
-function checkForTotalRunners(runData) {
+// Returns the total amount of players a run has.
+function checkForTotalPlayers(runData) {
 	var amount = 0;
-	runData.teams.forEach(team => team.members.forEach(member => amount++));
+	runData.teams.forEach(team => team.players.forEach(player => amount++));
 	return amount;
 }
 
@@ -74,7 +74,7 @@ function findIndexInRunDataArray(run) {
 	// Completely skips this if the run variable isn't defined.
 	if (run) {
 		for (var i = 0; i < runDataArray.value.length; i++) {
-			if (run.runID === runDataArray.value[i].runID) {
+			if (run.id === runDataArray.value[i].id) {
 				indexOfRun = i; break;
 			}
 		}

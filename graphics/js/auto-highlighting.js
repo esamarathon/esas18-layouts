@@ -6,8 +6,8 @@ $(() => {
 	// Stops, then starts a highlight if layout becomes active in OBS. Also cuts the upload recording.
 	window.obsstudio.onActiveChange = function(active) {
 		if (active) {
-			nodecg.sendMessageToBundle('stopTwitchHighlight', speedcontrolBundle, () => {
-				nodecg.sendMessageToBundle('startTwitchHighlight', speedcontrolBundle);
+			nodecg.sendMessageToBundle('stopTwitchHighlight', 'speedcontrol-highlighting', () => {
+				nodecg.sendMessageToBundle('startTwitchHighlight', 'speedcontrol-highlighting');
 			});
 			nodecg.sendMessageToBundle('splitRecording', speedcontrolBundle);
 		}

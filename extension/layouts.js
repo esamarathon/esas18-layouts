@@ -95,7 +95,7 @@ const runDataActiveRun = nodecg.Replicant('runDataActiveRun', speedcontrolBundle
 runDataActiveRun.on('change', (newVal, oldVal) => {
 	// If the run has the same ID, we don't need to change the layout.
 	// This stops the layout messing up if you force change it and *then* edit run data.
-	if (newVal && oldVal && newVal.runID === oldVal.runID) return;
+	if (newVal && oldVal && newVal.id === oldVal.id) return;
 
 	if (newVal) {
 		let layoutCode;

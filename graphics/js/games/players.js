@@ -20,7 +20,7 @@ $(() => {
 	var tickRateTwitch = 15000;
 	var tickTimeout;
 	var currentTeamsData = []; // All teams data is stored here for reference when changing.
-	var teamMemberIndex = []; // Stores what team member of each team is currently being shown.
+	var teamPlayerIndex = []; // Stores what team member of each team is currently being shown.
 
 	var runDataActiveRunCache = {};
 	
@@ -41,16 +41,16 @@ $(() => {
 		// For this co-op run that uses 2 screens, pretend each co-op partner is in a different team.
 		if (runData.game.toLowerCase() === 'kirby & the amazing mirror') {
 			for (var i = 0; i < 2; i++) {
-				var teamData = {members: []};
-				teamData.members.push(createMemberData(runData.teams[0].members[i]));
+				var teamData = {players: []};
+				teamData.players.push(createPlayerData(runData.teams[0].players[i]));
 				currentTeamsData.push(teamData);
 			}
 		}
 
 		else {
 			runData.teams.forEach(team => {
-				var teamData = {members: []};
-				team.members.forEach(member => {teamData.members.push(createMemberData(member));});
+				var teamData = {players: []};
+				team.players.forEach(player => {teamData.players.push(createPlayerData(player));});
 				currentTeamsData.push(teamData);
 			});
 		}
@@ -63,10 +63,10 @@ $(() => {
 				// End all loops if no team exists, we're at the end.
 				if (!team) return false;
 
-				var member = team.members[i];
+				var player = team.players[i];
 
-				// Hide element and skip to next loop if no member exists.
-				if (!member) {
+				// Hide element and skip to next loop if no player exists.
+				if (!player) {
 					$(elem).css('display', 'none');
 					return true;
 				}
@@ -74,9 +74,9 @@ $(() => {
 				$('.twitchLogo', elem).hide();
 				$('.nameLogo', elem).show();
 				$(elem).width('');
-				$('.playerName', elem).text(member.name);
-				if (member.region) {
-					$('.flag', elem).attr('src', 'https://www.speedrun.com/images/flags/'+member.region.toLowerCase()+'.png');
+				$('.playerName', elem).text(player.name);
+				if (player.country) {
+					$('.flag', elem).attr('src', 'https://www.speedrun.com/images/flags/'+player.country.toLowerCase()+'.png');
 					$('.flag', elem).show();
 				}
 				else {
@@ -95,13 +95,13 @@ $(() => {
 					return true;
 				}
 
-				var member = team.members[0];
+				var player = team.players[0];
 				$(elem).width('');
 				$('.twitchLogo', elem).hide();
 				$('.nameLogo', elem).show();
-				$('.playerName', elem).text(member.name);
-				if (member.region) {
-					$('.flag', elem).attr('src', 'https://www.speedrun.com/images/flags/'+member.region.toLowerCase()+'.png');
+				$('.playerName', elem).text(player.name);
+				if (player.country) {
+					$('.flag', elem).attr('src', 'https://www.speedrun.com/images/flags/'+player.country.toLowerCase()+'.png');
 					$('.flag', elem).show();
 				}
 				else {
@@ -112,7 +112,7 @@ $(() => {
 				animationFadeInElement(elem);
 			});
 
-			for (var i = 0; i < currentTeamsData.length; i++) {teamMemberIndex[i] = 0;}
+			for (var i = 0; i < currentTeamsData.length; i++) {teamPlayerIndex[i] = 0;}
 
 			clearInterval(tickTimeout);
 			tickTimeout = setTimeout(tick, tickRateName);
@@ -128,19 +128,19 @@ $(() => {
 			// End all loops if no team exists, we're at the end.
 			if (!team) return false;
 
-			var member = team.members[i];
+			var player = team.players[i];
 
 			// Skip to next loop if no member exists.
-			if (!member) return true;
+			if (!player) return true;
 
 			var twitchDisplay = $('.twitchLogo', elem).css('display');
 
 			if (twitchDisplay === 'none') {
-				cyclePlayerData(member, true, elem);
+				cyclePlayerData(player, true, elem);
 				twitch = true;
 			}
 			else {
-				cyclePlayerData(member, false, elem);
+				cyclePlayerData(player, false, elem);
 			}
 		});
 
@@ -153,20 +153,20 @@ $(() => {
 			var twitchDisplay = $('.twitchLogo', elem).css('display');
 
 			if (twitchDisplay !== 'none') {
-				teamMemberIndex[i]++;
+				teamPlayerIndex[i]++;
 
 				// If we've reached the end of the team member array, go back to the start.
-				if (teamMemberIndex[i] >= team.members.length) teamMemberIndex[i] = 0;
+				if (teamPlayerIndex[i] >= team.players.length) teamPlayerIndex[i] = 0;
 			}
 
-			var member = team.members[teamMemberIndex[i]];
+			var player = team.players[teamPlayerIndex[i]];
 
 			if (twitchDisplay === 'none') {
-				cyclePlayerData(member, true, elem);
+				cyclePlayerData(player, true, elem);
 				twitch = true;
 			}
 			else {
-				cyclePlayerData(member, false, elem);
+				cyclePlayerData(player, false, elem);
 			}
 		});
 
@@ -176,17 +176,17 @@ $(() => {
 			tickTimeout = setTimeout(tick, tickRateName);
 	}
 
-	function cyclePlayerData(member, twitch, elem) {
+	function cyclePlayerData(player, twitch, elem) {
 		animationFadeOutElementMS($('*', elem), 500, () => {
 			var oldWidth = $(elem).width(); // Store old width.
 
 			// Change what the name says based on what we're going to display.
-			var name = (twitch && member.twitch) ? '/'+member.twitch : member.name;
-			if (!member.twitch) name = '???';
+			var name = (twitch && player.twitch) ? '/'+player.twitch : player.name;
+			if (!player.twitch) name = '???';
 			$('.playerName', elem).text(name);
 
-			if (member.region) {
-				$('.flag', elem).attr('src', 'https://www.speedrun.com/images/flags/'+member.region.toLowerCase()+'.png');
+			if (player.country) {
+				$('.flag', elem).attr('src', 'https://www.speedrun.com/images/flags/'+player.country.toLowerCase()+'.png');
 				$('.flag', elem).show();
 			}
 			else {
@@ -214,20 +214,18 @@ $(() => {
 		});
 	}
 
-	// Easy access to create member data object used above.
-	function createMemberData(member) {
-		// Gets username from URL.
-		if (member.twitch && member.twitch.uri) {
-			var twitchUsername = member.twitch.uri.split('/');
-			twitchUsername = twitchUsername[twitchUsername.length-1];
+	// Easy access to create player data object used above.
+	function createPlayerData(player) {
+		if (player.social.twitch) {
+			var twitchUsername = player.social.twitch;
 		}
 		
-		var memberData = {
-			name: member.names.international,
+		var playerData = {
+			name: player.name,
 			twitch: twitchUsername,
-			region: member.region
+			country: player.country
 		};
 		
-		return memberData;
+		return playerData;
 	}
 });

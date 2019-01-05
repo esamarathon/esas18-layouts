@@ -246,7 +246,7 @@ $(() => {
 		var additionalDetails = $('<div id="gameAdditionalDetails" class="flexContainer">');
 		if (runData.category) additionalDetails.append('<div class="gameCategory">'+runData.category+'</div>');
 		if (runData.system) additionalDetails.append('<div class="gameConsole">'+runData.system+'</div>');
-		if (checkForTotalRunners(runData) > 0) additionalDetails.append('<div class="gamePlayers">'+formPlayerNamesString(runData)+'</div>');
+		if (checkForTotalPlayers(runData) > 0) additionalDetails.append('<div class="gamePlayers">'+formPlayerNamesString(runData)+'</div>');
 		if (runData.estimate) additionalDetails.append('<div class="estimate">EST: '+runData.estimate+'</div>');
 		bodyElem.append(additionalDetails);
 		elemToAppendTo.append(headerElem);
