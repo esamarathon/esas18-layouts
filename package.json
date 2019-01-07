@@ -88,6 +88,13 @@
         "workspace": "Scene Editing"
       },
       {
+        "name": "intermission-control",
+        "title": "Intermission Control",
+        "width": 2,
+        "file": "intermission-control.html",
+        "workspace": "Scene Editing"
+      },
+      {
         "name": "sponsor-video-control",
         "title": "Sponsor Video Control",
         "width": 3,

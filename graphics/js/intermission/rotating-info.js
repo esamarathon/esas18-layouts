@@ -199,7 +199,7 @@ $(() => {
 	}
 	
 	// (As of writing) triggered from a dashboard button and also when a run's timer ends
-	/*nodecg.listenFor('forceRefreshIntermission', speedcontrolBundle, () => {
+	/*nodecg.listenFor('forceRefreshIntermission', () => {
 		refreshNextRunsData();
 	});*/
 	
