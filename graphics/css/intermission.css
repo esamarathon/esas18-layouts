@@ -1,14 +1,6 @@
-/* Diagonal lines on the background. */
-.bgLines {
-	left: 26px;
-	top: 786px;
-	width: 207px;
-	height: 185px;
-}
-
-/* Big ESAS logo that appears in the top left. */
-#esaLogo {
-	background-image: url('../img/esa-big-logo-1.png');
+/* Big UKSG Winter logo that appears in the top left. */
+#uksgLogo {
+	background-image: url('../img/uksg-big-logo.png');
 	left: 53px;
 	top: 43px;
 	width: 609px;

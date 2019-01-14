@@ -4,7 +4,7 @@
 var esaBarLogoCurrentRotation = 0; // 0: normal - 1: hashtag
 var esaBarLogoTicks = 0;
 
-function changeESALogo() {
+function changeUKSGLogo() {
 	// JQuery selectors.
 	var smallLogo = $('#esaBarLogoContainer #esaSmallLogo');
 	var hashtag = $('#esaBarLogoContainer #esaHashtagLogo');
