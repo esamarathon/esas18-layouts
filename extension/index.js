@@ -8,14 +8,12 @@ module.exports = function(nodecg) {
 	
 	// Initalising some replicants.
 	// Doing this in an extension so we don't need to declare the options everywhere else.
-	var currentSponsorVideo = nodecg.Replicant('currentSponsorVideo', {defaultValue: {info: {}, played: false}});
-	var sponsorVideosLastTimePlayed = nodecg.Replicant('sponsorVideosLastTimePlayed', {defaultValue: {}});
+	// nothing here right now :(
 	
 	// Other extension files we need to load.
 	require('./layouts');
 	require('./emotes');
 	require('./tracker');
 	require('./music');
-	require('./api');
 	require('./twitch-ext');
 }

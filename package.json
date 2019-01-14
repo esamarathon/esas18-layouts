@@ -77,13 +77,6 @@
         ]
       },
       {
-        "name": "sponsor-videos",
-        "title": "Sponsor Videos",
-        "allowedTypes": [
-          "mp4"
-        ]
-      },
-      {
         "name": "sponsor-slides",
         "title": "Sponsor Slide Images/Videos",
         "allowedTypes": [
