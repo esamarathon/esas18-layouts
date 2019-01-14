@@ -31,8 +31,7 @@
 			"type": "object",
 			"properties": {
 				"username": {"type": "string", "default": "TRACKER_USERNAME"},
-				"password": {"type": "string", "default": "TRACKER_PASSWORD"},
-				"postKey": {"type": "string", "default": "DEFAULT_KEY"}
+				"password": {"type": "string", "default": "TRACKER_PASSWORD"}
 			}
 		},
 		"twitchExt": {

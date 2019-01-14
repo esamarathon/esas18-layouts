@@ -35,9 +35,6 @@ if (!nodecg.bundleConfig.tracker) {
 	process.exit(1);
 }
 
-// Key used for POST requests to the server.
-var postKey = nodecg.bundleConfig.tracker.postKey || 'DEFAULT_KEY';
-
 // Getting the initial donation total on startup.
 updateDontationTotalFromAPI();
 setInterval(updateDontationTotalFromAPI, 60000); // Also do this every 60s as a socket fallback.
@@ -140,25 +137,6 @@ repeater.on('omnibarMod', data => {
 		if (data.type === 'giftsub') {}*/
 	}
 });
-
-// POSTs run data when it's changed in nodecg-speedcontrol to the server.
-if (postKey && postKey !== 'DEFAULT_KEY') {
-	var runDataActiveRun = nodecg.Replicant('runDataActiveRun', speedcontrolBundle);
-	runDataActiveRun.on('change', (newVal, oldVal) => {
-		request.post({
-			url: repeaterURL+'/stream_info?key='+postKey,
-			body: JSON.stringify({
-				stream: streamID,
-				runData: newVal ? newVal : null
-			}),
-			headers: {'Content-Type': 'application/json; charset=utf-8'}
-		}).then(() => {
-			nodecg.log.info('Successfully sent new active run data to repeater server.');
-		}).catch(err => {
-			nodecg.log.warn('Failed to send new active run data to repeater server.');
-		});
-	});
-}
 
 // https://github.com/GamesDoneQuick/agdq18-layouts/blob/master/extension/index.js
 // Fetch the login page, and run the response body through cheerio
