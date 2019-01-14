@@ -1,5 +1,3 @@
-
-
 // The bundle name where all the run information is pulled from.
 var speedcontrolBundle = 'nodecg-speedcontrol';
 
@@ -22,13 +20,12 @@ var messageTypeChance = {
 	1: 3, // Prizes
 	2: 3, // Upcoming Run
 	3: 2, // Recent Top Donation
-	4: 1, // ESA promotional message
-	5: 1, // StC promotional message
+	4: 1, // UKSG promotional message
+	5: 1, // YoungMinds promotional message
 	6: 2, // Donation URL message
-	7: 2, // Other stream run information
-	8: 1, // Other stream promotion
-	9: 1, // Team promotion.
-	10: 0.2 // Stay Hydrated
+	7: 1, // Team promotion.
+	8: 0.2, // Stay Hydrated
+	9: 2 // ESA Winter 2019 Promo
 };
 
 // Choose a random index on startup.
@@ -201,41 +198,33 @@ function showTickerMessages() {
 		} else retry = true;
 	}
 
-	// ESA promotional message.
+	// UKSG promotional message.
 	if (messageType === 4) {
-		displayMessage('<span class="textGlow">This is European Speedrunner Assembly Summer 2018</span>', null, 33, null, true);
+		displayMessage('<span class="textGlow">This is United Kingdom Speedrunner Gathering Winter 2019</span>', null, 33, null, true);
 	}
 
-	// StC promotional message.
+	// YoungMinds promotional message.
 	if (messageType === 5) {
-		displayMessage('<span class="textGlow">#ESASummer18 benefits Save the Children</span>', null, 33, null, true);
+		displayMessage('<span class="textGlow">#UKSGW19 benefits YoungMinds</span>', null, 33, null, true);
 	}
 
 	// Donation URL message.
 	if (messageType === 6) {
-		var eventShort = nodecg.bundleConfig.stream2 ? '2018s2' : '2018s1';
-		displayMessage(`<span class="textGlow">Donate @ <span class="greyText">donations.esamarathon.com/donate/${eventShort}</span></span>`, null, 33, null, true);
-	}
-
-	// Other stream run information.
-	if (messageType === 7) {
-		if (otherStreamInfo.value && !formPlayerNamesString(otherStreamInfo.value).toLowerCase().includes('offline')) { showOtherStreamInfo(); } else { retry = true; }
-	}
-
-	// Other stream promotion.
-	if (messageType === 8) {
-		var streamChannel = nodecg.bundleConfig.stream2 ? 'esa' : 'esamarathon2';
-		displayMessage(`<span class="textGlow">Watch more great runs over @ <span class="greyText">twitch.tv/${streamChannel}</span>!</span>`, null, 33, null, true);
+		displayMessage(`<span class="textGlow">Donate @ <span class="greyText">donations.esamarathon.com</span></span>`, null, 33, null, true);
 	}
 
 	// Team promotion.
-	if (messageType === 9) {
-		displayMessage('<span class="textGlow">Check out our Twitch team @ <span class="greyText">twitch.tv/team/esa</span>!</span>', null, 33, null, true);
+	if (messageType === 7) {
+		displayMessage('<span class="textGlow">Check out the ESA Twitch team @ <span class="greyText">twitch.tv/team/esa</span>!</span>', null, 33, null, true);
 	}
 
 	// Stay Hydrated
-	if (messageType === 10) {
+	if (messageType === 8) {
 		displayMessage('<span class="textGlow">Are you remembering to stay hydrated?</span>', null, 33, null, true);
+	}
+
+	if (messageType === 9) {
+		displayMessage('<span class="textGlow">Can\'t get enough of speedrunning? Then look forward to <span class="greyText">ESA Winter 2019</span>: 16th - 24th February!</span>', null, 32, null, true);
 	}
 
 	chooseRandomMessageType();
