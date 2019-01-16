@@ -24,6 +24,9 @@ if (!nodecg.bundleConfig.tracker) {
 	process.exit(1);
 }
 
+// Key used for POST requests to the server.
+var postKey = nodecg.bundleConfig.tracker.postKey || 'DEFAULT_KEY';
+
 // Getting the initial donation total on startup.
 updateDontationTotalFromAPI();
 setInterval(updateDontationTotalFromAPI, 60000); // Also do this every 60s as a socket fallback.
@@ -94,6 +97,23 @@ repeater.on('omnibarMod', data => {
 		if (data.type === 'giftsub') {}*/
 	}
 });
+
+// POSTs FFZ featured channels changes to the repeater server.
+if (postKey && postKey !== 'DEFAULT_KEY') {
+	nodecg.listenFor('updateFFZFollowing', 'nodecg-speedcontrol', (usernames) => {
+		request.post({
+			url: repeaterURL+'/featured_channels?key='+postKey,
+			body: JSON.stringify({
+				channels: usernames
+			}),
+			headers: {'Content-Type': 'application/json; charset=utf-8'}
+		}).then(() => {
+			nodecg.log.info('Successfully sent featured channels to repeater server.');
+		}).catch(err => {
+			nodecg.log.warn('Failed to send featured channels to repeater server.');
+		});
+	});
+}
 
 // https://github.com/GamesDoneQuick/agdq18-layouts/blob/master/extension/index.js
 // Fetch the login page, and run the response body through cheerio
