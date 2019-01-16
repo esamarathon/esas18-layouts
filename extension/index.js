@@ -15,5 +15,4 @@ module.exports = function(nodecg) {
 	require('./emotes');
 	require('./tracker');
 	require('./music');
-	require('./twitch-ext');
 }
