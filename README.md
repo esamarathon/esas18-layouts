@@ -26,11 +26,6 @@ state_file "state"
 To have Twitch ads play automatically when you switch to a certain scene, put `(ads)` somewhere in the scene's name.
 
 
-## Transition
-
-For the overlay transition to work, you need to add a new Stinger, call it `Blank Stinger`, set it to the `BlankTransition.mov` file in the `obs-assets` directory in this bundle, and set the transition point to 900ms.
-
-
 ## FlagCarrier Configuration
 
 You will need to install the [speedcontrol-flagcarrier](https://github.com/speedcontrol/speedcontrol-flagcarrier) bundle to use this part, along with using one of the FlagCarrier applications to set them.
@@ -38,12 +33,3 @@ You will need to install the [speedcontrol-flagcarrier](https://github.com/speed
 For donation readers (the ones off camera), their group_id should be `donations`, and there should only be 1 position, which should be `reader`.
 
 For hosts (the ones on camera), their group_id should be `hosts`, and the available positions should be `left`, `midleft`, `middle`, `midright` and `right`.
-
-
-## API Endpoints
-
-These are mostly intended for using on a Stream Deck.
-
-- `/api/playsponsorvideo` to trigger playing a sponsor video if applicable (the scene should be named `Sponsor Video`).
-- `/api/changestctext` to change to/cycle the Save the Children blurb that is on the host dashboard.
-- `/api/changesponsortext` to change to/cycle the sponsor blurb that is on the host dashboard.

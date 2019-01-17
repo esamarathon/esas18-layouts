@@ -1,1 +1,0 @@
-ffmpeg -i "BlankTransition.avs" -codec:v qtrle "BlankTransition.mov"
