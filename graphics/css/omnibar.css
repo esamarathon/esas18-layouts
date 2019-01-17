@@ -52,19 +52,19 @@ img.emoji {
 	background-color: #68b4ea;
 }
 
-/* ESA Logo */
-#esaBarLogoContainer {
+/* UKSG Logo */
+#uksgBarLogoContainer {
 	width: 409px;
 }
-#esaBarLogoContainer #esaSmallLogo {position: absolute;}
-#esaBarLogoContainer #esaHashtagLogo {position: absolute; opacity: 0;}
+#uksgBarLogoContainer #uksgFullLogo {position: absolute;}
+#uksgBarLogoContainer #uksgWinterLogo {position: absolute; opacity: 0;}
 
 /* Donation Total */
 #donationTotalContainer {
 	font-size: 45px;
 	width: 256px;
 }
-#donationTotalContainer #stcLogo {position: absolute;}
+#donationTotalContainer #ymLogo {position: absolute;}
 #donationTotalContainer #amountText {
 	position: absolute;
 	padding-left: 80px;
