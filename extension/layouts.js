@@ -84,6 +84,7 @@ nodecg.listenFor('changeGameLayout', (id, callback) => {
 
 // Listens for the current run to change, to get it's layout info.
 const runDataActiveRun = nodecg.Replicant('runDataActiveRun', speedcontrolBundle);
+var timer = nodecg.Replicant('timer', speedcontrolBundle);
 runDataActiveRun.on('change', (newVal, oldVal) => {
 	// If the run has the same ID, we don't need to change the layout.
 	// This stops the layout messing up if you force change it and *then* edit run data.
@@ -107,7 +108,46 @@ obs.on('SwitchScenes', data => {
 	if (currentScene.value.toLowerCase().includes('(ads)')) {
 		nodecg.sendMessageToBundle('playTwitchAd', speedcontrolBundle);
 	}
+
+	if (!currentScene.value.toLowerCase().includes('game layout')) {
+		var nextRun = getNextRuns(runDataActiveRun.value, 1);
+		if (nextRun.length) nextRun = nextRun[0];
+		else nextRun = undefined;
+
+		// Prematurely stop highlight if just before we go offline.
+		if (((nextRun && (nextRun.game.toLowerCase() === 'sleep' || nextRun.game.toLowerCase() === 'afterthoughts & announcements')) || !nextRun) && timer.value.state === 'finished') {
+			nodecg.sendMessageToBundle('stopTwitchHighlight', 'speedcontrol-highlighting');
+		}
+	}
 });
+
+// Get the next X runs in the schedule.
+var runDataArray = nodecg.Replicant('runDataArray', speedcontrolBundle);
+function getNextRuns(runData, amount) {
+	var nextRuns = [];
+	var indexOfCurrentRun = findIndexInRunDataArray(runData);
+	for (var i = 1; i <= amount; i++) {
+		if (!runDataArray.value[indexOfCurrentRun+i]) break;
+		nextRuns.push(runDataArray.value[indexOfCurrentRun+i]);
+	}
+	return nextRuns;
+}
+
+// Find array index of current run based on it's ID.
+function findIndexInRunDataArray(run) {
+	var indexOfRun = -1;
+	
+	// Completely skips this if the run variable isn't defined.
+	if (run) {
+		for (var i = 0; i < runDataArray.value.length; i++) {
+			if (run.id === runDataArray.value[i].id) {
+				indexOfRun = i; break;
+			}
+		}
+	}
+	
+	return indexOfRun;
+}
 
 function changeGameLayout(info, callback) {
 	// Set replicant to have the correct information for use elsewhere.
