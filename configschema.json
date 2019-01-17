@@ -33,12 +33,6 @@
 				"password": {"type": "string", "default": "TRACKER_PASSWORD"},
 				"postKey": {"type": "string", "default": "DEFAULT_KEY"}
 			}
-		},
-		"twitchExt": {
-			"type": "object",
-			"properties": {
-				"token": {"type": "string", "default": "EXTENSION_TOKEN"}
-			}
 		}
 	}
 }
