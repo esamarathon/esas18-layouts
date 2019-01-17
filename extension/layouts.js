@@ -61,12 +61,8 @@ const obsConfig = nodecg.bundleConfig.obs || {};
 // CSS -> OBS source names
 // (OBS source names need to be moved to the config file.)
 const obsSourceKeys = {
-	gameCapture1: obsConfig.capture1 || 'Game Capture 1',
-	gameCapture2: obsConfig.capture2 || 'Game Capture 2',
-	gameCapture3: obsConfig.capture3 || 'Game Capture 3',
-	gameCapture4: obsConfig.capture4 || 'Game Capture 4',
-	webcam1: obsConfig.camera1 || 'Camera Capture 1',
-	webcam2: obsConfig.camera2 || 'Camera Capture 2'
+	gameCapture1: obsConfig.capture1 || 'Game Capture',
+	webcam1: obsConfig.camera1 || 'Camera Capture'
 };
 
 // Fired when the OBS WebSocket actually connects.
@@ -123,11 +119,7 @@ function changeGameLayout(info, callback) {
 
 	const allSettings = {
 		gameCapture1: null,
-		gameCapture2: null,
-		gameCapture3: null,
-		gameCapture4: null,
-		webcam1: null,
-		webcam2: null
+		webcam1: null
 	};
 
 	// TODO: get settings from .gameCapture and .webcam if needed
@@ -163,7 +155,7 @@ function changeGameLayout(info, callback) {
 				}
 			}
 
-			if (source) { allSettings[source] = settings; }
+			if (source && allSettings[source] !== undefined) { allSettings[source] = settings; }
 		}
 	});
 
@@ -234,5 +226,7 @@ function setOBSSourceSettings(source, config) {
 	}
 
 	// Send settings to OBS.
-	obs.send('SetSceneItemProperties', options);
+	obs.send('SetSceneItemProperties', options).catch((err) => {
+		nodecg.log.warn(`Cannot change OBS source settings [${options['scene-name']}: ${options.item}]: ${err.error}`);
+	});
 }
