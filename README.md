@@ -1,6 +1,6 @@
-# esas18-layouts
+# esas18-layouts#uksgw19
 
-> The on-screen graphics used during European Speedrunner Assembly Summer 2018.
+> The on-screen graphics used during United Kingdom Speedrunner Gathering Winter 2019.
 
 *This is a bundle for [NodeCG](https://nodecg.com/); if you do not understand what that is, we advise you read their website first for more information.*
 
