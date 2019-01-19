@@ -189,7 +189,7 @@ function changeGameLayout(info, callback) {
 				}
 			}
 
-			if (source) { allSettings[source] = settings; }
+			if (source && allSettings[source] !== undefined) { allSettings[source] = settings; }
 		}
 	});
 
@@ -260,5 +260,6 @@ function setOBSSourceSettings(source, config) {
 	}
 
 	// Send settings to OBS.
-	obs.send('SetSceneItemProperties', options);
-}
+	obs.send('SetSceneItemProperties', options).catch((err) => {
+		nodecg.log.warn(`Cannot change OBS source settings [${options['scene-name']}: ${options.item}]: ${err.error}`);
+	});}
