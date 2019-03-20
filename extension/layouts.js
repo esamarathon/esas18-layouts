@@ -1,3 +1,5 @@
+'use strict';
+
 const clone = require('clone');
 const fs = require('fs');
 const css = require('css');
@@ -22,6 +24,12 @@ const speedcontrolBundle = 'nodecg-speedcontrol';
 const layouts = nodecg.Replicant('gameLayouts', {
 	defaultValue: [
 		{ name: '4:3 1 Player', code: '4_3-1p', sponsorInInfo: true },
+		{
+			name: '4:3 1 Player (Extra Space)', code: '4_3-1p-extraspace', ds: true, sponsorInInfo: true, combineGameNameAndAdditional: true
+		},
+		{
+			name: '4:3 1 Player (Bingo)', code: '4_3-1p-bingo', sponsorInInfo: true, combineGameNameAndAdditional: true
+		},
 		{ name: '4:3 2 Player', code: '4_3-2p', gameCaptures: 2 },
 		{ name: '4:3 3 Player', code: '4_3-3p', gameCaptures: 3 },
 		{ name: '4:3 4 Player', code: '4_3-4p', gameCaptures: 4 },
@@ -40,6 +48,10 @@ const layouts = nodecg.Replicant('gameLayouts', {
 		{
 			name: 'DS 1 Player', code: 'ds-1p', ds: true, sponsorInInfo: true, combineGameNameAndAdditional: true
 		},
+		{
+			name: 'DS 1 Player (Vertical)', code: 'ds-1p-vertical'
+		},
+		{ name: 'DS 2 Player', code: 'ds-2p', gameCaptures: 4 },
 		{
 			name: '3DS 1 Player', code: '3ds-1p', ds: true, sponsorInInfo: true, combineGameNameAndAdditional: true
 		}
@@ -84,7 +96,6 @@ nodecg.listenFor('changeGameLayout', (id, callback) => {
 
 // Listens for the current run to change, to get it's layout info.
 const runDataActiveRun = nodecg.Replicant('runDataActiveRun', speedcontrolBundle);
-var timer = nodecg.Replicant('timer', speedcontrolBundle);
 runDataActiveRun.on('change', (newVal, oldVal) => {
 	// If the run has the same ID, we don't need to change the layout.
 	// This stops the layout messing up if you force change it and *then* edit run data.

@@ -62,7 +62,8 @@
         "name": "music-player",
         "title": "Music Player",
         "width": 2,
-        "file": "music-player.html"
+        "file": "music-player.html",
+        "workspace": "Scene Editing"
       }
     ],
     "assetCategories": [
