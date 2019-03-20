@@ -26,6 +26,7 @@ var messageTypeChance = {
 	7: 1, // Team promotion.
 	8: 0.2, // Stay Hydrated
 	9: 2 // ESA Winter 2019 Promo
+	//10: 2 // Spreadshirt
 };
 
 // Choose a random index on startup.
@@ -200,12 +201,12 @@ function showTickerMessages() {
 
 	// UKSG promotional message.
 	if (messageType === 4) {
-		displayMessage('<span class="textGlow">This is United Kingdom Speedrunner Gathering Winter 2019</span>', null, 33, null, true);
+		displayMessage('<span class="textGlow">This is United Kingdom Speedrunner Gathering Spring 2019</span>', null, 33, null, true);
 	}
 
 	// YoungMinds promotional message.
 	if (messageType === 5) {
-		displayMessage('<span class="textGlow">#UKSGW19 benefits YoungMinds</span>', null, 33, null, true);
+		displayMessage('<span class="textGlow">#UKSGSpring19 benefits YoungMinds</span>', null, 33, null, true);
 	}
 
 	// Donation URL message.
@@ -224,8 +225,13 @@ function showTickerMessages() {
 	}
 
 	if (messageType === 9) {
-		displayMessage('<span class="textGlow">Can\'t get enough of speedrunning? Then look forward to <span class="greyText">ESA Winter 2019</span>: 16th - 24th February!</span>', null, 32, null, true);
+		displayMessage('<span class="textGlow">Can\'t get enough of speedrunning? Then look forward to <span class="greyText">ESA TwitchCon Europe 2019</span>: 13th - 14th April!</span>', null, 32, null, true);
 	}
+
+	// Spreadshirt
+	/*if (messageType === 10) {
+		displayMessage('<span class="textGlow">Want your own ESA shirt or hoodie? Order them @ <span class="greyText">shop.spreadshirt.net/esamarathon</span>!</span>', null, 33, null, true);
+	}*/
 
 	chooseRandomMessageType();
 	if (retry) { showTickerMessages(); }
