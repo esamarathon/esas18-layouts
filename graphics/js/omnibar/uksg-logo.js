@@ -7,7 +7,7 @@ var uksgBarLogoTicks = 0;
 function changeUKSGLogo() {
 	// JQuery selectors.
 	var fullLogo = $('#uksgBarLogoContainer #uksgFullLogo');
-	var winterLogo = $('#uksgBarLogoContainer #uksgWinterLogo');
+	var winterLogo = $('#uksgBarLogoContainer #uksgEventLogo');
 	
 	uksgBarLogoTicks++;
 	

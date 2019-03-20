@@ -57,7 +57,7 @@ img.emoji {
 	width: 409px;
 }
 #uksgBarLogoContainer #uksgFullLogo {position: absolute;}
-#uksgBarLogoContainer #uksgWinterLogo {position: absolute; opacity: 0;}
+#uksgBarLogoContainer #uksgEventLogo {position: absolute; opacity: 0;}
 
 /* Donation Total */
 #donationTotalContainer {
