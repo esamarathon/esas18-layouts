@@ -9,11 +9,11 @@ var request = require('request-promise').defaults({jar: true}); // Automatically
 
 // Declaring other variables.
 var nodecg = require('./utils/nodecg-api-context').get();
-var statsURL = 'https://donations.esamarathon.com/8?json';
+var statsURL = 'https://donations.esamarathon.com/11?json';
 var repeaterURL = 'https://repeater.esamarathon.com';
 var loginURL = 'https://donations.esamarathon.com/admin/login/';
 var isFirstLogin = true;
-var eventShort = 'uksgw2019';
+var eventShort = 'uksgsp19';
 
 // Replicants.
 var donationTotal = nodecg.Replicant('donationTotal', {defaultValue: 0});
